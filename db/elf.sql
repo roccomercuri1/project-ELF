@@ -24,6 +24,7 @@ CREATE TABLE reviews (
     userid INT NOT NULL,
     reviewtitle VARCHAR(255) NOT NULL,
     reviewcontents TEXT NOT NULL,
+    reviewtype VARCHAR(255) NOT NULL,
     reviewdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE CASCADE
 );
@@ -48,20 +49,25 @@ INSERT INTO skills (skillname) VALUES
 ('Java'),
 ('JavaScript'),
 ('Teamwork'),
-('Communication');
+('Communication'),
+('HTML/CSS'),
+('Terraform'),
+('Ansible'),
+('AWS'),
+('Leadership');
 
 -- Insert Reviews
-INSERT INTO reviews (userid, reviewtitle, reviewcontents) VALUES
-(1, 'Python project review', 'Alice did a great job using Python for data analysis.'),
-(1, 'Teamwork feedback',     'Alice collaborated very effectively in the project team.'),
-(1, 'Communication review',  'Alice presented results clearly to stakeholders.'),
-(2, 'Java backend project',  'Bob implemented the backend in Java successfully.'),
-(2, 'Frontend in JS',        'Bob used JavaScript well for the frontend.'),
-(2, 'Teamwork evaluation',   'Bob contributed effectively in a group setting.'),
-(1, 'Full stack review',     'Alice handled both backend and frontend.'),
-(2, 'Presentation feedback', 'Bob delivered a strong project presentation.'),
-(1, 'Leadership potential',  'Alice showed initiative in leading the group.'),
-(2, 'Mixed skills review',   'Bob demonstrated diverse skill usage.');
+INSERT INTO reviews (userid, reviewtitle, reviewcontents, reviewtype) VALUES
+(1, 'Python project review', 'Alice did a great job using Python for data analysis.', 'Sprint'),
+(1, 'Teamwork feedback',     'Alice collaborated very effectively in the project team.', 'Sprint'),
+(1, 'Communication review',  'Alice presented results clearly to stakeholders.', 'Sprint'),
+(2, 'Java backend project',  'Bob implemented the backend in Java successfully.', 'Sprint'),
+(2, 'Frontend in JS',        'Bob used JavaScript well for the frontend.', 'Sprint'),
+(2, 'Teamwork evaluation',   'Bob contributed effectively in a group setting.', 'Sprint'),
+(1, 'Full stack review',     'Alice handled both backend and frontend.', 'Sprint'),
+(2, 'Presentation feedback', 'Bob delivered a strong project presentation.', 'Sprint'),
+(1, 'Leadership potential',  'Alice showed initiative in leading the group.', 'Sprint'),
+(2, 'Mixed skills review',   'Bob demonstrated diverse skill usage.', 'Sprint');
 
 -- Insert Review Skills (reviewid, skillid, score)
 -- Review 1: Alice Python project
