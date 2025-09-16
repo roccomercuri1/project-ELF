@@ -1,0 +1,96 @@
+/* General resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Corbel, sans-serif;
+  /* background: hsl(0, 0%, 29%); */
+  background: linear-gradient(to bottom right, #676767, #676767);
+  min-height: 100vh; /* make sure it fills screen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header bar */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #e0e0e0;
+  position: relative;
+}
+
+.home-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Main content layout- i.e. the grid of subject buttons and how far apart they are  */
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* split evenly into 2 columns */
+  grid-template-rows: repeat(2, 1fr);     /* split evenly into 2 rows */
+  gap: 55px;
+  width: 80vw;   /* take up most of the screen width */
+  height: 70vh;  /* take up most of the screen height */
+  margin: 40px;
+}
+
+/* Subject buttons scale with grid cells */
+.subject-btn {
+  /* background: #c5f0e5; */
+  border: none;
+  border-radius: 12px;
+  font-size: 2rem;    /* scale up text */
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;        /* fill grid cell */
+  height: 100%;       /* fill grid cell */
+}
+
+.subject-btn:hover {
+  background: #c3e1fd;
+  transition: background 0.3s;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.subject-btn,
+.random-btn {
+  border: none;
+  border-radius: 12px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background 0.5s;
+  justify-content: space-between;
+}
+
+.random-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fdfdfd;
+  width: 240px; 
+  height: 240px;
+  border: none; 
+  border-radius: 100%; /* how circular the button is */
+  font-weight: bold;
+  font-size: 2rem; /* make text larger */
+  display: flex; /* center text inside */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.random-btn:hover {
+  background: #e07360;
+  transition: background 0.5s;
+  
+}
