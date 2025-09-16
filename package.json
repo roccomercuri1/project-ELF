@@ -1,0 +1,35 @@
+{
+  "name": "project-elf",
+  "version": "1.0.0",
+  "description": "## This repo is for our final project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roccomercuri1/project-ELF.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roccomercuri1/project-ELF/issues"
+  },
+  "homepage": "https://github.com/roccomercuri1/project-ELF#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "jest": "^30.1.3",
+    "jest-environment-jsdom": "^30.1.2",
+    "jsdom": "^27.0.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
+  }
+}
