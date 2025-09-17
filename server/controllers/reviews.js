@@ -19,7 +19,23 @@ async function show (req, res) {
     }
 }
 
+
+async function create (req, res) {
+
+    try {
+        data = req.body
+        const newReview = await Reviews.createReview(data)
+        res.status(201).json({'Did it work': 'Success' });
+
+    } 
+    catch (err) {
+    res.status(401).json({ error: err.message });
+    }
+}
+
+
 module.exports = { 
     index,
-    show
+    show,
+    create
 }

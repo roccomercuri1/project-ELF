@@ -7,11 +7,22 @@
 }
 
 body {
-  background: linear-gradient(180deg, rgba(0, 138, 206, 0.08) 0%, #fff 100%);
+  background: linear-gradient(to bottom right, #8F1687, #8F1687);
   min-height: 100vh;
   color: #333;
   display: flex;
   flex-direction: column;
+}
+
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #e0e0e0;
+  position: relative;
+  margin-bottom: 200px;
 }
 
 /* ===== Navbar ===== */
@@ -20,6 +31,11 @@ body {
   padding: 1rem 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   justify-content: center;
+}
+
+.home-icon {
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .navbar .logo {

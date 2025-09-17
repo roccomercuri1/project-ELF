@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Corbel, sans-serif;
+  /* background: hsl(0, 0%, 29%); */
+  background: linear-gradient(to bottom right, #8F1687, #8F1687);
+  min-height: 100vh; /* make sure it fills screen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header bar */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #e0e0e0;
+  position: relative;
+}
+
+.home-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.leave_recognition{
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 5px solid white;
+    border-radius: 15px;
+    margin-top: 100px;
+    padding: 30px 100px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
+}
+
+.top_bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+
+#employee_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 30px;
+}
+
+#employee_section label{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#employee_section select{
+    width: 230px;
+    height: 50px;
+}
+
+#employee_section select option{
+  text-align: center;      /* center text */
+  text-align-last: center; /* center the selected item in some browsers */
+}
+
+
+#category_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#category_section label{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#category_section select{
+    width: 230px;
+    height: 50px;
+}
+
+#category_section select option{
+  text-align: center;      /* center text */
+  text-align-last: center; /* center the selected item in some browsers */
+}
+
+.mid_page{
+    display: flex;
+    flex-direction: column;
+}
+
+.mid_page label{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mid_page input{
+    margin-bottom: 25px;
+    width: 100%;
+    height: 40px;
+}
+
+.mid_page #recog_review{
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.skills_used{
+    padding-bottom: 30px;
+}
+
+.skills_used #skills_title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#submit_button{
+    font-size: 20px;
+    font-weight: bold;
+}

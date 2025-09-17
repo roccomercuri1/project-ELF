@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/leaveRecog.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -10,32 +11,32 @@
       crossorigin="anonymous"
     />
     <title>Leave Recognition</title>
-</head>
-<body>
-     <!-- Header with dropdown -->
+  </head>
+  <body>
+    <!-- Header with dropdown -->
     <header
       class="top-bar d-flex justify-content-between align-items-center px-3 py-2 bg-light shadow-sm"
     >
-        <a class="home-icon" href="homepage.html">
-      <!-- Home Icon -->
-      <div class="home-icon">
-        <!-- Links home icon to homepage -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-house-door-fill"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
-          />
-        </svg>
-      </div>
+      <a class="home-icon" href="homepage.html">
+        <!-- Home Icon -->
+        <div class="home-icon">
+          <!-- Links home icon to homepage -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-house-door-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+            />
+          </svg>
+        </div>
       </a>
       <!-- Title  -->
-      <h3 class="m-0">QUESTIONS DASHBOARD</h3>
+      <h3 class="m-0">Leave A Review</h3>
 
       <!-- User Dropdown Menu -->
       <div class="dropdown">
@@ -53,7 +54,6 @@
             fill="currentColor"
             class="bi bi-person-fill"
             viewBox="0 0 16 16"
-            
           >
             <path
               d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
@@ -65,71 +65,99 @@
           aria-labelledby="userDropdown"
         >
           <li><a class="dropdown-item" href="accountpage.html">Account</a></li>
-          <li><a class="dropdown-item" id="logoutBtn" href="index.html">Log out</a></li>
+          <li>
+            <a class="dropdown-item" id="logoutBtn" href="index.html"
+              >Log out</a
+            >
+          </li>
         </ul>
       </div>
     </header>
 
-     <main>
-        <section class="leave_recognition">
-            <form action="">
-                <section>
-                    <select>
-                        <option value="max">Max</option>
-                        <option value="yuktha">Yuktha</option>
-                        <option value="istiak">Istiak</option>
-                        <option value="rocco">Rocco</option>
-                        <option value="israel">Israel</option>
-                    </select>
-                    <label for=""></label>
-                    <Select>
-                        <option value="feedback" selected>Feedback</option>
-                        <option value="sprint">Sprint</option>
-                        <option value="project">Entire Project</option>
-                        <option value="recognition">Recognition</option>
-                    </Select>
-                </section>
-                <label for="recog_title">Review/Recognition Title</label>
-                <input type="text">
-                <label for="recog_review">Leave a review</label>
-                <input type="text">
-                <section class="skills_used">
-  <label for="skillSelect" class="form-label">Select a Skill</label>
-  <select id="skillSelect" class="form-select">
-    <option value="" selected disabled>Select a skill</option>
-    <option value="Python">Python</option>
-    <option value="Java">Java</option>
-    <option value="HTML/CSS">HTML/CSS</option>
-    <option value="JavaScript">JavaScript</option>
-    <option value="Terraform">Terraform</option>
-    <option value="Ansible">Ansible</option>
-    <option value="AWS">AWS</option>
-    <option value="Leadership">Leadership</option>
-    <option value="Teamwork">Teamwork</option>
-    <option value="Communication">Communication</option>
-    <option value="Initiative">Initiative</option>
-  </select>
+    <main>
+      <section class="leave_recognition">
+        <form id="review_form" name="review" action="">
+          <section class="top_bar">
+            <section id="employee_section" name="employee_section">
+            <label for="employee">Employee </label>
+            <select name="employee" class="form-select">
+              <option value="" selected disabled>Select employee</option>
+              <option value="max">Max</option>
+              <option value="yuktha">Yuktha</option>
+              <option value="istiak">Istiak</option>
+              <option value="rocco">Rocco</option>
+              <option value="israel">Israel</option>
+            </select>
+            </section>
+            <section id="category_section" name="category_section">
+            <label for="category">Review</label>
+            <select name="category" class="form-select">
+              <option value="" selected disabled>Select feedback type</option>
+              <option value="feedback">Feedback</option>
+              <option value="sprint">Sprint</option>
+              <option value="project">Entire Project</option>
+              <option value="recognition">Recognition</option>
+            </select>
+            </section>
+          </section>
+          <section class="mid_page">
+          <label for="recog_title">Review/Recognition Title</label>
+          <input class="form-control" type="text" name="recog_title" id="recog_title" />
+          <label for="recog_review">Leave a review</label>
+          <textarea class="form-control" name="recog_review" id="recog_review" rows="5" cols="10"></textarea>
+          </section>
+          <section class="skills_used">
+            <label for="skillSelect" class="form-label" id="skills_title">Skills Used</label>
+            <select id="skillSelect" class="form-select">
+              <option value="" selected disabled>Select a skill</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="HTML/CSS">HTML/CSS</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="Terraform">Terraform</option>
+              <option value="Ansible">Ansible</option>
+              <option value="AWS">AWS</option>
+              <option value="Leadership">Leadership</option>
+              <option value="Teamwork">Teamwork</option>
+              <option value="Communication">Communication</option>
+              <option value="Initiative">Initiative</option>
+            </select>
 
-  <!-- Slider hidden until a skill is picked -->
-  <div id="ratingContainer" class="mt-3" style="display:none;">
-    <label for="skillRating" class="form-label">Rate this skill (0–5)</label>
-    <input type="range" min="0" max="5" step="1" value="3" id="skillRating" class="form-range">
-    <span id="ratingValue">3</span>/5
-    <button type="button" id="addSkillBtn" class="btn btn-primary btn-sm ms-3">Add Skill</button>
-  </div>
+            <!-- Slider hidden until a skill is picked -->
+            <div id="ratingContainer" class="mt-3" style="display: none">
+              <label for="skillRating" class="form-label"
+                >Rate this skill (0–5)</label
+              >
+              <input
+                type="range"
+                min="0"
+                max="5"
+                step="1"
+                value="3"
+                id="skillRating"
+                class="form-range"
+              />
+              <span id="ratingValue">3</span>/5
+              <button
+                type="button"
+                id="addSkillBtn"
+                class="btn btn-success btn-sm ms-3"
+              >
+                Add Skill
+              </button>
+            </div>
 
-  <ul id="skillsList" class="list-group mt-3">
-    <!-- Added skills will appear here -->
-  </ul>
-</section>
-
-            </form>
-            <br>
-        </section>
-        <br>
-
+            <ul id="skillsList" class="list-group mt-3">
+              <!-- Added skills will appear here -->
+            </ul>
+          </section>
+          <button type="submit" class="btn btn-warning btn-lg" id="submit_button">Create Review</button>
+        </form>
+        <br />
+      </section>
+      <br />
     </main>
     <script src="../js//leaveRecog.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>
