@@ -1,9 +1,17 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 
-const User = require("../");
+const User = require("../models/User");
 
-as
+async function index(req, res) {
+  try {
+    const userData = await User.getAllNames()
+    res.status(200).json(userData)
+  } catch (err) {
+    res.status(404).json({ error: err.message })
+  }
+}
 
 async function show(req, res) {
   try {
@@ -19,7 +27,7 @@ async function show(req, res) {
 async function register(req, res) {
   const data = req.body;
   const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
-  data.password = await bcrypt.hash(data.password, salt);
+  data.userpassword = await bcrypt.hash(data.userpassword, salt);
   const result = await User.createUser(data);
   res.status(201).send(result);
 }
@@ -31,10 +39,10 @@ async function login(req, res) {
     if (!user) {
       throw new Error("No user with this username");
     }
-    const match = await bcrypt.compare(data.password, user.password);
+    const match = await bcrypt.compare(data.userpassword, user.userpassword);
 
     if (match) {
-      const payload = { username: user.username, userid: user.userid };
+      const payload = { userid: user.userid };
       const sendToken = (err, token) => {
         if (err) {
           throw new Error("Error in token generation");
@@ -43,7 +51,7 @@ async function login(req, res) {
           success: true,
           token: token,
           userid: user.userid,
-          username: user.username
+          isadmin: user.isadmin
         });
       };
 
@@ -74,4 +82,4 @@ async function update(req, res) {
   }
 }
 
-module.exports = { register, login, update, show };
+module.exports = { index, register, login, update, show };
