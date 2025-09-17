@@ -1,6 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector(".login_form");
 
+  function showPopup(message, isError = false) {
+    const popup = document.getElementById("popup");
+    popup.textContent = message;
+
+    popup.className = "popup " + (isError ? "error" : "success") + " show";
+
+    setTimeout(() => {
+      popup.className = "popup";
+    }, 3000);
+  }
+
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(loginForm);
@@ -35,16 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("isadmin", data.isadmin);
         localStorage.setItem("userid", data.userid);
 
-        console.log(
-          "Token saved to localStorage:",
-          localStorage.getItem("token")
-        );
-
         // Redirect after saving
-        alert("Successfully Logged In");
-        window.location.assign("homePage.html");
+        showPopup("Successfully Logged In");
+        setTimeout(() => window.location.assign("homepage.html"), 1500);
       } else {
-        alert(data.error || "Login failed: no token received");
+        showPopup(data.error || "Login failed: no token received");
       }
     } catch (err) {
       console.error(err);

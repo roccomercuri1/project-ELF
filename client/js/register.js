@@ -2,6 +2,17 @@ document
   .querySelector(".signup_form")
   .addEventListener("submit", register_event);
 
+function showPopup(message, isError = false) {
+  const popup = document.getElementById("popup");
+  popup.textContent = message;
+
+  popup.className = "popup " + (isError ? "error" : "success") + " show";
+
+  setTimeout(() => {
+    popup.className = "popup";
+  }, 3000);
+}
+
 async function register_event(e) {
   e.preventDefault();
   const form = new FormData(e.target);
@@ -23,30 +34,11 @@ async function register_event(e) {
 
   const data = await response.json();
 
-  const userStatsOptions = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: form.get("username"),
-      userid: data.userid,
-    }),
-  };
-  console.log(form.get("username"));
-  const userStatsResponse = await fetch(
-    "http://localhost:3000/userstats",
-    userStatsOptions
-  );
-
-  const userStatsData = await userStatsResponse.json();
-
-  if (response.status === 201) {
-    alert("Successfully Registered");
+  if (response.ok) {
+    showPopup("Successfully Registered");
     e.target.reset();
-    window.location.assign("login.html");
+    setTimeout(() => window.location.assign("./login.html"), 1500);
   } else {
-    alert(data.error);
+    showPopup(data.error || "Registration failed", true);
   }
 }
