@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Employee Skills Visualisation</title>
+    <title>{{ user.firstname }}'s Statistics</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='data-styles.css') }}">
 </head>
 <body>
-    <h1>Employee Skills Visualisation</h1>
-
-    <section>
-        <h2>Skills Pie Chart</h2>
-        {{ pie_chart | safe }}
-    </section>
-
-    <section>
-        <h2>Average Scores Bar Chart</h2>
-        {{ bar_chart | safe }}
-    </section>
+    <h1>{{ user.firstname }}'s Reviews</h1>
+    <a href="/">Other users</a>
+    
+    <div class="chart">
+        <h2>Skill Usage</h2>
+        {{ pie_chart|safe }}
+    </div>
+    
+    <div class="chart">
+        <h2>Average Skill Scores</h2>
+        {{ bar_chart|safe }}
+    </div>
+    
 </body>
 </html>
