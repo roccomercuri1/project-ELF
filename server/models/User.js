@@ -50,9 +50,8 @@ class User {
   static async createUser(data) {
     // UPDATED: INCLUDES VALIDATION
     const { firstname, email, userpassword, username,  isadmin} = data;
-    console.log(data);
     // Validate
-    if (!firstname || !email || !userpassword || !username || !isadmin) {
+    if (!firstname || !email || !userpassword || !username || !isadmin === undefined) {
       throw new Error("Please fill in all fields");
     }
 
