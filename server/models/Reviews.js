@@ -84,9 +84,37 @@ class Reviews {
         catch(err){throw new Error('unfortunate')
         }
     }
-    
-    
 
+    static async createReview(data){
+        const { employee, category, recog_title, recog_review, skills } = data;
+       
+        try{
+            const response = await db.query(`SELECT userid FROM users WHERE username = $1;`,[employee])
+            const userid = response.rows[0].userid
+
+            const reviewResult = await db.query(`INSERT INTO reviews (userid, reviewtitle, reviewcontents, reviewtype)
+                                                 VALUES ($1, $2, $3, $4)
+                                                 RETURNING reviewid;`,[userid,category,recog_title,recog_review])
+            
+            const reviewid = reviewResult.rows[0].reviewid
+            
+            for (let i = 0; i < skills.length; i++) {
+                const review_skills_result = await db.query('SELECT skillid FROM skills where skillname = $1;', [skills[i].skill])
+                
+                const skillid = review_skills_result.rows[0].skillid
+                const score = parseInt(skills[i].rating)
+
+                const finalResult = await db.query(`INSERT INTO review_skills (reviewid, skillid, score)
+                                                    VALUES ($1, $2, $3)
+                                                    RETURNING *;`,[reviewid, skillid, score])
+            }
+            
+            return true
+        } catch (err) {
+            throw new Error(err.message)
+        }
+
+    }
 }
 
 module.exports = Reviews;
