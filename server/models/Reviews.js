@@ -94,7 +94,7 @@ class Reviews {
 
             const reviewResult = await db.query(`INSERT INTO reviews (userid, reviewtitle, reviewcontents, reviewtype)
                                                  VALUES ($1, $2, $3, $4)
-                                                 RETURNING reviewid;`,[userid,category,recog_title,recog_review])
+                                                 RETURNING reviewid;`,[userid,recog_title,recog_review,category])
             
             const reviewid = reviewResult.rows[0].reviewid
             
