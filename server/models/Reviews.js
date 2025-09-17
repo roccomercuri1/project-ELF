@@ -34,7 +34,7 @@ class Reviews {
             return result
             
         } catch(err) {
-            throw new Error('Could not get all.')
+            throw new Error(err.message)
         }
     }
     
