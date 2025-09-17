@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Skills Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Employee Skills Visualization</h1>
+
+    <section>
+        <h2>Skills Pie Chart</h2>
+        {{ pie_chart | safe }}
+    </section>
+
+    <section>
+        <h2>Average Scores Bar Chart</h2>
+        {{ bar_chart | safe }}
+    </section>
+</body>
+</html>
