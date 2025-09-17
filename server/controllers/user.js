@@ -25,11 +25,20 @@ async function show(req, res) {
 }
 
 async function register(req, res) {
+  try {
   const data = req.body;
   const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
   data.userpassword = await bcrypt.hash(data.userpassword, salt);
   const result = await User.createUser(data);
-  res.status(201).send(result);
+  return res.status(201).json(result);
+} catch (err) {
+  const msg = (err.message || "").toLowerCase()
+  if (err.code === "23505" || msg.includes("already exists")) {
+    return res.status(400).json({ error: "Email or username already exists"})
+  }
+  console.log("Registration error");
+  return res.status(500).json({ error: "Internal server error"})
+}
 }
 
 async function login(req, res) {

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Failed to save username:", err);
     }
 
-    try {
+    // try {
       const response = await fetch("http://localhost:3000/user/login", options);
       const data = await response.json();
       console.log("Login response:", data);
@@ -48,13 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Redirect after saving
         showPopup("Successfully Logged In");
-        setTimeout(() => window.location.assign("homepage.html"), 1500);
+        setTimeout(() => window.location.assign("homepage.html"), 800);
       } else {
-        showPopup(data.error || "Login failed: no token received");
+        showPopup(data.error || "Login failed: no token received", true);
       }
-    } catch (err) {
-      console.error(err);
-      alert("Network error: " + err.message);
-    }
+    // } catch (err) {
+    //   console.error(err);
+    //   alert("Network error: " + err.message);
+    // }
   });
 });

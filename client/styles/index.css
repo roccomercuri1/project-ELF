@@ -163,17 +163,17 @@ h3 {
   position: fixed;
   z-index: 1000;
   left: 50%;
-  bottom: 30px;
+  top: 30px;
   font-size: 16px;
   opacity: 0;
-  transition: opacity 0.4s, bottom 0.4s;
+  transition: opacity 0.4s, top 0.4s;
 }
 
 /* Show state */
 .popup.show {
   visibility: visible;
   opacity: 1;
-  bottom: 50px;
+  top: 50px;
 }
 
 /* Success vs error colors */

@@ -37,8 +37,12 @@ async function register_event(e) {
   if (response.ok) {
     showPopup("Successfully Registered");
     e.target.reset();
-    setTimeout(() => window.location.assign("./login.html"), 1500);
+    setTimeout(() => window.location.assign("./login.html"), 800);
   } else {
-    showPopup(data.error || "Registration failed", true);
+    if (data.error && data.error.toLowerCase().includes("already exists")) {
+      showPopup("User already exists!", true);
+    } else {
+      showPopup(data.error || "Registration failed", true);
+    }
   }
 }
