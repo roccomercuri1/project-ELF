@@ -72,27 +72,27 @@
 
      <main>
         <section class="leave_recognition">
-            <form action="">
+            <form id="review_form" name="review" action="">
                 <section>
-                    <select>
+                    <select name="employee">
                         <option value="max">Max</option>
                         <option value="yuktha">Yuktha</option>
                         <option value="istiak">Istiak</option>
                         <option value="rocco">Rocco</option>
                         <option value="israel">Israel</option>
                     </select>
-                    <label for=""></label>
-                    <Select>
+                    <label for="category">Type of Review</label>
+                    <select name="category">
                         <option value="feedback" selected>Feedback</option>
                         <option value="sprint">Sprint</option>
                         <option value="project">Entire Project</option>
                         <option value="recognition">Recognition</option>
-                    </Select>
+                    </select>
                 </section>
                 <label for="recog_title">Review/Recognition Title</label>
-                <input type="text">
+                <input type="text" name="recog_title" id="recog_title">
                 <label for="recog_review">Leave a review</label>
-                <input type="text">
+                <input type="text" name="recog_review" id="recog_review">
                 <section class="skills_used">
   <label for="skillSelect" class="form-label">Select a Skill</label>
   <select id="skillSelect" class="form-select">
@@ -122,8 +122,8 @@
     <!-- Added skills will appear here -->
   </ul>
 </section>
-
-            </form>
+        <button type="submit" >Create Review</button>
+      </form>
             <br>
         </section>
         <br>
