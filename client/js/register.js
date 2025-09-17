@@ -12,10 +12,11 @@ async function register_event (e){
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            name: form.get('name'),
+            isadmin: form.get('isadmin') === 'true',
+            firstname: form.get('firstname'),
             email: form.get('email'),
             username: form.get('username'),
-            password: form.get('password')
+            userpassword: form.get('userpassword')
         })
     }
     const response = await fetch ('http://localhost:3000/user/register', options)

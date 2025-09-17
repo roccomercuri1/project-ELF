@@ -7,7 +7,7 @@
 }
 
 body {
-  background: linear-gradient(180deg, rgba(0, 138, 206, 0.08) 0%, #fff 100%);
+  background: linear-gradient(to bottom right, #8F1687, #8F1687);
   min-height: 100vh;
   color: #333;
   display: flex;
@@ -22,6 +22,7 @@ body {
   padding: 1rem 2rem;
   background: #e0e0e0;
   position: relative;
+  margin-bottom: 200px;
 }
 
 /* ===== Navbar ===== */

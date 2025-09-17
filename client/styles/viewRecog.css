@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Corbel, sans-serif;
+  /* background: hsl(0, 0%, 29%); */
+  background: linear-gradient(to bottom right, #8F1687, #8F1687);
+  min-height: 100vh; /* make sure it fills screen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header bar */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #e0e0e0;
+  position: relative;
+}
+
+.home-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
