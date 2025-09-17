@@ -12,6 +12,7 @@ async function register_event (e){
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            isadmin: form.get('isadmin') === 'true',
             name: form.get('name'),
             email: form.get('email'),
             username: form.get('username'),
