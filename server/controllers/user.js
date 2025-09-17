@@ -1,44 +1,45 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require('dotenv').config()
+require("dotenv").config();
 
 const User = require("../models/User");
 
 async function index(req, res) {
   try {
-    const userData = await User.getAllNames()
-    res.status(200).json(userData)
+    const userData = await User.getAllNames();
+    res.status(200).json(userData);
   } catch (err) {
-    res.status(404).json({ error: err.message })
+    res.status(404).json({ error: err.message });
   }
 }
 
 async function show(req, res) {
   try {
-    const id = req.params.id
-    const userData = await User.getOneById(id)
-    res.status(200).json(userData)
-
-  } catch(err) {
+    const id = req.params.id;
+    const userData = await User.getOneById(id);
+    res.status(200).json(userData);
+  } catch (err) {
     res.status(404).json({ error: err.message });
   }
 }
 
 async function register(req, res) {
   try {
-  const data = req.body;
-  const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
-  data.userpassword = await bcrypt.hash(data.userpassword, salt);
-  const result = await User.createUser(data);
-  return res.status(201).json(result);
-} catch (err) {
-  const msg = (err.message || "").toLowerCase()
-  if (err.code === "23505" || msg.includes("already exists")) {
-    return res.status(400).json({ error: "Email or username already exists"})
+    const data = req.body;
+    const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+    data.userpassword = await bcrypt.hash(data.userpassword, salt);
+    const result = await User.createUser(data);
+    return res.status(201).json(result);
+  } catch (err) {
+    const msg = (err.message || "").toLowerCase();
+    if (err.code === "23505" || msg.includes("already exists")) {
+      return res
+        .status(400)
+        .json({ error: "Email or username already exists" });
+    }
+    console.log("Registration error");
+    return res.status(500).json({ error: "Internal server error" });
   }
-  console.log("Registration error");
-  return res.status(500).json({ error: "Internal server error"})
-}
 }
 
 async function login(req, res) {
@@ -60,7 +61,7 @@ async function login(req, res) {
           success: true,
           token: token,
           userid: user.userid,
-          isadmin: user.isadmin
+          isadmin: user.isadmin,
         });
       };
 
@@ -80,13 +81,12 @@ async function login(req, res) {
 
 async function update(req, res) {
   try {
-    const id = req.params.id
-    const data = req.body
-    const user = await User.getOneById(id)
-    const result = await user.updateUser(data)
-    res.status(200).json(result)
-
-  } catch(err) {
+    const id = req.params.id;
+    const data = req.body;
+    const user = await User.getOneById(id);
+    const result = await user.updateUser(data);
+    res.status(200).json(result);
+  } catch (err) {
     res.status(404).json({ error: err.message });
   }
 }
