@@ -49,19 +49,19 @@ class User {
 
   static async createUser(data) {
     // UPDATED: INCLUDES VALIDATION
-    const { name, email, password, username } = data;
-
+    const { firstname, email, userpassword, username,  isadmin} = data;
+    console.log(data);
     // Validate
-    if (!name || !email || !password || !username) {
+    if (!firstname || !email || !userpassword || !username || !isadmin) {
       throw new Error("Please fill in all fields");
     }
 
     try {
       const response = await db.query(
-        `INSERT INTO users (name, email, password, username)
-       VALUES ($1, $2, $3, $4)
+        `INSERT INTO users (firstname, email, userpassword, username, isadmin)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING userid;`,
-        [name, email, password, username]
+        [firstname, email, userpassword, username, isadmin]
       );
 
       if (response.rows.length === 0) {
@@ -70,6 +70,7 @@ class User {
 
       const newId = response.rows[0].userid;
       return await User.getOneById(newId);
+
     } catch (err) {
       // Handle if user already exists
       if (err.code === "23505") {
