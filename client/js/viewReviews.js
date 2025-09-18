@@ -9,34 +9,66 @@ async function getReviews() {
     const response = await fetch(`http://localhost:3000/reviews`);
     const reviews = await response.json();
 
-    console.log(reviews);
-    const container = document.getElementById("reviewscontainer");
-    container.innerHTML = `Loading reviews.. `;
-    container.innerHTML = ``;
+        const container = document.getElementById('reviewscontainer')
+        container.innerHTML = `Loading reviews.. `
+        container.innerHTML = ``
 
-    console.log(reviews[0]);
+        reviews.forEach(review => {
+            const reviewbox = document.createElement('div');
+            reviewbox.className = "reviewbox"
 
-    reviews.forEach((review) => {
-      const reviewbox = document.createElement("div");
-      reviewbox.className = "reviewbox";
+            let skillsHTML = ''
+            for(const [skillsName, score] of Object.entries(review.skills)){
+                skillsHTML +=`
+                <div class= 'skill'>
+                    <p class="skillName">${skillsName}:</p>
+                    <p class="score">${score} ⭐️</p>
+                </div>`
+            }
 
-      //fetch reviewtitle and contents+date
-      reviewbox.innerHTML = `<h3>${review.reviewtitle}</h3> 
-            <p>${review.reviewcontents} ${new Date(
-        review.reviewdate
-      ).toLocaleDateString()}</p>`;
+            const frontCard = document.createElement('div');
+            frontCard.className  = 'card-face card-front'
+            frontCard.innerHTML = `<h3> ${review.reviewtitle}</h3>
+            <div class="front-info">
+            <h5>Click to see more information↧</h5>
+            <p class="review-date">${new Date(review.reviewdate).toLocaleDateString()}</p>
+            </div>
+            `
 
-      //Might need to do a loop to add the skills??....
-      //also need to add styling - right now it's jsut text
-      container.appendChild(reviewbox);
-    });
-  } catch (err) {
-    document.getElementById("reviewscontainer").textContent =
-      "Failed to get reviews";
-    console.log("Error loading reviews");
-  }
+            const backCard = document.createElement('div');
+            backCard.className = 'card-face card-back'
+            backCard.innerHTML=`<h3>${review.reviewtitle}</h3> 
+            <p class="review-contents">${review.reviewcontents}</p> 
+            <div class="back-info">
+            <div class="skills-area">${skillsHTML}</div>
+            <p class="review-date">${new Date(review.reviewdate).toLocaleDateString()}</p>
+            </div>`
+
+            //fetch reviewtitle and contents+date
+            // reviewbox.innerHTML = `<h3>${review.reviewtitle}</h3> 
+            // <p>${review.reviewcontents} ${new Date(review.reviewdate).toLocaleDateString()}</p>`;
+            // console.log(review.skills)
+
+            // const skillsBlock = document.createElement('div');
+            // skillsBlock.className = 'skills-area';
+            // skillsBlock.innerHTML = skillsHTML;
+
+            reviewbox.appendChild(frontCard);
+            reviewbox.appendChild(backCard);
+
+            reviewbox.addEventListener('click', () =>{
+                reviewbox.classList.toggle('flipped');
+            })
+
+
+        container.appendChild(reviewbox)    
+    
+    })
+    } catch (err) {
+        document.getElementById('reviewscontainer').textContent = 'Failed to get reviews'
+        console.log('Error loading reviews')
+    }
 }
-
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", (e) => {

@@ -55,7 +55,7 @@ async function login(req, res) {
       const payload = { userid: user.userid };
       const sendToken = (err, token) => {
         if (err) {
-          throw new Error("Error in token generation");
+          throw new Error(err.message);
         }
         res.status(200).json({
           success: true,
