@@ -1,8 +1,9 @@
 const db = require('../db/connect')
 
 class Reviews {
-    constructor({ reviewid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills}) {
+    constructor({ reviewid, userid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills}) {
         this.reviewid = reviewid
+        this.userid = userid
         this.reviewtitle = reviewtitle
         this.reviewcontents = reviewcontents
         this.reviewtype = reviewtype
@@ -16,7 +17,10 @@ class Reviews {
 
             const result = response.rows.map(review => new Reviews(review))
 
-            const skills = await db.query("select reviewid, skills.skillname, review_skills.score from review_skills LEFT JOIN skills on skills.skillid = review_skills.skillid;")
+            const skills = await db.query(
+                `select reviewid, skills.skillname, review_skills.score 
+                from review_skills 
+                LEFT JOIN skills on skills.skillid = review_skills.skillid;`)
             
             const skillMap = {}
 
