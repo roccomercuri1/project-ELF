@@ -171,4 +171,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   }
+
+  const token = localStorage.getItem("token")
+  const isManager = localStorage.getItem("isadmin") === "true"
+
+  if (!token) {
+    window.location.replace("./login.html")
+    return
+  }
+  if (!isManager) {
+    window.location.replace("./homepage.html")
+  }
 });
