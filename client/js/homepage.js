@@ -5,6 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Hide Leave Recognition option from employee
+  const isManager = localStorage.getItem("isadmin") === "true";
+  if (!isManager) {
+    document
+      .querySelectorAll('[user-role="manager-only"]')
+      .forEach((el) => el.remove());
+  }
+
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", (e) => {
