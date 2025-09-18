@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // User cannot access homepage if not logged in
   if (!localStorage.getItem("token")) {
     window.location.replace("./login.html");
     return;
@@ -9,12 +8,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameSpan = document.getElementById("dropdownUsername");
   if (nameSpan && username) nameSpan.textContent = username;
 
-  // Hide Leave Recognition option from employee
   const isManager = localStorage.getItem("isadmin") === "true";
   if (!isManager) {
-    document
-      .querySelectorAll('[user-role="manager-only"]')
-      .forEach((el) => el.remove());
+    document.querySelectorAll('[user-role="manager-only"]').forEach(el => el.remove());
+  }
+
+  const dataPageLink = document.getElementById("dataPageLink");
+  if (dataPageLink) {
+    dataPageLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const userid = localStorage.getItem("userid");
+      if (!userid) {
+        alert("Please log in");
+        window.location.href = "./login.html";
+        return;
+      }
+      // Redirect to Flask app with userid parameter
+      window.location.href = `http://127.0.0.1:3001/datapage?userid=${userid}`;
+    });
   }
 
   const logoutBtn = document.getElementById("logoutBtn");
@@ -22,13 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.clear();
-
-      if (typeof window.showPopup === "function") {
-        showPopup("Logged out");
-        setTimeout(() => window.location.assign("./login.html"), 800);
-      } else {
-        window.location.assign("./login.html");
-      }
+      window.location.assign("./login.html");
     });
   }
 });

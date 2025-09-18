@@ -13,15 +13,13 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
-    <script src="../js/dataPage.js"></script>
     <header
       class="top-bar d-flex justify-content-between align-items-center px-3 py-2 bg-light shadow-sm"
     >
-
-    <!-- <h1 class="key-skills text-center">Key Programming Skills Used</h1> -->
-    <nav class="navbar">
       <!-- Left-side link -->
       <div class="home-icon">
         <a href="./homepage.html">
@@ -35,7 +33,7 @@
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 极 0 .5.5h4a.5.5 0 0 0 .5-.5"
             />
           </svg>
         </a>
@@ -79,6 +77,46 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </header>
+
+    <main class="container my-5">
+      <div class="row">
+        <div class="col-md-12 text-center mb-4">
+          <h1>Skill Analysis for {{ user.firstname }}</h1>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Skill Usage Distribution</h5>
+            </div>
+            <div class="card-body">
+              <div id="pie-chart">
+                {{ pie_chart|safe }}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Average Skill Scores</h5>
+            </div>
+            <div class="card-body">
+              <div id="bar-chart">
+                {{ bar_chart|safe }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/dataPage.js"></script>
   </body>
 </html>
