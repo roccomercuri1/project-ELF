@@ -4,6 +4,7 @@ class Reviews {
     constructor({ userid, reviewid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills}) {
         this.userid = userid;
         this.reviewid = reviewid
+        this.userid = userid
         this.reviewtitle = reviewtitle
         this.reviewcontents = reviewcontents
         this.reviewtype = reviewtype
@@ -17,7 +18,10 @@ class Reviews {
 
             const result = response.rows.map(review => new Reviews(review))
 
-            const skills = await db.query("select reviewid, skills.skillname, review_skills.score from review_skills LEFT JOIN skills on skills.skillid = review_skills.skillid;")
+            const skills = await db.query(
+                `select reviewid, skills.skillname, review_skills.score 
+                from review_skills 
+                LEFT JOIN skills on skills.skillid = review_skills.skillid;`)
             
             const skillMap = {}
 
@@ -82,7 +86,7 @@ class Reviews {
             
             
         } 
-        catch(err){throw new Error('unfortunate')
+        catch(err){throw new Error(err.message)
         }
     }
 
@@ -91,11 +95,21 @@ class Reviews {
        
         try{
             const response = await db.query(`SELECT userid FROM users WHERE username = $1;`,[employee])
+            
+            if (response.rows.length === 0) {
+                throw new Error ('No response')
+            }
+            
             const userid = response.rows[0].userid
 
             const reviewResult = await db.query(`INSERT INTO reviews (userid, reviewtitle, reviewcontents, reviewtype)
                                                  VALUES ($1, $2, $3, $4)
-                                                 RETURNING reviewid;`,[userid,recog_title,recog_review,category])
+                                                 RETURNING reviewid;`,[userid,recog_title,recog_review,category]
+                                                )
+
+            if (reviewResult.rows.length === 0) {
+                throw new Error ('No response')
+            }
             
             const reviewid = reviewResult.rows[0].reviewid
             

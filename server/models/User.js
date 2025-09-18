@@ -81,22 +81,23 @@ class User {
   }
 
   async updateUser(data) {
-    const {name, email, password, username} = data
+    const {firstname, email, userpassword, username, isadmin} = data
     
     //salt and encrypt
     let encrypted_password = null
-    if(password){
+    if(userpassword){
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
-    encrypted_password = await bcrypt.hash(password, salt);
+    encrypted_password = await bcrypt.hash(userpassword, salt);
     }
     try{
       const response = await db.query(`UPDATE users SET
-        name = COALESCE($1, name),
+        firstname = COALESCE($1, firstname),
         email = COALESCE($2, email),
-        password = COALESCE($3, password),
+        userpassword = COALESCE($3, userpassword),
         username = COALESCE($4, username)
-        WHERE userid = $5
-        RETURNING *;`, [name, email, encrypted_password, username, this.userid])
+        isadmin = COALESCE($5, isadmin)
+        WHERE userid = $6
+        RETURNING *;`, [firstname, email, encrypted_password, username, isadmin, this.userid])
         
         if (response.rows.length !== 1) {
               throw new Error('Unable to update the user details')
