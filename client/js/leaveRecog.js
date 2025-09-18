@@ -131,6 +131,10 @@ form.addEventListener("submit", async (e) => {
 // Selecting users from User database and adding them as the only options to leave a review for
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const username = localStorage.getItem("username");
+  const nameSpan = document.getElementById("dropdownUsername");
+  if (nameSpan && username) nameSpan.textContent = username;
+
   const selectEmp = document.querySelector('select[name="employee"]');
 
   // Clears any hardcoded options added except the placeholders

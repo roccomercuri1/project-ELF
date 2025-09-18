@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("username");
+  const nameSpan = document.getElementById("dropdownUsername");
+  if (nameSpan && username) nameSpan.textContent = username;
+});
+
 async function getReviews() {
   try {
     const response = await fetch(`http://localhost:3000/reviews`);
