@@ -16,7 +16,9 @@
     <main>
       <section class="login">
         <h1 id="signup_h1">Sign Up</h1>
-        <form action="http://localhost:3000/user/register" method="POST" class="signup_form">
+        <form
+          class="signup_form"
+        >
           <label for="signup_name" id="loginLabel">Name</label><br />
           <input
             type="text"
@@ -24,6 +26,7 @@
             name="firstname"
             placeholder="Enter Name"
             required
+            autocomplete="off"
           /><br />
           <label for="signup_email" id="loginLabel">Email</label><br />
           <input
@@ -32,6 +35,7 @@
             name="email"
             placeholder="Enter Email"
             required
+            autocomplete="off"
           /><br />
           <label for="signup_username" id="loginLabel">Username</label><br />
           <input
@@ -40,6 +44,7 @@
             name="username"
             placeholder="Enter Username"
             required
+            autocomplete="off"
           /><br />
           <label for="signup_pass" id="loginLabel">Password</label
           ><br /><!-- <p>(8 characters minimum)</p> -->
@@ -49,6 +54,7 @@
             name="userpassword"
             placeholder="Enter Password"
             required
+            autocomplete="off"
           /><br />
           <!-- User Selection -->
           <div class="form-group">
@@ -56,7 +62,12 @@
             <div class="role-selection">
               <div class="role-option">
                 <input
-                  type="radio" id="employee" name="isadmin" value="false" checked />
+                  type="radio"
+                  id="employee"
+                  name="isadmin"
+                  value="false"
+                  checked
+                />
                 <label for="employee">Employee</label>
               </div>
               <div class="role-option">
@@ -76,5 +87,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="../js/register.js"></script>
+    <div id="popup" class="popup"></div>
   </body>
 </html>

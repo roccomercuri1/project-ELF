@@ -150,3 +150,37 @@ h3 {
   padding: 5px 10px;
   display: inline-block;
 }
+
+.popup {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 30px;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.4s, top 0.4s;
+}
+
+/* Show state */
+.popup.show {
+  visibility: visible;
+  opacity: 1;
+  top: 50px;
+}
+
+/* Success vs error colors */
+.popup.success {
+  background-color: #4CAF50; /* green */
+}
+
+.popup.error {
+  background-color: #f44336; /* red */
+}

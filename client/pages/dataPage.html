@@ -15,8 +15,10 @@
     />
   </head>
   <body>
-
     <script src="../js/dataPage.js"></script>
+    <header
+      class="top-bar d-flex justify-content-between align-items-center px-3 py-2 bg-light shadow-sm"
+    >
 
     <!-- <h1 class="key-skills text-center">Key Programming Skills Used</h1> -->
     <nav class="navbar">
@@ -40,7 +42,7 @@
       </div>
 
       <!-- Center logo -->
-      <h3 class="title">{{ user.firstname }}'s Reviews</h3>
+      <h3 class="title">Key Programming Skills Used</h3>
 
       <!-- Right-side link -->
       <!-- User Dropdown Menu -->
@@ -78,16 +80,5 @@
         </ul>
       </div>
     </nav>
-
-    <div class="chart">
-        <h2>Skill Usage</h2>
-        {{ pie_chart|safe }}
-    </div>
-    
-    <div class="chart">
-        <h2>Average Skill Scores</h2>
-        {{ bar_chart|safe }}
-    </div>
-
   </body>
 </html>

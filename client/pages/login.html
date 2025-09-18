@@ -16,7 +16,7 @@
     <main>
       <section class="login">
         <h1>Login</h1>
-        <form action="" class="login_form">
+        <form action="" class="login_form" autocomplete="off">
           <label for="loginUsername" id="loginLabel">Username</label><br />
           <input
             type="text"
@@ -24,14 +24,16 @@
             name="username"
             placeholder="Enter Username"
             required
+            autocomplete="off"
           /><br />
           <label for="loginPassword" id="loginLabel">Password</label><br />
           <input
             type="password"
             id="loginPassword"
-            name="password"
+            name="userpassword"
             placeholder="Enter Password"
             required
+            autocomplete="off"
           /><br /><br />
           <button type="submit">Log In</button>
         </form>
@@ -45,5 +47,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="../js/login.js"></script>
+    <div id="popup" class="popup"></div>
   </body>
 </html>
