@@ -211,3 +211,111 @@ body.recog-pages {
   font-size: 20px;
   font-weight: bold;
 }
+
+
+/* Israel's code */
+#reviewscontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+main h2{
+    color: white;
+    font-size: 50px;
+    padding-left: 13px;
+    padding-top: 25px;
+}
+
+.reviewbox {
+  width: 800px;
+  height: 250px;
+  perspective: 1000px;
+  margin-bottom: 1.5rem;
+}
+
+.card-face:hover{
+    background: rgb(217, 217, 217);
+}
+
+.reviewbox h3{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.reviewbox h5{
+    color: grey;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.75s;
+}
+
+.card-front {
+  transform: rotateX(0deg);
+}
+
+.card-back {
+  transform: rotateX(180deg);
+  overflow-y: auto; /* added just incase the text in contents is really long */
+}
+
+.front-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.front-info .review-date{
+    margin-top: 140px;
+}
+
+.back-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-info .review-date{
+    padding-top: 90px;
+}
+
+.review-contents{
+    font-size: 25px;
+}
+
+.reviewbox.flipped .card-front {
+  transform: rotateX(-180deg);
+}
+
+.reviewbox.flipped .card-back {
+  transform: rotateX(0deg);
+}
+
+.skills-area {
+  margin-top: 0.75rem;
+}
+
+.skill {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.skill p{
+    font-size: 20px;
+}
+
+.skill .score{
+    margin-left: 10px;
+}
