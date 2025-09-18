@@ -14,7 +14,7 @@ class User {
 
     static async getAllNames() {
         try {
-            const response = await db.query("select firstname, username from users;");
+            const response = await db.query("select userid, firstname, username from users;");
 
             const result = response.rows.map(u => new User(u))
 

@@ -1,7 +1,8 @@
 const db = require('../db/connect')
 
 class Reviews {
-    constructor({ reviewid, userid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills}) {
+    constructor({ userid, reviewid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills}) {
+        this.userid = userid;
         this.reviewid = reviewid
         this.userid = userid
         this.reviewtitle = reviewtitle
