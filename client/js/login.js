@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector(".login_form");
 
+  // Pop up message to notify user
   function showPopup(message, isError = false) {
     const popup = document.getElementById("popup");
     popup.textContent = message;
