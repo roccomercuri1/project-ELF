@@ -1,0 +1,22 @@
+version: '3.9'  
+services: 
+  elf-mvc: 
+    image: maxshen01/elf-mvc:0.0.1.RELEASE 
+    ports:
+      - "3000:3000"  
+    restart: always
+    depends_on:  
+      - elf-db
+    networks:    
+      - elf-network
+  
+  elf-db:
+    image: maxshen01/elf-db:0.0.1.RELEASE
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - elf-network
+
+networks: 
+  elf-network:

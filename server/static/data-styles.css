@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* font-family:  */
+    background: white;
+    padding: 20px;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0 40px 0;
+    font-size: 40px;
+}
+
+
+.chart-container {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    height: 400px;
+}

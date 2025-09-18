@@ -25,13 +25,13 @@ skillRating.addEventListener('input', () => {
   ratingValue.textContent = skillRating.value;
 });
 
-// add skill to list + hidden input for FormData
+// adding skill to list + hidden input for FormData
 addSkillBtn.addEventListener('click', () => {
   const skill = skillSelect.value;
   const rating = skillRating.value;
   if (!skill) return;
 
-  // create list item for UI
+  // created list item for UI
   const li = document.createElement('li');
   li.className =
     'list-group-item d-flex justify-content-between align-items-center';
@@ -40,22 +40,23 @@ addSkillBtn.addEventListener('click', () => {
   // create hidden input so FormData sees it on submit
   const hidden = document.createElement('input');
   hidden.type = 'hidden';
-  hidden.name = 'skills[]'; // use array syntax to collect multiple skills
+  hidden.name = 'skills[]'; // using array syntax to collect multiple skills
   hidden.value = JSON.stringify({ skill, rating }); // or `${skill}:${rating}`
   li.appendChild(hidden);
 
-  // add remove button
+  // added the remove button
   const removeBtn = document.createElement('button');
   removeBtn.textContent = 'Remove';
   removeBtn.className = 'btn btn-sm btn-danger ms-2';
   removeBtn.onclick = () => {
-    // put the option back in dropdown
+    // putting the option back in dropdown
     const opt = document.createElement('option');
     opt.value = skill;
     opt.textContent = skill;
     const insertIndex = allSkills.indexOf(skill);
     const currentOptions = Array.from(skillSelect.options);
     let inserted = false;
+    // checking if the option is inside the dropdown bar, if not it puts the option back
     for (let i = 0; i < currentOptions.length; i++) {
       const idx = allSkills.indexOf(currentOptions[i].value);
       if (idx > insertIndex) {
@@ -74,29 +75,82 @@ addSkillBtn.addEventListener('click', () => {
 
   skillsList.appendChild(li);
 
-  // remove selected skill from dropdown
+  // removing selected skill from dropdown bar
   skillSelect.querySelector(
     `option[value="${CSS.escape(skill)}"]`
   )?.remove();
 
-  // reset dropdown & slider
+  // reset dropdown & slider to default at 3
   skillSelect.value = '';
   ratingContainer.style.display = 'none';
-  skillRating.value = 0;
-  ratingValue.textContent = 0;
+  skillRating.value = 3;
+  ratingValue.textContent = 3;
 });
 
-// handle form submit
-form.addEventListener('submit', (e) => {
+// handling the form submission
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
 
   delete data['skills[]'];
-  // if you used skills[], you can get them as an array:
+  // if using skills[], we can get them as an array using .map
   const skills = formData.getAll('skills[]').map(s => JSON.parse(s));
-  console.log({
+  const reviewData = ({
     ...data,
     skills
   });
+
+   console.log('Sending the entire reiew:', reviewData);
+
+  try {
+    // Connecting the the specific route
+    const res = await fetch('http://localhost:3000/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reviewData)
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(errText);
+    }
+
+    const json = await res.json();
+    console.log('Server response:', json);
+    alert('Review submitted!');
+    window.location.href = './homepage.html'
+    form.reset();
+    skillsList.innerHTML = ''; // clear skills UI
+  } catch (err) {
+    console.error('Error submitting review:', err);
+    alert('Failed to submit review');
+  }
 });
+
+// Selecting users from User database and adding them as the only options to leave a review for
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const selectEmp = document.querySelector('select[name="employee"]')
+
+  // Clears any hardcoded options added except the placeholders
+  selectEmp.innerHTML = '<option value="" selected disabled>Select employee</option>'
+
+  try {
+    // Fetch from our  local API, giving us the users array
+    const res = await fetch('http://localhost:3000/user')
+    const users = await res.json()
+
+    // Loop over each user and create an new <option>
+    users.forEach(user => {
+      const option = document.createElement('option')
+      option.value = user.username       // value in form submission
+      option.textContent = user.firstname // what’s displayed
+      selectEmp.appendChild(option)
+    })
+  } catch (err) {
+    console.error('Error fetching users:', err)
+  }
+})
