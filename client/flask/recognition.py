@@ -1,21 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import plotly.graph_objs as go
-from db.data import users, skill_num, skill_av
+from data import users, skill_num, skill_av
+import os
 
-app = Flask(__name__)
+template_dir = os.path.join(os.path.dirname(__file__), '../pages')  
+static_dir = os.path.join(os.path.dirname(__file__), '../')        
 
-@app.route('/')
-def index():
-    return render_template('index.html', users=users)
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
-@app.route('/user/<username>')
-def user_statistics(username):
+
+@app.route('/datapage')
+def datapage():
+
+    username = request.args.get("username")
+    print([u['username'] for u in users])
     user = next((u for u in users if u["username"] == username), None)
-    if not user:
-        return f"User {username} not found."
-    
+
     num = skill_num.get(username, {})
     averages = skill_av.get(username, {})
+
     
     used_skills_num = {k: v for k, v in num.items() if v > 0}
     used_skills_av = {k: v for k, v in averages.items() if v > 0}
@@ -44,7 +47,7 @@ def user_statistics(username):
     )
     bar_chart = bar_fig.to_html(full_html=False, include_plotlyjs='cdn')
 
-    return render_template('data.html', 
+    return render_template('dataPage.html', 
         pie_chart=pie_chart, 
         bar_chart=bar_chart,
         user=user,

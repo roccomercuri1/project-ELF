@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data</title>
+    <title>Statistics</title>
     <!-- CSS -->
     <link rel="stylesheet" href="../styles/style.css" />
     <!-- Bootstrap -->
@@ -15,6 +15,9 @@
     />
   </head>
   <body>
+
+    <script src="../js/dataPage.js"></script>
+
     <!-- <h1 class="key-skills text-center">Key Programming Skills Used</h1> -->
     <nav class="navbar">
       <!-- Left-side link -->
@@ -37,7 +40,7 @@
       </div>
 
       <!-- Center logo -->
-      <h3 class="title">Key Programming Skills Used</h3>
+      <h3 class="title">{{ user.firstname }}'s Reviews</h3>
 
       <!-- Right-side link -->
       <!-- User Dropdown Menu -->
@@ -75,5 +78,16 @@
         </ul>
       </div>
     </nav>
+
+    <div class="chart">
+        <h2>Skill Usage</h2>
+        {{ pie_chart|safe }}
+    </div>
+    
+    <div class="chart">
+        <h2>Average Skill Scores</h2>
+        {{ bar_chart|safe }}
+    </div>
+
   </body>
 </html>
