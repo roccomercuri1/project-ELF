@@ -20,6 +20,11 @@ body.recog-pages {
   align-items: center;
 }
 
+header h3{
+  font-weight: bold;
+  color: #8F1687;
+}
+
 
 /* ===== Top Bar / Navbar-like header ===== */
 .top-bar {
@@ -30,12 +35,32 @@ body.recog-pages {
   padding: 1rem 2rem;
   background: #e0e0e0;
   position: relative;
-  margin-bottom: 200px;
+  margin-bottom: 0px;
+}
+
+.top-bar a{
+  color: #8F1687;
+}
+
+.top-bar #dropdownUsername{
+  color: #8F1687;
 }
 
 .home-icon {
   font-size: 2rem;
   cursor: pointer;
+}
+
+.home-icon a{
+  color: #8F1687;
+}
+
+.navbar-right #dropdownUsername{
+  color: #8F1687;
+}
+
+.container{
+  padding-top: 200px;
 }
 
 /* Keep the username text consistent next to the icon */
