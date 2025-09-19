@@ -62,6 +62,7 @@ async function login(req, res) {
           token: token,
           userid: user.userid,
           isadmin: user.isadmin,
+          firstname: user.firstname
         });
       };
 
@@ -79,6 +80,19 @@ async function login(req, res) {
   }
 }
 
+async function checkPassword(req, res) {
+  try {
+    const data = req.body
+    const user = await User.getOneByUsername(data.username)
+
+    const match = await bcrypt.compare(data.userpassword, user.userpassword);
+
+    res.status(200).json(match)
+  } catch(err) {
+    res.status(400).json({ error: err.message})
+  }
+}
+
 async function update(req, res) {
   try {
     const id = req.params.id;
@@ -91,4 +105,11 @@ async function update(req, res) {
   }
 }
 
-module.exports = { index, register, login, update, show };
+module.exports = { 
+  index, 
+  register, 
+  login, 
+  update, 
+  show,
+  checkPassword 
+};

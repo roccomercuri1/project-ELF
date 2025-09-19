@@ -6,6 +6,7 @@ const authenticator = require("../middleware/authenticator")
 const userRouter = Router ()
 
 userRouter.get('/', userController.index)
+userRouter.get('/checkPassword', userController.checkPassword)
 userRouter.post('/register', userController.register)
 userRouter.post('/login', userController.login)
 userRouter.patch('/:id', userController.update)
