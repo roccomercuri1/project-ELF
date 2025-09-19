@@ -10,6 +10,11 @@
     "test:models": "jest -i ./server/__tests__/unit/models --watchAll",
     "test:html": "jest -i ./client/frontendtests/__tests__ --watchAll",
     "test:home": "jest -i ./client/frontendtests/__tests__/homepage --watchAll",
+    "test:reg": "jest -i ./client/frontendtests/__tests__/register --watchAll",
+    "test:log": "jest -i ./client/frontendtests/__tests__/login --watchAll",
+    "test:leave": "jest -i ./client/frontendtests/__tests__/leaveReview --watchAll",
+
+
     "coverage": "jest --coverage"
   },
   "repository": {
