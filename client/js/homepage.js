@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "./login.html";
         return;
       }
-      // Redirect to Flask app with userid parameter
       window.location.href = `http://127.0.0.1:3001/datapage?userid=${userid}`;
     });
   }

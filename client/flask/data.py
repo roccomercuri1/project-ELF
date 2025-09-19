@@ -5,8 +5,15 @@ skills = [
     {"id": 2, "name": "Java"},
     {"id": 3, "name": "JavaScript"},
     {"id": 4, "name": "Teamwork"},
-    {"id": 5, "name": "Communication"}
+    {"id": 5, "name": "Communication"},
+    {"id": 6, "name": "HTML/CSS"},
+    {"id": 7, "name": "Terraform"},
+    {"id": 8, "name": "Ansible"},
+    {"id": 9, "name": "AWS"},
+    {"id": 10, "name": "Communication"},
+    {"id": 11, "name": "Initiative"}
 ]
+
 
 
 users_url = "http://localhost:3000/user"
@@ -21,14 +28,16 @@ skill_tot = {}
 skill_av = {}
 
 for user in users:
-    uid = user["userid"]  
+    uid = user.get("userid")
+    if uid is None:
+        continue  
     skill_num[uid] = {skill["name"]: 0 for skill in skills}
     skill_tot[uid] = {skill["name"]: 0 for skill in skills}
     skill_av[uid] = {skill["name"]: 0 for skill in skills}
 
 for review in reviews:
     user_id = review.get("userid")  
-    if not user_id:
+    if user_id is None or user_id not in skill_num:
         continue 
 
     for skill_name, score in review.get("skills", {}).items():
