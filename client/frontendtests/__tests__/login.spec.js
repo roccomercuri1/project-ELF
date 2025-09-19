@@ -9,39 +9,34 @@ describe('Login Page', () => {
     document = await dom.window.document;
   });
   
-  it('has a button', () => {
-    const btn = document.querySelector('button')
-    expect(btn).toBeTruthy
-    expect(btn.innerHTML).toBe("Log In")
-  })
-
-
-  it('Sign Up button links to Sign Up page', () => {
-    const btn = document.querySelector('#signup');
+  it('has a login button', () => {
+    const btn = document.querySelector('button');
     expect(btn).toBeTruthy();
-    btn.click();
-    expect(btn.getAttribute('href')).toBe('signup.html');
+    expect(btn.innerHTML).toBe("Log In");
   });
 
-  
-//   it('Forgot password exists', () => {
-//     const forgot = document.querySelector('h3');
-//     expect(forgot).toBeTruthy();
-//     expect(forgot.textContent).toContain('Forgot password');
-//   });
+  it('Sign Up link exists and links to register page', () => {
+    const signupLink = document.querySelector('#signup');
+    expect(signupLink).toBeTruthy();
+    expect(signupLink.getAttribute('href')).toBe('register.html');
+  });
 
-  
+  it('Forgot password exists', () => {
+    const forgot = document.querySelector('h3');
+    expect(forgot).toBeTruthy();
+    expect(forgot.textContent).toBe('Forgot password?');
+  });
+
   it('Can type in username and password inputs', () => {
     const usernameInput = document.querySelector('#loginUsername');
     const passwordInput = document.querySelector('#loginPassword');
-
-    usernameInput.value = 'testuser';
+    
+    usernameInput.value = 'yuki';
     passwordInput.value = 'password123';
 
-    expect(usernameInput.value).toBe('testuser');
+    expect(usernameInput.value).toBe('yuki');
     expect(passwordInput.value).toBe('password123');
   });
-
 
   it('Form can be submitted', () => {
     const form = document.querySelector('.login_form');
@@ -51,13 +46,24 @@ describe('Login Page', () => {
     usernameInput.value = 'user';
     passwordInput.value = 'pass';
 
-    //spy for submit
+    // Spy for submit
     const spy = jest.fn();
     form.addEventListener('submit', spy);
 
-    // Simulating theform submission
+    // Simulating the form submission
     form.dispatchEvent(new dom.window.Event('submit'));
     
     expect(spy).toHaveBeenCalled();
+  });
+
+ it('Can type in username and password inputs', () => {
+    const usernameInput = document.querySelector('#loginUsername');
+    const passwordInput = document.querySelector('#loginPassword');
+
+    usernameInput.value = 'testuser';
+    passwordInput.value = 'password123';
+
+    expect(usernameInput.value).toBe('testuser');
+    expect(passwordInput.value).toBe('password123');
   });
 });
