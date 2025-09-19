@@ -8,11 +8,6 @@ describe('Sign Up Page', () => {
     dom = await renderDOM('./client/pages/register.html');
     document = await dom.window.document;
   });
-//Only click signup button when signed up 
-//type in form
-//email part of the form requires @ and stuff after 
-//notnull
-//name no numbers 
 
   it('has a button', () => {
     const btn = document.querySelector('button')
@@ -25,17 +20,17 @@ describe('Sign Up Page', () => {
     const btn = document.querySelector('#login');
     expect(btn).toBeTruthy();
     btn.click();
-    expect(btn.getAttribute('href')).toBe('index.html');
+    expect(btn.getAttribute('href')).toBe('login.html');
   });
 
 
   it('Only allows sign up button to be clicked when all fields are valid', () => {
     const form = document.querySelector('.signup_form');
     const signupBtn = form.querySelector('button[type="submit"]');
-    const nameInput = form.querySelector('input[name="name"]');
+    const nameInput = form.querySelector('input[name="firstname"]');
     const emailInput = form.querySelector('input[name="email"]');
     const usernameInput = form.querySelector('input[name="username"]');
-    const passwordInput = form.querySelector('input[name="password"]');
+    const passwordInput = form.querySelector('input[name="userpassword"]');
 
     // Initially empty, button should be disabled
     signupBtn.disabled = !nameInput.value || !emailInput.value || !usernameInput.value || !passwordInput.value;
@@ -52,10 +47,10 @@ describe('Sign Up Page', () => {
   });
 
   it('Able to type in form fields', () => {
-    const nameInput = document.querySelector('input[name="name"]');
+    const nameInput = document.querySelector('input[name="firstname"]');
     const emailInput = document.querySelector('input[name="email"]');
     const usernameInput = document.querySelector('input[name="username"]');
-    const passwordInput = document.querySelector('input[name="password"]');
+    const passwordInput = document.querySelector('input[name="userpassword"]');
 
     nameInput.value = 'Israel';
     emailInput.value = 'test@example.com';
@@ -85,10 +80,10 @@ describe('Sign Up Page', () => {
   });
 
   it('Name field cannot contain numbers', () => {
-    const nameInput = document.querySelector('input[name="name"]');
+    const nameInput = document.querySelector('input[name="firstname"]');
     const signupBtn = document.querySelector('button[type="submit"]');
 
-    nameInput.value = 'Israel';
+    nameInput.value = 'Israel123';
     signupBtn.disabled = /\d/.test(nameInput.value); // disable if contains number
     expect(signupBtn.disabled).toBe(true);
 

@@ -13,7 +13,7 @@ const renderDOM = async (filename) => {
   const dom = await JSDOM.fromFile(filePath, {
     runScripts: 'dangerously',
     resources: 'usable',
-      url: 'http://127.0.0.1:5500/project-ELF/client/pages/homepage.html'  // gives jsdom a valid origin so localStorage works
+      url: 'http://127.0.0.1:5500/project-ELF/client/pages/'  // gives jsdom a valid origin so localStorage works
 
   });
 
