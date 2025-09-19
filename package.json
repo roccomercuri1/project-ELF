@@ -8,6 +8,8 @@
     "dev": "nodemon ./server/index.js",
     "test:backendControllers": "jest -i ./server/__tests__/unit/controllers --watchAll",
     "test:models": "jest -i ./server/__tests__/unit/models --watchAll",
+    "test:html": "jest -i ./client/frontendtests/__tests__ --watchAll",
+    "test:home": "jest -i ./client/frontendtests/__tests__/homepage --watchAll",
     "coverage": "jest --coverage"
   },
   "repository": {
@@ -34,5 +36,10 @@
     "jsdom": "^27.0.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "client/frontendtests/__tests__/util/helpers.js"
+    ]
   }
 }
