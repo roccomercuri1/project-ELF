@@ -14,7 +14,7 @@ class User {
 
     static async getAllNames() {
         try {
-            const response = await db.query("select userid, firstname, username from users;");
+            const response = await db.query("SELECT userid, firstname, username, email, isadmin FROM users;");
 
             const result = response.rows.map(u => new User(u))
 
@@ -26,7 +26,7 @@ class User {
     }
 
   static async getOneById(id) {
-    const response = await db.query("SELECT * FROM users WHERE userid = $1;", [
+    const response = await db.query("SELECT userid, firstname, username, email, isadmin FROM users WHERE userid = $1;", [
       id,
     ]);
     if (response.rows.length != 1) {
