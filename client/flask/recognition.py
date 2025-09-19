@@ -28,7 +28,7 @@ def datapage():
     if not num or not averages:
         return "No skill data found for this user", 404
 
-    # essentially creates 2 dicts which assigns each k = key (skill name) with a v = value only if v>0, for their av and num
+    # creates 2 dicts which assigns each k = key (skill name) with a v = value only if v>0, for their av and num
     
     used_skills_num = {}
     for k, v in num.items():
