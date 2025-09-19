@@ -364,6 +364,11 @@ body.datapage #dropdownUsername {
   background: none; 
 }
 
+.data-page-h1 {
+  color: white;
+  font-weight: bold;
+}
+
 /* Cards (charts) */
 body.datapage .card {
   background-color: #fff; 
