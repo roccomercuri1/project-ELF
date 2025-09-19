@@ -46,3 +46,13 @@ async function register_event(e) {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const redirectLogin = document.getElementById("redirectLogin");
+
+  if (redirectLogin) {
+    redirectLogin.addEventListener("click", () => {
+      window.location.assign("login.html");
+    });
+  }
+});

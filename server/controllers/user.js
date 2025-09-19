@@ -62,6 +62,7 @@ async function login(req, res) {
           token: token,
           userid: user.userid,
           isadmin: user.isadmin,
+          firstname: user.firstname
         });
       };
 
