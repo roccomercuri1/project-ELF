@@ -4,8 +4,9 @@ from data import users, skill_num, skill_av
 import os
 
 template_dir = os.path.join(os.path.dirname(__file__), '../pages')
-static_dir = os.path.join(os.path.dirname(__file__), '../')
+static_dir = os.path.join(os.path.dirname(__file__), '../static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+
 
 @app.route('/datapage')
 def datapage():
