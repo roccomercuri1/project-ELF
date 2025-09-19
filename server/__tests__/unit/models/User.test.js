@@ -20,7 +20,7 @@ describe("User", () => {
         expect(result[0].firstname).toBe('Alice')
         expect(result[1].username).toBe('bob')
         expect(db.query).toHaveBeenCalledWith(
-            "select firstname, username from users;"
+            "SELECT userid, firstname, username, email, isadmin FROM users;"
         )
     })
 
@@ -50,7 +50,7 @@ describe("User", () => {
       expect(result.userid).toBe(1)
       expect(result).toEqual(new User(testUser))
       expect(db.query).toHaveBeenCalledWith(
-        "SELECT * FROM users WHERE userid = $1;",
+        "SELECT userid, firstname, username, email, isadmin FROM users WHERE userid = $1;",
         [1]
       )
     })
