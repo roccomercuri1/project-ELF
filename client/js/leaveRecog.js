@@ -6,6 +6,18 @@ const ratingValue = document.getElementById("ratingValue");
 const addSkillBtn = document.getElementById("addSkillBtn");
 const skillsList = document.getElementById("skillsList");
 
+// Popup for when review was successfully submitted
+function showPopup(message, isError = false) {
+    const popup = document.getElementById("popup");
+    popup.textContent = message;
+
+    popup.className = "popup " + (isError ? "error" : "success") + " show";
+
+    setTimeout(() => {
+      popup.className = "popup";
+    }, 3000);
+  }
+
 // keep array of original skill names
 const allSkills = Array.from(skillSelect.options)
   .map((opt) => opt.value)
@@ -120,14 +132,17 @@ form.addEventListener("submit", async (e) => {
 
     const json = await res.json();
     console.log("Server response:", json);
-    alert("Review submitted!");
-    window.location.href = "./homepage.html";
+    if(res.ok){
+    showPopup("Successfully Submitted Review!");
+    setTimeout(() => window.location.assign("homepage.html"), 1500);
+    }
     form.reset();
     skillsList.innerHTML = ""; // clear skills UI
   } catch (err) {
     console.error("Error submitting review:", err);
-    alert("Failed to submit review");
+    showPopup(err.message || "Failed to submit", true);
   }
+  
 });
 
 // Selecting users from User database and adding them as the only options to leave a review for
