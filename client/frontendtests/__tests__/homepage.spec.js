@@ -6,7 +6,7 @@ let document;
 describe('homepage.html', () => {
 
   beforeEach(async () => {
-    dom = await renderDOM('../project-ELF/client/pages/homepage.html');
+    dom = await renderDOM('./client/pages/homepage.html');
     document = await dom.window.document;
   });
 

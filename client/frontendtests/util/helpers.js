@@ -1,29 +1,40 @@
-//The Path module provides a way of working with directories and file paths.
-const path = require('path')
+// util/helpers.js
+const path = require('path');
 const jsdom = require('jsdom');
-//To use jsdom, you will primarily use the JSDOM constructor, which is a named export of the jsdom main module.
 const { JSDOM } = jsdom;
 
 const renderDOM = async (filename) => {
-  //The process.cwd() method is an inbuilt application programming interface of the process module which is used to get the current working directory of the node.js process.
   const filePath = path.join(process.cwd(), filename);
-  //Similar to fromURL(), jsdom also provides a fromFile() factory method for constructing a jsdom from a filename
-  // To enable executing scripts inside the page, you can use the runScripts: "dangerously" option
-  //If you want to execute external scripts, included via <script src="">, you'll also need to ensure that they load them. To do this, add the option resources: "usable" as described below. (You'll likely also want to set the url option, for the reasons discussed there.)
+
+  const virtualConsole = new jsdom.VirtualConsole();
+  // comment out next line if you want to see jsdom resource errors
+  virtualConsole.on('error', () => {}); 
+
   const dom = await JSDOM.fromFile(filePath, {
     runScripts: 'dangerously',
     resources: 'usable',
-      url: 'http://127.0.0.1:5500/project-ELF/client/pages/homepage.html'  // gives jsdom a valid origin so localStorage works
-
+    virtualConsole,
+    beforeParse(window) {
+      // Simple in-memory localStorage shim so app code works in tests
+      const store = {};
+      window.localStorage = {
+        getItem: (k) => (Object.prototype.hasOwnProperty.call(store, k) ? store[k] : null),
+        setItem: (k, v) => { store[k] = String(v); },
+        removeItem: (k) => { delete store[k]; },
+        clear: () => { for (const key of Object.keys(store)) delete store[key]; },
+        key: (i) => Object.keys(store)[i] || null,
+        get length() { return Object.keys(store).length; }
+      };
+    }
   });
 
-  return new Promise((resolve, _) => {
-    // When using the JSDOM constructor, you will get back a JSDOM object, which has a number of useful properties, notably window and document to use below
-    // We're basically are saying: 
-    // We wait for the DOM content to have loaded and then we can resolve the promise
-    dom.window.document.addEventListener('DOMContentLoaded', () => {
-      resolve(dom);
-    });
+  // Wait for DOM + (most) external resources to be ready
+  return new Promise((resolve) => {
+    const done = () => resolve(dom);
+    // If your tests rely on scripts that attach on DOMContentLoaded, this is enough:
+    dom.window.document.addEventListener('DOMContentLoaded', done, { once: true });
+    // If you ever need to wait for all external scripts/images, use 'load' instead:
+    // dom.window.addEventListener('load', done, { once: true });
   });
 };
 
