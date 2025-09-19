@@ -5,12 +5,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const username = localStorage.getItem("username");
+  const firstname = localStorage.getItem("firstname");
+  const welcomeUser = document.getElementById("welcomeUser");
+  if (username && welcomeUser) {
+    welcomeUser.textContent = `Welcome ${firstname}`;
+  }
+
+  
   const nameSpan = document.getElementById("dropdownUsername");
   if (nameSpan && username) nameSpan.textContent = username;
 
   const isManager = localStorage.getItem("isadmin") === "true";
   if (!isManager) {
-    document.querySelectorAll('[user-role="manager-only"]').forEach(el => el.remove());
+    document
+      .querySelectorAll('[user-role="manager-only"]')
+      .forEach((el) => el.remove());
   }
 
   const dataPageLink = document.getElementById("dataPageLink");
