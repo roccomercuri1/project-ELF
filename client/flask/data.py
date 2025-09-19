@@ -21,14 +21,16 @@ skill_tot = {}
 skill_av = {}
 
 for user in users:
-    uid = user["userid"]  
+    uid = user.get("userid")
+    if uid is None:
+        continue  
     skill_num[uid] = {skill["name"]: 0 for skill in skills}
     skill_tot[uid] = {skill["name"]: 0 for skill in skills}
     skill_av[uid] = {skill["name"]: 0 for skill in skills}
 
 for review in reviews:
     user_id = review.get("userid")  
-    if not user_id:
+    if user_id is None or user_id not in skill_num:
         continue 
 
     for skill_name, score in review.get("skills", {}).items():
