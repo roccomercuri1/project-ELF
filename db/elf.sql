@@ -54,7 +54,8 @@ INSERT INTO skills (skillname) VALUES
 ('Terraform'),
 ('Ansible'),
 ('AWS'),
-('Leadership');
+('Leadership'),
+('Initiative');
 
 -- Insert Reviews
 INSERT INTO reviews (userid, reviewtitle, reviewcontents, reviewtype) VALUES

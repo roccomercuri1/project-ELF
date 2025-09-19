@@ -94,9 +94,11 @@ form.addEventListener("submit", async (e) => {
   delete data["skills[]"];
   // if using skills[], we can get them as an array using .map
   const skills = formData.getAll("skills[]").map((s) => JSON.parse(s));
+  console.log(skills)
+  console.log(data)
   const reviewData = {
     ...data,
-    skills,
+    skills
   };
 
   console.log("Sending the entire reiew:", reviewData);
