@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/index.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <header>
+      <a href="register.html" id="signup">
+        <i class="fa-solid fa-user"></i>
+        <p id="signup_p">Sign Up</p>
+      </a>
+    </header>
+    <main>
+      <section class="login">
+        <h1>Login</h1>
+        <form action="" class="login_form" autocomplete="off">
+          <label for="loginUsername" id="loginLabel">Username</label><br />
+          <input
+            type="text"
+            id="loginUsername"
+            name="username"
+            placeholder="Enter Username"
+            required
+            autocomplete="off"
+          /><br />
+          <label for="loginPassword" id="loginLabel">Password</label><br />
+          <input
+            type="password"
+            id="loginPassword"
+            name="userpassword"
+            placeholder="Enter Password"
+            required
+            autocomplete="off"
+          /><br /><br />
+          <button type="submit">Log In</button>
+        </form>
+        <br />
+        <h3>Forgot password?</h3>
+      </section>
+      <br />
+    </main>
+    <script
+      src="https://kit.fontawesome.com/3b9c76ecc4.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../static/js/login.js"></script>
+    <div id="popup" class="popup"></div>
+  </body>
+</html>

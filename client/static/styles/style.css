@@ -1,0 +1,386 @@
+/* ===== Reset & Base ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Corbel, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom right, #8F1687, #8F1687);
+  min-height: 100vh;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+body.recog-pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h3{
+  font-weight: bold;
+  color: #8F1687;
+}
+
+
+/* ===== Top Bar / Navbar-like header ===== */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #e0e0e0;
+  position: relative;
+  margin-bottom: 0px;
+}
+
+.top-bar a{
+  color: #8F1687;
+}
+
+.top-bar #dropdownUsername{
+  color: #8F1687;
+}
+
+.home-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.home-icon a{
+  color: #8F1687;
+}
+
+.navbar-right #dropdownUsername{
+  color: #8F1687;
+}
+
+.container{
+  padding-top: 200px;
+}
+
+/* Keep the username text consistent next to the icon */
+#userDropdown svg { 
+  vertical-align: middle;
+}
+.nav-username,
+#dropdownUsername {
+  font: inherit;
+  line-height: 1;
+  color: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+}
+
+/* ===== Main Content Cards (Options) ===== */
+.quiz-container {
+  background-color: #f9f9f9;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.option-card {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.option-card:hover {
+  background-color: #e6f7ff;
+  border-color: #007bff;
+  transform: translateY(-3px) scale(1.02);
+}
+
+.option-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.center-last-row {
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Popup (toast) ===== */
+.popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff4d4d;        /* default = error color */
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.popup.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -20px);
+}
+
+.popup.success {
+  background: #28a745;        /* green for success */
+}
+
+/* ===== Leave Recognition Specific ===== */
+.leave_recognition {
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 5px solid white;
+  border-radius: 15px;
+  margin-top: 100px;
+  padding: 30px 100px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
+}
+
+.top_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+#employee_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 30px;
+}
+
+#employee_section label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#employee_section select {
+  width: 230px;
+  height: 50px;
+}
+
+#employee_section select option {
+  text-align: center;
+  text-align-last: center;
+}
+
+#category_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#category_section label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#category_section select {
+  width: 230px;
+  height: 50px;
+}
+
+#category_section select option {
+  text-align: center;
+  text-align-last: center;
+}
+
+.mid_page {
+  display: flex;
+  flex-direction: column;
+}
+
+.mid_page label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.mid_page input {
+  margin-bottom: 25px;
+  width: 100%;
+  height: 40px;
+}
+
+.mid_page #recog_review {
+  height: 100px;
+  margin-bottom: 30px;
+}
+
+.skills_used {
+  padding-bottom: 30px;
+}
+
+.skills_used #skills_title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#submit_button {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* Israel's code */
+#reviewscontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+main h2{
+    color: white;
+    font-size: 50px;
+    padding-left: 13px;
+    padding-top: 25px;
+}
+
+.reviewbox {
+  width: 800px;
+  height: 250px;
+  perspective: 1000px;
+  margin-bottom: 1.5rem;
+}
+
+.card-face:hover{
+    background: rgb(217, 217, 217);
+}
+
+.reviewbox h3{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.reviewbox h5{
+    color: grey;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.75s;
+}
+
+.card-front {
+  transform: rotateX(0deg);
+}
+
+.card-back {
+  transform: rotateX(180deg);
+  overflow-y: auto; /* added just incase the text in contents is really long */
+}
+
+.front-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.front-info .review-date{
+    margin-top: 140px;
+}
+
+.back-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-info .review-date{
+    padding-top: 90px;
+}
+
+.review-contents{
+    font-size: 25px;
+}
+
+.reviewbox.flipped .card-front {
+  transform: rotateX(-180deg);
+}
+
+.reviewbox.flipped .card-back {
+  transform: rotateX(0deg);
+}
+
+.skills-area {
+  margin-top: 0.75rem;
+}
+
+.skill {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.skill p{
+    font-size: 20px;
+}
+
+.skill .score{
+    margin-left: 10px;
+}
+
+
+/* ===== Datapage Specific Styles ===== */
+body.datapage {
+  background: linear-gradient(to bottom right, #8F1687, #8F1687); 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar text / links */
+body.datapage .top-bar,
+body.datapage .top-bar a,
+body.datapage .top-bar h3,
+body.datapage .home-icon a,
+body.datapage #dropdownUsername {
+  color: #8F1687;
+  background: none; 
+}
+
+.data-page-h1 {
+  color: white;
+  font-weight: bold;
+}
+
+/* Cards (charts) */
+body.datapage .card {
+  background-color: #fff; 
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Chart containers inside cards */
+body.datapage #pie-chart,
+body.datapage #bar-chart {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+}
