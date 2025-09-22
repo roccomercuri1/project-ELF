@@ -286,6 +286,7 @@ main h2{
   flex-direction: column;
   justify-content: flex-start;
   transition: transform 0.75s;
+  overflow-y: hidden;
 }
 
 .card-front {
@@ -294,6 +295,9 @@ main h2{
 
 .card-back {
   transform: rotateX(180deg);
+  white-space: normal;     /* Allow text wrapping */
+  overflow-wrap: break-word; /* Break long words if needed */
+  word-wrap: break-word;
   overflow-y: auto; /* added just incase the text in contents is really long */
 }
 
@@ -328,12 +332,15 @@ main h2{
 }
 
 .skills-area {
-  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
 }
 
 .skill {
   display: flex;
   justify-content: space-between;
+  margin-left: 20px;
   font-size: 0.9rem;
 }
 
@@ -343,4 +350,44 @@ main h2{
 
 .skill .score{
     margin-left: 10px;
+}
+
+
+/* ===== Datapage Specific Styles ===== */
+body.datapage {
+  background: linear-gradient(to bottom right, #8F1687, #8F1687); 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar text / links */
+body.datapage .top-bar,
+body.datapage .top-bar a,
+body.datapage .top-bar h3,
+body.datapage .home-icon a,
+body.datapage #dropdownUsername {
+  color: #8F1687;
+  background: none; 
+}
+
+.data-page-h1 {
+  color: white;
+  font-weight: bold;
+}
+
+/* Cards (charts) */
+body.datapage .card {
+  background-color: #fff; 
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Chart containers inside cards */
+body.datapage #pie-chart,
+body.datapage #bar-chart {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
 }
