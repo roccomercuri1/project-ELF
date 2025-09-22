@@ -93,7 +93,8 @@ button {
 }
 
 button:hover {
-  background-color: #82b74b;
+  background-color: #8F1687;
+  border: 5px solid #eeeeee;
   color: white;
   transition-duration: 0.4s;
   cursor: pointer;
