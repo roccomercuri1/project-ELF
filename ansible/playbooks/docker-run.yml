@@ -1,0 +1,23 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Copy docker-compose.yml
+      copy:
+        src: ../../docker-compose.yml
+        dest: /home/ec2-user/docker-compose.yml
+    - name: Pull docker image of database
+      community.docker.docker_image:
+        name: maxshen01/elf-db:0.0.1.RELEASE
+        source: pull
+    - name: Pull docker image of mvc
+      community.docker.docker_image:
+        name: maxshen01/elf-mvc:0.0.1.RELEASE
+        source: pull
+    - name: Make sure no containers are running
+      shell: docker-compose down
+      args:
+        chdir: /home/ec2-user/
+    - name: Run the docker compose
+      shell: docker-compose up -d
+      args:
+        chdir: /home/ec2-user/
