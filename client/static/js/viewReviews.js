@@ -49,7 +49,12 @@ async function getReviews() {
 
       const frontCard = document.createElement("div");
       frontCard.className = "card-face card-front";
-      frontCard.innerHTML = `<h3> ${review.reviewtitle}</h3>
+      frontCard.innerHTML = `<div class="review-tops"> <h3> ${review.reviewtitle}</h3>
+            <div class="topper">
+            <p><strong>For:</strong> ${review.username}</p>
+            <p><strong>Type:</strong> ${review.reviewtype}</p>
+            </div>
+            </div>
             <div class="front-info">
             <h5>Click to see more information↧</h5>
             <p class="review-date">${new Date(
@@ -60,7 +65,12 @@ async function getReviews() {
 
       const backCard = document.createElement("div");
       backCard.className = "card-face card-back";
-      backCard.innerHTML = `<h3>${review.reviewtitle}</h3>
+      backCard.innerHTML = `<div class="review-tops"> <h3> ${review.reviewtitle}</h3>
+            <div class="topper">
+            <p><strong>For:</strong> ${review.username}</p>
+            <p><strong>Type:</strong> ${review.reviewtype}</p>
+            </div>
+            </div>
             <p class="review-contents">${review.reviewcontents}</p>
             <div class="back-info">
             <div class="skills-area">${skillsHTML}</div>
