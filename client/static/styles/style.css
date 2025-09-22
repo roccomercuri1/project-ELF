@@ -286,6 +286,7 @@ main h2{
   flex-direction: column;
   justify-content: flex-start;
   transition: transform 0.75s;
+  overflow-y: hidden;
 }
 
 .card-front {
@@ -294,6 +295,9 @@ main h2{
 
 .card-back {
   transform: rotateX(180deg);
+  white-space: normal;     /* Allow text wrapping */
+  overflow-wrap: break-word; /* Break long words if needed */
+  word-wrap: break-word;
   overflow-y: auto; /* added just incase the text in contents is really long */
 }
 
@@ -328,12 +332,15 @@ main h2{
 }
 
 .skills-area {
-  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
 }
 
 .skill {
   display: flex;
   justify-content: space-between;
+  margin-left: 20px;
   font-size: 0.9rem;
 }
 
