@@ -26,7 +26,7 @@ async function show(req, res) {
 async function register(req, res) {
   try {
     const data = req.body;
-    const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+    const salt = await bcrypt.genSalt(parseInt("10"))
     data.userpassword = await bcrypt.hash(data.userpassword, salt);
     const result = await User.createUser(data);
     return res.status(201).json(result);
@@ -68,7 +68,7 @@ async function login(req, res) {
 
       jwt.sign(
         payload,
-        process.env.SECRET_TOKEN,
+       "ELF2025",
         { expiresIn: 3600 },
         sendToken
       );

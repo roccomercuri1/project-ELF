@@ -1,4 +1,7 @@
 import requests
+# config.py
+API_URL = "http://100.24.36.85"
+
 from collections import defaultdict
 
 skills = [
@@ -17,11 +20,11 @@ skills = [
 
 
 
-users_url = "http://localhost:3000/user"
+users_url = f"{API_URL}:3000/user"
 users = requests.get(users_url).json()
 
 
-reviews_url = "http://localhost:3000/reviews"
+reviews_url = f"{API_URL}:3000/reviews"
 reviews = requests.get(reviews_url).json()
 
 skill_num = {}
