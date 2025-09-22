@@ -273,6 +273,20 @@ main h2{
     color: grey;
 }
 
+.review-tops{
+  display: flex;
+  justify-content: space-between;
+}
+
+.topper{
+  display: flex;
+}
+
+.topper p{
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
 .card-face {
   position: absolute;
   width: 100%;

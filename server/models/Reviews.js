@@ -1,7 +1,7 @@
 const db = require('../db/connect')
 
 class Reviews {
-    constructor({ userid, reviewid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills}) {
+    constructor({ userid, reviewid, reviewtitle, reviewcontents, reviewtype, reviewdate, skills, review_user}) {
         this.userid = userid;
         this.reviewid = reviewid
         this.userid = userid
@@ -10,11 +10,22 @@ class Reviews {
         this.reviewtype = reviewtype
         this.reviewdate = reviewdate
         this.skills = skills
+        this.username = review_user
     }
 
     static async getAll() {
         try {
-            const response = await db.query("select * from reviews;");
+            const response = await db.query(`SELECT 
+        reviews.reviewid,
+        reviews.userid,
+        reviews.reviewtitle,
+        reviews.reviewcontents,
+        reviews.reviewtype,
+        reviews.reviewdate,
+        users.username AS review_user
+      FROM reviews
+      LEFT JOIN users ON users.userid = reviews.userid;
+    `);
 
             const result = response.rows.map(review => new Reviews(review))
 
@@ -45,7 +56,8 @@ class Reviews {
     
     static async getOneByUserId(id) {
         try{
-            const response = await db.query("select * from reviews WHERE userid = $1;", [id]);
+            const response = await db.query(`SELECT reviews.*, users.username FROM reviews
+                LEFT JOIN users ON users.userid = reviews.userid WHERE reviews.userid = $1;`, [id]);
             
             if(response.rows.length === 0){
                 throw new Error ('No response')
