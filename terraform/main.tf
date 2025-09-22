@@ -29,7 +29,7 @@ resource "aws_instance" "backend_servers" {
 }
 
 resource "local_file" "frontend_env" {
-  filename = "${path.module}/../client/js/config/config.js"
+  filename = "${path.module}/../client/static/js/config/config.js"
   content  = <<EOT
 export const API_URL = "http://${aws_instance.backend_servers[0].public_ip}"
 EOT
