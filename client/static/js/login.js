@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData(loginForm);
+    const formData = new FormData(loginForm
+    );
 
     const options = {
       method: "POST",

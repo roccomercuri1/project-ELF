@@ -1,4 +1,5 @@
 import requests
+from collections import defaultdict
 
 skills = [
     {"id": 1, "name": "Python"},
@@ -27,30 +28,56 @@ skill_num = {}
 skill_tot = {}
 skill_av = {}
 
+user_isadmin = {}
+global_num = defaultdict(int)
+global_tot = defaultdict(int)
+global_av = {}
+
 for user in users:
     uid = user.get("userid")
     if uid is None:
-        continue  
-    skill_num[uid] = {skill["name"]: 0 for skill in skills}
-    skill_tot[uid] = {skill["name"]: 0 for skill in skills}
-    skill_av[uid] = {skill["name"]: 0 for skill in skills}
+        continue 
+
+    is_admin = bool(user.get("isadmin"))     
+    user_isadmin[uid] = is_admin
+     
+    if not is_admin:
+        skill_num[uid] = {skill["name"]: 0 for skill in skills}
+        skill_tot[uid] = {skill["name"]: 0 for skill in skills}
+        skill_av[uid] = {skill["name"]: 0 for skill in skills}
 
 for review in reviews:
     user_id = review.get("userid")  
     if user_id is None or user_id not in skill_num:
         continue 
 
-    for skill_name, score in review.get("skills", {}).items():
-        if skill_name in skill_num[user_id]:
-            skill_num[user_id][skill_name] += 1
-            skill_tot[user_id][skill_name] += score
-
 # AV
-for uid in skill_num:
-    for skill_name in skill_num[uid]:
-        if skill_num[uid][skill_name] > 0:
-            skill_av[uid][skill_name] = round(
-                skill_tot[uid][skill_name] / skill_num[uid][skill_name], 2
+    if user_id in skill_num:
+        for skill_name, score in review.get("skills", {}).items():
+            if skill_name in skill_num[user_id]:
+                skill_num[user_id][skill_name] += 1
+                skill_tot[user_id][skill_name] += score
+
+
+    for skill_name, score in review.get("skills", {}).items():
+            global_num[skill_name] += 1
+            global_tot[skill_name] += score
+
+    #user averages
+    for uid in skill_num:
+        for skill_name in skill_num[uid]:
+            if skill_num[uid][skill_name] > 0:
+                skill_av[uid][skill_name] = round(
+                    skill_tot[uid][skill_name] / skill_num[uid][skill_name], 2
+            )
+    #global averages            
+    for skill_name in global_num:
+        if global_num[skill_name] > 0:
+            global_av[skill_name] = round(
+                global_tot[skill_name]/global_num[skill_name], 2
             )
 
-__all__ = ['users', 'skills', 'skill_num', 'skill_av']
+    
+
+
+__all__ = ['users', 'skills', 'skill_num', 'skill_av','user_isadmin', 'global_av','global_num']
