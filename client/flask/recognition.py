@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 import plotly.graph_objs as go
-from data import users, skill_num, skill_av, user_isadmin, global_num, global_av
 import os
 
 template_dir = os.path.join(os.path.dirname(__file__), '../pages')
@@ -13,6 +12,7 @@ app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 @app.route('/datapage')
 def datapage():
+    from data import users, skill_num, skill_av, user_isadmin, global_num, global_av
     userid = request.args.get("userid")
     if not userid:
         return "No userid provided", 400
