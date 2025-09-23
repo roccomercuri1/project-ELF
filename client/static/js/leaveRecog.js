@@ -8,15 +8,15 @@ const skillsList = document.getElementById("skillsList");
 
 // Popup for when review was successfully submitted
 function showPopup(message, isError = false) {
-    const popup = document.getElementById("popup");
-    popup.textContent = message;
+  const popup = document.getElementById("popup");
+  popup.textContent = message;
 
-    popup.className = "popup " + (isError ? "error" : "success") + " show";
+  popup.className = "popup " + (isError ? "error" : "success") + " show";
 
-    setTimeout(() => {
-      popup.className = "popup";
-    }, 3000);
-  }
+  setTimeout(() => {
+    popup.className = "popup";
+  }, 3000);
+}
 
 // keep array of original skill names
 const allSkills = Array.from(skillSelect.options)
@@ -106,11 +106,11 @@ form.addEventListener("submit", async (e) => {
   delete data["skills[]"];
   // if using skills[], we can get them as an array using .map
   const skills = formData.getAll("skills[]").map((s) => JSON.parse(s));
-  console.log(skills)
-  console.log(data)
+  console.log(skills);
+  console.log(data);
   const reviewData = {
     ...data,
-    skills
+    skills,
   };
 
   console.log("Sending the entire reiew:", reviewData);
@@ -132,9 +132,9 @@ form.addEventListener("submit", async (e) => {
 
     const json = await res.json();
     console.log("Server response:", json);
-    if(res.ok){
-    showPopup("Successfully Submitted Review!");
-    setTimeout(() => window.location.assign("homepage.html"), 1500);
+    if (res.ok) {
+      showPopup("Successfully Submitted Review!");
+      setTimeout(() => window.location.assign("homepage.html"), 1500);
     }
     form.reset();
     skillsList.innerHTML = ""; // clear skills UI
@@ -142,7 +142,6 @@ form.addEventListener("submit", async (e) => {
     console.error("Error submitting review:", err);
     showPopup(err.message || "Failed to submit", true);
   }
-  
 });
 
 // Selecting users from User database and adding them as the only options to leave a review for
@@ -165,10 +164,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Loop over each user and create an new <option>
     users.forEach((user) => {
-      const option = document.createElement("option");
-      option.value = user.username; // value in form submission
-      option.textContent = user.firstname; // what’s displayed
-      selectEmp.appendChild(option);
+      if (user.isadmin === false) {
+        const option = document.createElement("option");
+        option.value = user.username; // value in form submission
+        option.textContent = user.firstname; // what's displayed
+        selectEmp.appendChild(option);
+      }
     });
   } catch (err) {
     console.error("Error fetching users:", err);
@@ -189,14 +190,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  const token = localStorage.getItem("token")
-  const isManager = localStorage.getItem("isadmin") === "true"
+  const token = localStorage.getItem("token");
+  const isManager = localStorage.getItem("isadmin") === "true";
 
   if (!token) {
-    window.location.replace("./login.html")
-    return
+    window.location.replace("./login.html");
+    return;
   }
   if (!isManager) {
-    window.location.replace("./homepage.html")
+    window.location.replace("./homepage.html");
   }
 });
