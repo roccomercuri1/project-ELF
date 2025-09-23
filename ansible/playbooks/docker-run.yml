@@ -5,14 +5,16 @@
       copy:
         src: ../../docker-compose.yml
         dest: /home/ec2-user/docker-compose.yml
-    - name: Pull docker image of database
+    - name: Pull docker image of database (always pull latest)
       community.docker.docker_image:
         name: maxshen01/elf-db:0.0.1.RELEASE
         source: pull
-    - name: Pull docker image of mvc
+        force_source: true
+    - name: Pull docker image of mvc (always pull latest)
       community.docker.docker_image:
         name: maxshen01/elf-mvc:0.0.1.RELEASE
         source: pull
+        force_source: true
     - name: Make sure no containers are running
       shell: docker-compose down
       args:

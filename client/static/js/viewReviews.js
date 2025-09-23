@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function getReviews() {
   try {
-    const response = await fetch(`http://100.24.36.85:3000/reviews`, {
+    const response = await fetch(`http://98.81.184.105:3000/reviews`, {
       headers: {
         // optional if your endpoint checks tokens
         Authorization: `Bearer ${localStorage.getItem("token")}`,
