@@ -1,3 +1,9 @@
+isDockerActive = false;
+
+const API_URL = isDockerActive
+  ? "http://98.81.184.105"
+  : "http://localhost";
+
 document.addEventListener("DOMContentLoaded", () => {
   const username = localStorage.getItem("username");
   const nameSpan = document.getElementById("dropdownUsername");
@@ -11,13 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-async function getReviews() {
-  try {
-    const response = await fetch(`http://98.81.184.105:3000/reviews`, {
+async function getReviews() { //http://98.81.184.105
+    try {
+      const response = await fetch(`${API_URL}:3000/reviews/`, {
       headers: {
         // optional if your endpoint checks tokens
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+        Authorization: localStorage.getItem("token"),
+      }
     });
     const reviews = await response.json();
 
@@ -103,6 +109,7 @@ async function getReviews() {
     console.log("Error loading reviews");
   }
 }
+
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", (e) => {
