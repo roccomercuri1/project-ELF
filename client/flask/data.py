@@ -1,4 +1,7 @@
 import requests
+# config.py
+API_URL = "http://100.24.36.85"
+
 from collections import defaultdict
 
 skills = [

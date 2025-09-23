@@ -13,8 +13,6 @@
     "test:reg": "jest -i ./client/frontendtests/__tests__/register --watchAll",
     "test:log": "jest -i ./client/frontendtests/__tests__/login --watchAll",
     "test:leave": "jest -i ./client/frontendtests/__tests__/leaveReview --watchAll",
-
-
     "coverage": "jest --coverage"
   },
   "repository": {
@@ -33,6 +31,7 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^7.0.6",
     "pg": "^8.16.3"
   },
   "devDependencies": {

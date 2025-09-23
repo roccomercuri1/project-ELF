@@ -113,6 +113,13 @@ class User {
       }
     }
   }
+
+  static async updatePasswordById(id, hashedPassword) {
+    const q = `UPDATE users SET userpassword = $1 WHERE userid = $2 RETURNING userid;`;
+    const { rows } = await db.query(q, [hashedPassword, id]);
+    if (rows.length !== 1) { throw new Error("Unable to update password")}
+    return rows[0]
+  }
 }
 
 module.exports = User;
