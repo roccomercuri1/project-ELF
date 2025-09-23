@@ -5,12 +5,12 @@ const authenticator = require("../middleware/authenticator")
 
 const userRouter = Router ()
 
-userRouter.get('/', userController.index)
-userRouter.get('/checkPassword', userController.checkPassword)
+userRouter.get('/', authenticator, userController.index)
+userRouter.get('/checkPassword', authenticator, userController.checkPassword)
 userRouter.post('/register', userController.register)
 userRouter.post('/login', userController.login)
-userRouter.patch('/:id', userController.update)
-userRouter.get('/:id', userController.show)
+userRouter.patch('/:id', authenticator, userController.update)
+userRouter.get('/:id', authenticator, userController.show)
 userRouter.post('/forgot-password', userController.forgotPassword)
 
 // userRouter.patch('/:id/password', userController.changePassword)
