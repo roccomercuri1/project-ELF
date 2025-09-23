@@ -121,6 +121,11 @@ h3 {
   padding: 10px 0px;
 }
 
+h3 > a{
+  text-decoration: none;
+  color: #8F1687;
+}
+
 .role-selection {
   display: flex;
   margin: 15px 0;
@@ -190,4 +195,8 @@ h3 {
 
 .popup.error {
   background-color: #f44336; /* red */
+}
+
+.forgotbtn{
+  margin-bottom: 40px;
 }
