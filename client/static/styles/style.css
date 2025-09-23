@@ -405,3 +405,24 @@ body.datapage #bar-chart {
   padding: 1rem;
   border-radius: 8px;
 }
+
+.newsletter_cont{
+  display: flex;
+  align-items: center;
+  width: 75%;
+  justify-content: center;
+  background-color: white;
+  border: 5px solid white;
+  border-radius: 15px;
+  margin: 100px auto;
+  padding: 30px 100px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
+}
+
+.news_content{
+  display: flex;
+}
+
+.news_content img{
+  width: 400px;
+}
