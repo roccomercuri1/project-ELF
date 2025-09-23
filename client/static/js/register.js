@@ -1,3 +1,9 @@
+isDockerActive = false;
+
+const API_URL = isDockerActive
+  ? "http://98.81.184.105"
+  : "http://localhost";
+
 document
   .querySelector(".signup_form")
   .addEventListener("submit", register_event);
@@ -29,8 +35,8 @@ async function register_event(e) {
       username: form.get("username"),
       userpassword: form.get("userpassword"),
     }),
-  };
-  const response = await fetch("http://98.81.184.105:3000/user/register", options)
+  }; //http://98.81.184.105
+  const response = await fetch(`${API_URL}:3000/user/register/`, options)
 
   const data = await response.json();
 

@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="../static/styles/index.css" />
 </head>
 <body>
+  <header>
+      <a href="login.html" id="login">
+        <i class="fa-solid fa-user"></i>
+        <p id="login_p">Login</p>
+      </a>
+    </header>
   <main>
     <section class="login">
       <h1>Forgot Password</h1>
@@ -20,16 +26,16 @@
         <label for="fp_newpass">New Password</label><br />
         <input type="password" id="fp_newpass" name="newPassword" required autocomplete="off" /><br /><br />
 
-        <button type="submit">Reset Password</button>
+        <button class="forgotbtn" type="submit">Reset Password</button>
       </form>
-
-      <div style="margin-top: 12px;">
-        <a href="./login.html">Back to Login</a>
-      </div>
     </section>
   </main>
 
   <div id="popup" class="popup"></div>
   <script src="../static/js/forgot.js"></script>
+  <script
+      src="https://kit.fontawesome.com/3b9c76ecc4.js"
+      crossorigin="anonymous"
+    ></script>
 </body>
 </html>
