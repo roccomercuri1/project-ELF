@@ -41,7 +41,8 @@ CREATE TABLE review_skills (
 -- Insert Users
 INSERT INTO users (isadmin, username, userpassword, firstname, email) VALUES
 (FALSE, 'alice', 'hash_pw1', 'Alice', 'alice@example.com'),
-(FALSE, 'bob',   'hash_pw2', 'Bob',   'bob@example.com');
+(FALSE, 'bob',   'hash_pw2', 'Bob',   'bob@example.com'),
+(FALSE, 'rocco', 'hash_pw3', 'Rocco', 'rocco@example.com');
 
 -- Insert Skills
 INSERT INTO skills (skillname) VALUES
