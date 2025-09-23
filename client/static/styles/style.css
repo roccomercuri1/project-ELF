@@ -426,3 +426,42 @@ body.datapage #bar-chart {
 .news_content img{
   width: 400px;
 }
+
+.change_info{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 800px;
+  height: 75%;
+  margin: auto;
+  border: 5px solid white;
+  border-radius: 10px;
+}
+
+.change_info h2{
+  color: #8F1687;
+  text-align: center;
+  font-weight: bold;
+}
+
+.changers{
+  width: 500px;
+  height: 70px;
+  border: 5px solid #535353;
+  border-radius: 10px;
+  margin: 30px auto;
+  margin-bottom: 50px;
+}
+
+.changers a{
+  color: #8F1687;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.changeMain{
+  margin-top:300px;
+}

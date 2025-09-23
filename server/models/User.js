@@ -51,7 +51,7 @@ class User {
     // UPDATED: INCLUDES VALIDATION
     const { firstname, email, userpassword, username,  isadmin} = data;
     // Validate
-    if (!firstname || !email || !userpassword || !username || !isadmin === undefined) {
+    if (!firstname || !email || !userpassword || !username || isadmin === undefined) {
       throw new Error("Please fill in all fields");
     }
 
@@ -94,7 +94,7 @@ class User {
         firstname = COALESCE($1, firstname),
         email = COALESCE($2, email),
         userpassword = COALESCE($3, userpassword),
-        username = COALESCE($4, username)
+        username = COALESCE($4, username),
         isadmin = COALESCE($5, isadmin)
         WHERE userid = $6
         RETURNING *;`, [firstname, email, encrypted_password, username, isadmin, this.userid])
