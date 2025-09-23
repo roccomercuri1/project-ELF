@@ -425,72 +425,9 @@ body.datapage #bar-chart {
   background-color: white;
   border: 5px solid white;
   border-radius: 15px;
-  margin: 50px auto;
+  margin: 100px auto;
   padding: 30px 100px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
-  cursor: pointer;
-}
-
-.newsletter_cont p{
-  font-size: 25px;
-  padding-left: 30px;
-  text-align: center;
-  margin: auto;
-}
-
-.newsletter_cont img{
-  border-radius: 10px;
-}
-
-.newsletter_cont:hover{
-  scale: 1.05;
-  transition: 0.5s;
-}
-
-.news_grid{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.newsletter_grid{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 50px;
-  background-color: white;
-  border: 5px solid white;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
-}
-
-.newsletter_grid:hover{
-  scale: 1.1;
-  transition: 0.5s;
-}
-
-.news_content_grid{
-  width: 400px;
-  height: 360px;
-  display: flex;
-  flex-direction: column;
-}
-
-.newsletter_grid:first-of-type{
-  margin-left: 0;
-}
-
-.news_content_grid img{
-  width: 250px;
-  margin: auto;
-  border-radius: 10px;
-}
-
-.news_content_grid p{
-  text-align: center;
-  width: 400px;
-  font-size: 18px;
-  cursor: pointer;
 }
 
 .news_content{
@@ -557,9 +494,6 @@ body.datapage #bar-chart {
   margin-top:300px;
 }
 
-.datapage_boxes{
-  margin: -200px;
-}
 
  /* request support page *
 /* ===== Modal Overlay ===== */
