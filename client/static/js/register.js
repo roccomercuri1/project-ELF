@@ -30,7 +30,7 @@ async function register_event(e) {
       userpassword: form.get("userpassword"),
     }),
   };
-  const response = await fetch("http://localhost:3000/user/register", options);
+  const response = await fetch("http://98.81.184.105:3000/user/register", options);
 
   const data = await response.json();
 

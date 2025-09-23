@@ -117,7 +117,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // Connecting the the specific route
-    const res = await fetch("http://localhost:3000/reviews", {
+    const res = await fetch("http://98.81.184.105:3000/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Fetch from our  local API, giving us the users array
-    const res = await fetch("http://localhost:3000/user");
+    const res = await fetch("http://98.81.184.105:3000/user");
     const users = await res.json();
 
     // Loop over each user and create an new <option>

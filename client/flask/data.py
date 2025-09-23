@@ -17,11 +17,11 @@ skills = [
 
 
 
-users_url = "http://localhost:3000/user"
+users_url = "http://98.81.184.105:3000/user"
 users = requests.get(users_url).json()
 
 
-reviews_url = "http://localhost:3000/reviews"
+reviews_url = "http://98.81.184.105:3000/reviews"
 reviews = requests.get(reviews_url).json()
 
 skill_num = {}
