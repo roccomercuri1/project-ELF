@@ -110,28 +110,21 @@ async function forgotPassword(req, res) { // ADD
     const { username, email, newPassword } = req.body;
 
     if (!username || !email || !newPassword) {
-      console.log('[forgot-password] missing fields');
       return res.status(400).json({ error: "All fields are required" });
     }
-    // if (String(newPassword).length < 6) {
-    //   return res.status(400).json({ error: "Password must be at least 6 characters" });
-    // }
 
     // find user by username (re-uses your existing method)
     let user;
     try {
       user = await User.getOneByUsername(username);
-      console.log('[forgot-password] found user id=', user.userid);
     } catch {
       // generic response to avoid revealing whether the account exists
-      console.log('[forgot-password] user not found');
       return res.status(200).json({ ok: true });
     }
 
     // compare emails case-insensitively
     const emailsMatch =
       String(user.email || "").trim().toLowerCase() === String(email).trim().toLowerCase();
-      console.log('[forgot-password] email match?', emailsMatch, 'db=', user.email, 'got=', email);
     if (!emailsMatch) {
       return res.status(200).json({ ok: true });
     }
@@ -140,13 +133,11 @@ async function forgotPassword(req, res) { // ADD
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
     const hashed = await bcrypt.hash(newPassword, salt);
     await User.updatePasswordById(user.userid, hashed);
-    console.log('[forgot-password] updated password');
 
     // (optional) send a notification email here
 
     return res.status(200).json({ success: true });
   } catch (err){
-    console.log('[forgot-password] error:', err.message);
     return res.status(200).json({ ok: true }); // stay generic
   }
 }
