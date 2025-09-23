@@ -11,5 +11,8 @@ userRouter.post('/register', userController.register)
 userRouter.post('/login', userController.login)
 userRouter.patch('/:id', userController.update)
 userRouter.get('/:id', userController.show)
+userRouter.post('/forgot-password', userController.forgotPassword)
+
+// userRouter.patch('/:id/password', userController.changePassword)
 
 module.exports = userRouter

@@ -105,11 +105,49 @@ async function update(req, res) {
   }
 }
 
+async function forgotPassword(req, res) { // ADD
+  try {
+    const { username, email, newPassword } = req.body;
+
+    if (!username || !email || !newPassword) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // find user by username (re-uses your existing method)
+    let user;
+    try {
+      user = await User.getOneByUsername(username);
+    } catch {
+      // generic response to avoid revealing whether the account exists
+      return res.status(200).json({ ok: true });
+    }
+
+    // compare emails case-insensitively
+    const emailsMatch =
+      String(user.email || "").trim().toLowerCase() === String(email).trim().toLowerCase();
+    if (!emailsMatch) {
+      return res.status(200).json({ ok: true });
+    }
+
+    // hash + update
+    const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+    const hashed = await bcrypt.hash(newPassword, salt);
+    await User.updatePasswordById(user.userid, hashed);
+
+    // (optional) send a notification email here
+
+    return res.status(200).json({ success: true });
+  } catch (err){
+    return res.status(200).json({ ok: true }); // stay generic
+  }
+}
+
 module.exports = { 
   index, 
   register, 
   login, 
   update, 
   show,
-  checkPassword 
+  checkPassword,
+  forgotPassword
 };
