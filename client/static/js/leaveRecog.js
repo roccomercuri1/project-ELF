@@ -1,3 +1,9 @@
+isDockerActive = false;
+
+const API_URL = isDockerActive
+  ? "http://98.81.184.105"
+  : "http://localhost";
+
 const form = document.getElementById("review_form");
 const skillSelect = document.getElementById("skillSelect");
 const ratingContainer = document.getElementById("ratingContainer");
@@ -117,10 +123,11 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // Connecting the the specific route
-    const res = await fetch("http://98.81.184.105:3000/reviews", {
+    const res = await fetch(`${API_URL}:3000/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify(reviewData),
     });
@@ -159,7 +166,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Fetch from our  local API, giving us the users array
-    const res = await fetch("http://98.81.184.105:3000/user");
+    const res = await fetch(`${API_URL}:3000/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }});
     const users = await res.json();
 
     // Loop over each user and create an new <option>

@@ -1,3 +1,9 @@
+isDockerActive = false;
+
+const API_URL = isDockerActive
+  ? "http://98.81.184.105"
+  : "http://localhost";
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector(".login_form");
 
@@ -35,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error("Failed to save username:", err);
     }
-
-    const response = await fetch("http://98.81.184.105:3000/user/login", options);
+    //http://98.81.184.105
+    const response = await fetch(`${API_URL}:3000/user/login/`, options);
     const data = await response.json();
     console.log("Login response:", data);
 
