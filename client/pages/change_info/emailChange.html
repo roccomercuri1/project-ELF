@@ -16,6 +16,11 @@
       defer
     ></script>
     <title>Change - Email</title>
+    <link rel="icon" href="../../static/icons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="../../static/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="../../static/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="../../static/icons/site.webmanifest" />
+    <meta name="theme-color" content="#8F1687" />
   </head>
   <body>
     <header
@@ -112,5 +117,20 @@
       defer
     ></script>
     <div id="popup" class="popup"></div>
+    <footer class="mini-footer">
+      <div class="mini-footer__inner">
+        <p>© <span id="year"></span> ELF</p>
+        <nav class="mini-footer__links" aria-label="Footer">
+          <a href="#">Privacy</a>
+          <span aria-hidden="true">•</span>
+          <a href="#">Terms</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("year")
+        ?.appendChild(document.createTextNode(new Date().getFullYear()));
+    </script>
   </body>
 </html>
