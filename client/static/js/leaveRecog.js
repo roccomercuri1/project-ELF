@@ -1,7 +1,7 @@
-isDockerActive = false;
+isDockerActive = true;
 
 const API_URL = isDockerActive
-  ? "http://98.81.184.105"
+  ? "http://54.90.66.20"
   : "http://localhost";
 
 const form = document.getElementById("review_form");
@@ -59,7 +59,7 @@ addSkillBtn.addEventListener("click", () => {
   const hidden = document.createElement("input");
   hidden.type = "hidden";
   hidden.name = "skills[]"; // using array syntax to collect multiple skills
-  hidden.value = JSON.stringify({ skill, rating }); // or `${skill}:${rating}`
+  hidden.value = JSON.stringify({ skill, rating }); 
   li.appendChild(hidden);
 
   // added the remove button

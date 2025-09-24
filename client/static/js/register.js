@@ -1,7 +1,7 @@
-isDockerActive = false;
+isDockerActive = true;
 
 const API_URL = isDockerActive
-  ? "http://98.81.184.105"
+  ? "http://54.90.66.20"
   : "http://localhost";
 
 document
