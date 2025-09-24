@@ -71,9 +71,7 @@ class User {
       return await User.getOneById(newId);
 
     } catch (err) {
-      // Handle if user already exists
       if (err.code === "23505") {
-        // PostgreSQL unique_violation
         throw new Error("Email or username already exists");
       }
       throw err;
@@ -82,6 +80,15 @@ class User {
 
   async updateUser(data) {
     const {firstname, email, userpassword, username, isadmin} = data
+
+    console.log("Updating user:", {
+      userid: this.userid,
+      firstname,
+      email,
+      username,
+      isadmin,
+      hasPassword: !!userpassword
+    });
     
     //salt and encrypt
     let encrypted_password = null
@@ -97,7 +104,7 @@ class User {
         username = COALESCE($4, username),
         isadmin = COALESCE($5, isadmin)
         WHERE userid = $6
-        RETURNING *;`, [firstname, email, encrypted_password, username, isadmin, this.userid])
+        RETURNING *;`, [firstname ?? null, email ?? null, encrypted_password ?? null, username ?? null, isadmin ?? null, this.userid])
         
         if (response.rows.length !== 1) {
               throw new Error('Unable to update the user details')

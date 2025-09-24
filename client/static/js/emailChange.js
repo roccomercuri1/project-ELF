@@ -5,11 +5,11 @@ const API_URL = isDockerActive
   : "http://localhost";
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('.change_password');
+  const form = document.querySelector('.change_email');
 
   function showPopup(message, isError = false) {
     const el = document.getElementById('popup');
-    if (!el) { alert(message); return; }
+    if (!el) { alert(message); return; } // fallback if popup not on page
     el.textContent = message;
     el.className = 'popup ' + (isError ? 'error' : 'success') + ' show';
     setTimeout(() => { el.className = 'popup'; }, 2000);
@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const oldPassword = e.target.oldPassword.value.trim();
-    const newPassword = e.target.newPassword.value.trim();
+    const oldEmail = e.target.oldEmail.value.trim();
+    const newEmail = e.target.newEmail.value.trim();
     const userid = localStorage.getItem('userid');
     const token  = localStorage.getItem('token');
 
@@ -27,12 +27,28 @@ document.addEventListener('DOMContentLoaded', () => {
       showPopup('Please log in again.', true);
       return window.location.assign('../login.html');
     }
-    if (!oldPassword || !newPassword) {
+    if (!oldEmail || !newEmail) {
       showPopup('Please fill both fields.', true);
       return;
     }
 
     try {
+      // Optional: verify oldEmail matches what backend has (soft check)
+      let okToProceed = true;
+      try {
+        const me = await fetch(`${API_URL}:3000/user/${userid}`, {
+          headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
+        }).then(r => r.json());
+        if (me && me.email && me.email.trim().toLowerCase() !== oldEmail.toLowerCase()) {
+          okToProceed = false;
+        }
+      } catch {}
+
+      if (!okToProceed) {
+        showPopup('Current email does not match.', true);
+        return;
+      }
+
       const res = await fetch(`${API_URL}:3000/user/${userid}`, {
         method: 'PATCH',
         headers: {
@@ -40,15 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json',
           Authorization: localStorage.getItem("token")
         },
-        body: JSON.stringify({ userpassword: newPassword }) // 👈 backend expects `userpassword`
+        body: JSON.stringify({ email: newEmail })
       });
 
-      console.log('PATCH Status:', res.status);
       const data = await res.json().catch(() => ({}));
-      console.log('PATCH payload:', data);
 
       if (res.ok) {
-        showPopup('Password updated');
+        showPopup('Email updated');
         setTimeout(() => window.location.assign('../changeInfo.html'), 800);
       } else {
         showPopup(data.error || 'Update failed', true);
