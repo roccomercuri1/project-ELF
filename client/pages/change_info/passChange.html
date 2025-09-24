@@ -74,13 +74,14 @@
     <main>
       <section class="login">
         <h1>Change Password</h1>
-        <form id="forgotForm" autocomplete="off">
+        <form id="changePass" autocomplete="off">
           <label for="old_password">Current Password</label><br />
           <input
             type="password"
             id="old_password"
             name="oldPassword"
             required
+            placeholder="Enter Current Password"
             autocomplete="off"
           /><br />
           <label for="new_password">New Password</label><br />
@@ -88,14 +89,16 @@
             type="password"
             id="new_password"
             name="newPassword"
-            placeholder="Enter New Password"
             required
+            placeholder="Enter New Password"
+            autocomplete="off"
           /><br /><br />
-          <button type="submit">Send reset instructions</button>
+          <button type="submit">Change Password</button>
         </form>
         <div id="popup" class="popup"></div>
       </section>
     </main>
+    <script src="../../static/js/passChange.js"></script>
     <script
       src="https://kit.fontawesome.com/3b9c76ecc4.js"
       crossorigin="anonymous"
