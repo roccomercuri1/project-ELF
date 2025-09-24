@@ -4,9 +4,9 @@ const authenticator = require("../middleware/authenticator")
 
 const reviewsRouter = Router();
 
-reviewsRouter.get('/',  reviewsController.index,)
-reviewsRouter.get('/:id', reviewsController.show)
-reviewsRouter.post('/', reviewsController.create)
+reviewsRouter.get('/', authenticator, reviewsController.index)
+reviewsRouter.get('/:id', authenticator, reviewsController.show)
+reviewsRouter.post('/', authenticator, reviewsController.create)
 
 
 
