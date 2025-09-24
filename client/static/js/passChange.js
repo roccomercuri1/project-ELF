@@ -1,26 +1,60 @@
-    function showPopup(message, isError=false){
-      const p = document.getElementById('popup');
-      p.textContent = message;
-      p.className = 'popup ' + (isError ? 'error' : 'success') + ' show';
-      setTimeout(()=> p.className='popup', 2500);
+isDockerActive = true;
+
+const API_URL = isDockerActive
+  ? "http://54.90.66.20"
+  : "http://localhost";
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('.change_password');
+
+  function showPopup(message, isError = false) {
+    const el = document.getElementById('popup');
+    if (!el) { alert(message); return; }
+    el.textContent = message;
+    el.className = 'popup ' + (isError ? 'error' : 'success') + ' show';
+    setTimeout(() => { el.className = 'popup'; }, 2000);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const oldPassword = e.target.oldPassword.value.trim();
+    const newPassword = e.target.newPassword.value.trim();
+    const userid = localStorage.getItem('userid');
+    const token  = localStorage.getItem('token');
+
+    if (!userid || !token) {
+      showPopup('Please log in again.', true);
+      return window.location.assign('../login.html');
+    }
+    if (!oldPassword || !newPassword) {
+      showPopup('Please fill both fields.', true);
+      return;
     }
 
-    document.getElementById('forgotForm').addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const email = new FormData(e.target).get('email');
+    try {
+      const res = await fetch(`${API_URL}:3000/user/${userid}`, {
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({ userpassword: newPassword }) // 👈 backend expects `userpassword`
+      });
 
-      try {
-        await fetch('http://localhost:3000/user/forgot-password', {
-          method: 'POST',
-          headers: {'Content-Type':'application/json','Accept':'application/json'},
-          body: JSON.stringify({ email })
-        });
-      } catch (_) {
-        // ignore network errors to avoid leaking anything
+      console.log('PATCH Status:', res.status);
+      const data = await res.json().catch(() => ({}));
+      console.log('PATCH payload:', data);
+
+      if (res.ok) {
+        showPopup('Password updated');
+        setTimeout(() => window.location.assign('../changeInfo.html'), 800);
+      } else {
+        showPopup(data.error || 'Update failed', true);
       }
-
-      // Always the same UX, whether the email exists or not
-      showPopup('If that email exists, instructions have been sent.');
-      e.target.reset();
-      setTimeout(()=> location.href = './login.html', 1500);
-    });
+    } catch (err) {
+      showPopup('Network error', true);
+    }
+  });
+});

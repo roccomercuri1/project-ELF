@@ -1,3 +1,9 @@
+isDockerActive = true;
+
+const API_URL = isDockerActive
+  ? "http://54.90.66.20"
+  : "http://localhost";
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.change_email');
 
@@ -30,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Optional: verify oldEmail matches what backend has (soft check)
       let okToProceed = true;
       try {
-        const me = await fetch(`http://98.81.184.105:3000/user/${userid}`, {
+        const me = await fetch(`${API_URL}:3000/user/${userid}`, {
           headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
         }).then(r => r.json());
         if (me && me.email && me.email.trim().toLowerCase() !== oldEmail.toLowerCase()) {
@@ -43,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const res = await fetch(`http://98.81.184.105:3000/user/${userid}`, {
+      const res = await fetch(`${API_URL}:3000/user/${userid}`, {
         method: 'PATCH',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: localStorage.getItem("token")
         },
         body: JSON.stringify({ email: newEmail })
       });

@@ -1,6 +1,12 @@
 import requests
+
 # config.py
-API_URL = "http://100.24.36.85"
+is_docker_active = True
+
+if is_docker_active == True:
+    API_URL = "http://54.90.66.20"
+else:
+    API_URL = "http://localhost"
 
 from collections import defaultdict
 
@@ -18,14 +24,18 @@ skills = [
     {"id": 11, "name": "Initiative"}
 ]
 
+jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjQsImlhdCI6MTc1ODcwODQ0NCwiZXhwIjoxNzU4NzEyMDQ0fQ.Ynfs3lXuBXafHF5A13Ft6wMU5UPG1cUhFOo1P5-0OGI'
 
+headers = {
+    'Authorization': jwt_token
+}
 
-users_url = "http://98.81.184.105:3000/user"
-users = requests.get(users_url).json()
+users_url = f"{API_URL}:3000/user"
+users = requests.get(users_url, headers=headers).json()
+print(users)
 
-
-reviews_url = "http://98.81.184.105:3000/reviews"
-reviews = requests.get(reviews_url).json()
+reviews_url = f"{API_URL}:3000/reviews"
+reviews = requests.get(reviews_url, headers=headers).json()
 
 skill_num = {}
 skill_tot = {}
@@ -37,6 +47,7 @@ global_tot = defaultdict(int)
 global_av = {}
 
 for user in users:
+    print(user)
     uid = user.get("userid")
     if uid is None:
         continue 
