@@ -1,601 +1,2752 @@
-/* ===== Reset & Base ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Corbel, sans-serif;
+/* ========= Google Fonts (CSS-only; no HTML change) ========= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap");
+
+/* ========= Design tokens ========= */
+:root{
+  --purple: #8F1687;
+  --purple-700:#6d0f66;
+  --pink: #E91E63;
+  --indigo: #3F51B5;
+  --teal: #00BFA6;
+  --cyan: #00BCD4;
+  --amber: #FFB300;
+  --slate:#1F2937;
+  --border:#E6E6E6;
+  --card:#ffffff;
+  --shadow: 0 10px 28px rgba(0,0,0,.10);
 }
 
-body {
-  background: linear-gradient(to bottom right, #8F1687, #8F1687);
+/* ========= Global look & density ========= */
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  /* Colorful but subtle background */
+  background:
+    radial-gradient(900px 700px at 10% -10%, rgba(143,22,135,.10), transparent 60%),
+    radial-gradient(900px 700px at 110% 10%, rgba(63,81,181,.08), transparent 55%),
+    linear-gradient(180deg, #fafafb 0%, #f4f6fb 100%);
   min-height: 100vh;
-  color: #333;
-  display: flex;
-  flex-direction: column;
 }
 
-body.recog-pages {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+h1,h2,h3, header h3 { font-family: "Poppins", inherit; }
 
-header h3{
-  font-weight: bold;
-  color: #8F1687;
-}
-
-
-/* ===== Top Bar / Navbar-like header ===== */
-.top-bar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: #e0e0e0;
-  position: relative;
-  margin-bottom: 0px;
-}
-
-.top-bar a{
-  color: #8F1687;
-}
-
-.top-bar #dropdownUsername{
-  color: #8F1687;
-}
-
-.home-icon {
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-.home-icon a{
-  color: #8F1687;
-}
-
-.navbar-right #dropdownUsername{
-  color: #8F1687;
-}
-
+/* Wider content on big screens, less empty space */
 .container{
-  padding-top: 200px;
+  max-width: min(1400px, 94vw) !important;  /* grow on ultrawide */
+  padding-top: 1.25rem;                      /* tighten top padding */
 }
+main.container.my-5{ margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
 
-/* Keep the username text consistent next to the icon */
-#userDropdown svg { 
-  vertical-align: middle;
+/* Top bar: cleaner + sticky presence */
+.top-bar{
+  background: #fff !important;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
 }
-.nav-username,
-#dropdownUsername {
-  font: inherit;
-  line-height: 1;
-  color: inherit;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-}
+.top-bar h3{ color: var(--purple); font-weight: 800; }
 
-/* ===== Main Content Cards (Options) ===== */
-.quiz-container {
-  background-color: #f9f9f9;
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-.option-card {
-  background-color: #fff;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  padding: 1rem;
-  text-align: center;
-  transition: all 0.25s ease;
-  height: 100%;
-}
-
-.option-card:hover {
-  background-color: #e6f7ff;
-  border-color: #007bff;
-  transform: translateY(-3px) scale(1.02);
-}
-
-.option-card a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  height: 100%;
-}
-
-.center-last-row {
-  display: flex;
-  justify-content: center;
-}
-
-/* ===== Popup (toast) ===== */
-
-.popup {
-  visibility: hidden;
-  min-width: 250px;
-  margin-left: -125px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 8px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1000;
-  left: 50%;
-  top: 30px;
-  font-size: 16px;
-  opacity: 0;
-  transition: opacity 0.4s, top 0.4s;
-}
-
-/* Show state */
-.popup.show {
-  visibility: visible;
-  opacity: 1;
-  top: 50px;
-}
-
-/* Success vs error colors */
-.popup.success {
-  background-color: #4CAF50; /* green */
-}
-
-.popup.error {
-  background-color: #f44336; /* red */
-}
-
-/* ===== Leave Recognition Specific ===== */
-.leave_recognition {
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border: 5px solid white;
-  border-radius: 15px;
-  margin-top: 100px;
-  padding: 30px 100px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
-}
-
-.top_bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-bottom: 30px;
-}
-
-#employee_section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-right: 30px;
-}
-
-#employee_section label {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#employee_section select {
-  width: 230px;
-  height: 50px;
-}
-
-#employee_section select option {
-  text-align: center;
-  text-align-last: center;
-}
-
-#category_section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#category_section label {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#category_section select {
-  width: 230px;
-  height: 50px;
-}
-
-#category_section select option {
-  text-align: center;
-  text-align-last: center;
-}
-
-.mid_page {
-  display: flex;
-  flex-direction: column;
-}
-
-.mid_page label {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.mid_page input {
-  margin-bottom: 25px;
+/* Primary card wrapper denser & crisper */
+.quiz-container{
   width: 100%;
-  height: 40px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  box-shadow: var(--shadow);
 }
 
-.mid_page #recog_review {
-  height: 100px;
-  margin-bottom: 30px;
+/* ========= Options -> grid layout WITHOUT changing HTML ========= */
+/* Turn your nested Bootstrap rows/cols into a flat grid */
+.options-container{
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(220px,1fr));
+}
+@media (min-width: 992px){
+  .options-container{ grid-template-columns: repeat(3, minmax(240px,1fr)); }
+}
+@media (min-width: 1400px){
+  .options-container{ grid-template-columns: repeat(4, minmax(240px,1fr)); }
+}
+/* Flatten the Bootstrap wrappers so cards become grid items */
+.options-container .row,
+.options-container .center-last-row,
+.options-container .col-md-6{ display: contents; }
+
+/* ========= Colorful option cards (on-brand) ========= */
+.option-card{
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+  padding: 1rem !important;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .2s ease;
+  overflow: hidden;
 }
 
-.skills_used {
-  padding-bottom: 30px;
+/* Decorative top accent bar (no HTML changes needed) */
+.option-card::before{
+  content:"";
+  position: absolute; inset: 0 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
 }
 
-.skills_used #skills_title {
-  font-size: 20px;
-  font-weight: bold;
+/* Different accent colors by data-option */
+.option-card[data-option="1"]::before{ background: linear-gradient(90deg, var(--purple), var(--pink)); }
+.option-card[data-option="2"]::before{ background: linear-gradient(90deg, var(--indigo), var(--cyan)); }
+.option-card[data-option="3"]::before{ background: linear-gradient(90deg, var(--teal), var(--purple)); }
+.option-card[data-option="4"]::before{ background: linear-gradient(90deg, var(--amber), var(--indigo)); }
+
+.option-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(143,22,135,.15);
+  background: linear-gradient(180deg, #fff, #faf7fc);
 }
 
-#submit_button {
-  font-size: 20px;
-  font-weight: bold;
+.option-card p{
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .2px;
+  color: var(--slate);
 }
 
+/* ========= Toast / popup (tighter + colorful) ========= */
+.popup{ max-width: 90vw; border-radius: 10px; font-size: 14px; }
+.popup.success{ background-color: var(--teal); }
+.popup.error{ background-color: #e53935; }
 
-/* Israel's code */
-#reviewscontainer {
+/* ========= Modal buttons keep purple but add gradient pop ========= */
+.modal-content button{
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff; border: none; border-radius: 12px;
+  padding: .9rem 1rem; font-size: 1rem;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+.modal-content button:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+/* Inputs look a bit crisper */
+.modal-content input,
+.modal-content textarea{
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* ========= Review section (if present) denser on wide screens ========= */
+#reviewscontainer{
+  width: min(1200px, 94vw);
+  margin: 0 auto 1.5rem;
+  display: grid; gap: 16px;
+}
+@media (min-width: 720px){ #reviewscontainer{ grid-template-columns: 1fr 1fr; } }
+.reviewbox{ width: 100%; min-height: 200px; }
+
+/* ========= Accessibility focus ring ========= */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Stack option cards vertically, each full width */
+.options-container{
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1rem;
+  gap: 1rem; /* spacing between buttons */
 }
 
-main h2{
-    color: white;
-    font-size: 50px;
-    padding-left: 13px;
-    padding-top: 25px;
+/* Make each card stretch across the container */
+.options-container .row,
+.options-container .center-last-row,
+.options-container .col-md-6{
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.reviewbox {
-  width: 800px;
-  height: 250px;
+.option-card{
+  width: 100% !important;
+  text-align: center;
+}
+
+/* =========================
+   View Recognitions — scoped
+   (affects only .recog-pages)
+========================= */
+
+/* Optional: Google Fonts via CSS-only import */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap");
+
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --teal:#00BFA6;
+  --amber:#FFB300;
+  --cyan:#00BCD4;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
+}
+
+body.recog-pages{
+  font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:
+    radial-gradient(900px 700px at 8% -8%, rgba(143,22,135,.10), transparent 60%),
+    radial-gradient(900px 700px at 108% 8%, rgba(63,81,181,.08), transparent 55%),
+    linear-gradient(180deg, #fafafb 0%, #f4f6fb 100%);
+  min-height:100vh;
+  align-items: stretch; /* header full width */
+}
+
+/* Top bar keeps brand look */
+body.recog-pages .top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100;
+}
+body.recog-pages header h3{
+  font-family:"Poppins", inherit;
+  color:var(--purple);
+  font-weight:800;
+}
+
+/* Main heading */
+body.recog-pages main h2{
+  color:#1f2937;
+  font-family:"Poppins", inherit;
+  font-weight:800;
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem);
+  margin: 1.25rem auto .5rem;
+  width: min(1400px, 94vw);
+  padding-left:.25rem;
+}
+
+/* Reviews container: wide, dense grid */
+#reviewscontainer{
+  width: min(1400px, 94vw);
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: .25rem;
+}
+
+/* On wider screens, show 2 or 3 columns */
+@media (min-width: 900px){
+  #reviewscontainer{ grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1300px){
+  #reviewscontainer{ grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ----- Card base (works with your existing structure) ----- */
+.reviewbox{
+  width: 100%;
+  min-height: 220px;
   perspective: 1000px;
-  margin-bottom: 1.5rem;
+  margin: 0; /* remove extra gaps */
+  position: relative;
 }
 
-.card-face:hover{
-    background: rgb(217, 217, 217);
+/* Faces */
+.card-face{
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  background: var(--card);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1rem 1rem 0.75rem;
+  transition: transform .6s;
+  overflow:hidden;
 }
 
+/* Subtle accent bar at top — color rotates per card */
+.card-face::before{
+  content:"";
+  position:absolute; inset:0 0 auto 0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+}
+.reviewbox:nth-child(4n+2) .card-face::before{ background: linear-gradient(90deg, var(--indigo), var(--cyan)); }
+.reviewbox:nth-child(4n+3) .card-face::before{ background: linear-gradient(90deg, var(--teal), var(--purple)); }
+.reviewbox:nth-child(4n+4) .card-face::before{ background: linear-gradient(90deg, var(--amber), var(--indigo)); }
+
+/* Flip states (keep your existing JS that toggles .flipped) */
+.card-front{ transform: rotateX(0deg); }
+.card-back{
+  transform: rotateX(180deg);
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+.reviewbox.flipped .card-front{ transform: rotateX(-180deg); }
+.reviewbox.flipped .card-back{ transform: rotateX(0deg); }
+
+/* Typography & layout inside cards */
 .reviewbox h3{
-    font-size: 40px;
-    font-weight: bold;
+  font-family:"Poppins", inherit;
+  font-weight:800;
+  color: var(--ink);
+  font-size: clamp(1.1rem, .9rem + .6vw, 1.35rem);
+  margin: .25rem 0 .2rem;
 }
 
 .reviewbox h5{
-    color: grey;
-}
-
-.review-tops{
-  display: flex;
-  justify-content: space-between;
-}
-
-.topper{
-  display: flex;
-}
-
-.topper p{
-  margin-left: 10px;
-  margin-top: 15px;
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 0.75rem;
-  background: #fff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  transition: transform 0.75s;
-  overflow-y: hidden;
-}
-
-.card-front {
-  transform: rotateX(0deg);
-}
-
-.card-back {
-  transform: rotateX(180deg);
-  white-space: normal;     /* Allow text wrapping */
-  overflow-wrap: break-word; /* Break long words if needed */
-  word-wrap: break-word;
-  overflow-y: auto; /* added just incase the text in contents is really long */
-}
-
-.front-info{
-    display: flex;
-    justify-content: space-between;
-}
-
-.front-info .review-date{
-    margin-top: 140px;
-}
-
-.back-info{
-    display: flex;
-    justify-content: space-between;
-}
-
-.back-info .review-date{
-    padding-top: 90px;
+  color: var(--muted);
+  font-size: .95rem;
+  margin: 0;
 }
 
 .review-contents{
-    font-size: 25px;
+  margin-top: .5rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
 }
 
-.reviewbox.flipped .card-front {
-  transform: rotateX(-180deg);
+/* Top rows */
+.review-tops, .front-info, .back-info{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  gap:.75rem; flex-wrap:wrap;
 }
 
-.reviewbox.flipped .card-back {
-  transform: rotateX(0deg);
+.topper{ display:flex; align-items:center; gap:.5rem; }
+.topper p{ margin:0; color: var(--ink); font-weight:600; }
+
+/* Dates aligned to bottom/right */
+.front-info .review-date,
+.back-info .review-date{
+  color: var(--muted);
+  margin: 0;
+  font-size: .9rem;
 }
 
-.skills-area {
+/* Skills / tags look like chips */
+.skills-area{
+  display:flex; flex-wrap:wrap; gap:.4rem .6rem; margin-top:.5rem;
+}
+.skill{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.25rem .6rem;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background: linear-gradient(135deg, #eef7ff, #f6ecff);
+}
+.skill p{ margin:0; font-size:.92rem; color:var(--ink); }
+.skill .score{ font-weight:700; color: var(--indigo); }
+
+/* Hover lift (front face) */
+.card-face:hover{ background: #fff; }
+
+/* Empty/loading states */
+#reviewscontainer:empty::before{
+  content:"No reviews yet.";
+  display:block;
+  color: var(--muted);
+  text-align:center;
+  padding: 2.5rem 0;
+}
+#reviewscontainer.loading,
+#reviewscontainer:has(.skeleton){
+  opacity:.9;
+}
+.skeleton{
+  height: 220px;
+  border-radius:14px;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.05), rgba(0,0,0,0.08), rgba(0,0,0,0.05));
+  animation: shimmer 1.4s infinite linear;
+}
+@keyframes shimmer{
+  0%{ background-position: -200% 0; }
+  100%{ background-position: 200% 0; }
+}
+
+/* Scrollbars inside back face (only when needed) */
+.card-back{ scrollbar-width: thin; scrollbar-color: #cfcfcf transparent; }
+.card-back::-webkit-scrollbar{ width:8px; }
+.card-back::-webkit-scrollbar-thumb{ background:#cfcfcf; border-radius:8px; }
+
+/* --- Flip card fix: consistent 3D + hide reverse side --- */
+.reviewbox{
+  position: relative;           /* ensure absolute faces stack in this box */
+  perspective: 1000px;          /* 3D depth */
+  transform-style: preserve-3d; /* keep 3D for children (Safari friendly) */
+}
+
+/* both faces stacked */
+.card-face{
+  position: absolute;
+  inset: 0;
+  /* critical: hide the backside so we never see mirrored/upside-down text */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Use rotateY for a proper card flip (horizontal) */
+.card-front { transform: rotateY(0deg) translateZ(0); }
+.card-back  { transform: rotateY(180deg) translateZ(0); }
+
+/* When flipped, front rotates away, back rotates to face us */
+.reviewbox.flipped .card-front { transform: rotateY(-180deg) translateZ(0); }
+.reviewbox.flipped .card-back  { transform: rotateY(0deg) translateZ(0); }
+
+/* Optional: slightly stronger perspective feel on hover (doesn't affect logic) */
+.reviewbox:hover .card-front:not(.no-tilt),
+.reviewbox:hover .card-back:not(.no-tilt){
+  /* comment out if you don't want hover tilt */
+  /* transform: perspective(1000px) rotateY(var(--rot, 0deg)); */
+}
+
+/* If you previously had rotateX rules, this neutralizes them */
+.card-front, .card-back {
+  /* ensure no rotateX from earlier CSS leaks through */
+  /* the last declared transform wins, so these rotateY() rules take precedence */
+}
+
+/* =========================
+   Hover effects (cards + options)
+   — no HTML changes needed
+========================= */
+
+/* ---- Review cards (viewRecog) ---- */
+.reviewbox{
+  transition: transform .18s ease;
+}
+.reviewbox:hover{
+  transform: translateY(-2px);           /* lift the whole card */
+}
+
+/* Don't touch transform on .card-face (so flip still works) */
+.reviewbox .card-face{
+  transition: box-shadow .18s ease, filter .18s ease, background-color .18s ease;
+}
+.reviewbox:hover .card-face{
+  box-shadow: 0 14px 34px rgba(0,0,0,.14);
+  background-color: #f7f7f7;             /* slightly darker than white */
+  filter: brightness(0.97);               /* subtle overall darken */
+}
+.reviewbox:active{
+  transform: translateY(-1px);
+}
+.reviewbox:active .card-face{
+  filter: brightness(0.94);
+}
+
+/* ---- Homepage option cards ---- */
+.option-card{
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background-color .18s ease, border-color .18s ease;
+  cursor: pointer;
+}
+.option-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  background-color: #f7f7f7;             /* slightly darker on hover */
+  filter: brightness(0.97);
+  border-color: rgba(0,0,0,.08);
+}
+.option-card:active{
+  transform: translateY(-1px);
+  filter: brightness(0.94);
+}
+
+/* Optional: keyboard focus ring */
+.option-card:focus-within{
+  outline: 3px solid var(--amber, #FFB300);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* =========================
+   HOMEPAGE OPTIONS — boxy, centered, with colored top bar
+========================= */
+
+/* Stack vertically & center area */
+.options-container{
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 0;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.skill {
+/* Neutralize Bootstrap wrappers so each is one row */
+.options-container .row,
+.options-container .center-last-row,
+.options-container .col-md-6{
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Boxy card base: narrower + centered */
+.options-container .option-card{
+  position: relative;                 /* needed for the top bar */
+  width: 100% !important;
+  max-width: 680px;                   /* adjust 600–760px to taste */
+  margin: 0 auto;                     /* center the boxes */
+  border-radius: 8px;                 /* boxy corners */
+  border: 1.5px solid #e2e2e2;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  padding: 0.9rem 1rem !important;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
+}
+
+/* Restore the colored top strip */
+.options-container .option-card::before{
+  content: "" !important;             /* override any previous 'none' */
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5); /* default */
+}
+
+/* Per-card colors using your data-option attributes */
+.options-container .option-card[data-option="1"]::before{
+  background: linear-gradient(90deg, #8F1687, #E91E63);
+}
+.options-container .option-card[data-option="2"]::before{
+  background: linear-gradient(90deg, #3F51B5, #00BCD4);
+}
+.options-container .option-card[data-option="3"]::before{
+  background: linear-gradient(90deg, #00BFA6, #8F1687);
+}
+.options-container .option-card[data-option="4"]::before{
+  background: linear-gradient(90deg, #FFB300, #3F51B5);
+}
+
+/* Hover: subtle lift + slightly darker card (strip stays colored) */
+.options-container .option-card:hover{
+  transform: translateY(-1px);
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+/* Keep titles neutral (no highlight change on hover) */
+.options-container .option-card a,
+.options-container .option-card p{
+  color: #1f2937 !important;
+  text-decoration: none;
+}
+.options-container .option-card:hover a,
+.options-container .option-card:hover p{
+  color: #1f2937 !important;
+}
+
+/* Optional: slightly wider on very large screens, still centered */
+@media (min-width: 1400px){
+  .options-container .option-card{ max-width: 720px; }
+}
+
+/* ===== Flip effect: single source of truth (place last) ===== */
+
+/* The container provides perspective (3D space) */
+.reviewbox{
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform .18s ease;      /* for the lift on hover */
+}
+.reviewbox:hover{ transform: translateY(-2px); }
+
+/* Both faces: stacked, hidden backside, and ANIMATE TRANSFORM */
+.reviewbox .card-face{
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: transform .6s ease, box-shadow .18s ease, background-color .18s ease, filter .18s ease;
+}
+
+/* Use rotateY for a horizontal flip */
+.card-front { transform: rotateY(0deg); }
+.card-back  { transform: rotateY(180deg); }
+
+/* Toggled state (your JS adds/removes .flipped on .reviewbox) */
+.reviewbox.flipped .card-front { transform: rotateY(-180deg); }
+.reviewbox.flipped .card-back  { transform: rotateY(0deg); }
+
+/* Hover polish on faces (won't break the flip) */
+.reviewbox:hover .card-face{
+  box-shadow: 0 14px 34px rgba(0,0,0,.14);
+  background-color: #f7f7f7;   /* slightly darker */
+  filter: brightness(.97);
+}
+.reviewbox:active .card-face{ filter: brightness(.94); }
+
+/* =========================
+   HOMEPAGE OPTIONS — bigger boxes, bigger text, more spacing
+   (no HTML changes)
+========================= */
+
+/* Stack & add more space between options */
+.options-container{
   display: flex;
-  justify-content: space-between;
-  margin-left: 20px;
-  font-size: 0.9rem;
+  flex-direction: column;
+  gap: 24px;                /* ↑ spacing between options */
+  padding-block: 8px;       /* subtle breathing room */
 }
 
-.skill p{
-    font-size: 20px;
+/* Ensure each card is a centered, wider, boxy block */
+.options-container .option-card{
+  position: relative;
+  width: 100% !important;
+  max-width: 820px;         /* bigger box (adjust 780–900px to taste) */
+  margin: 0 auto;
+  min-height: 72px;         /* taller feel */
+  border-radius: 8px;       /* boxy */
+  border: 1.5px solid #e2e2e2;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  padding: 1.25rem 1.5rem !important;   /* more inner padding */
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
 }
 
-.skill .score{
-    margin-left: 10px;
+/* Make the colored top strip a bit chunkier */
+.options-container .option-card::before{
+  content: "" !important;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;              /* was 6px; now more prominent */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5); /* default fallback */
 }
 
+/* Keep per-card gradients if you use data-option */
+.options-container .option-card[data-option="1"]::before{
+  background: linear-gradient(90deg, #8F1687, #E91E63);
+}
+.options-container .option-card[data-option="2"]::before{
+  background: linear-gradient(90deg, #3F51B5, #00BCD4);
+}
+.options-container .option-card[data-option="3"]::before{
+  background: linear-gradient(90deg, #00BFA6, #8F1687);
+}
+.options-container .option-card[data-option="4"]::before{
+  background: linear-gradient(90deg, #FFB300, #3F51B5);
+}
 
-/* ===== Datapage Specific Styles ===== */
-body.datapage {
-  background: linear-gradient(to bottom right, #8F1687, #8F1687); 
+/* Bigger, bolder titles (don’t change color on hover) */
+.options-container .option-card p{
+  font-size: 1.25rem;       /* ↑ text size */
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: #1f2937 !important;
+  margin: 0;
+}
+.options-container .option-card a{ text-decoration: none; display: block; }
+.options-container .option-card:hover p,
+.options-container .option-card:hover a{
+  color: #1f2937 !important; /* keep neutral on hover */
+}
+
+/* Hover: lift + slightly darker card */
+.options-container .option-card:hover{
+  transform: translateY(-2px);
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+  box-shadow: 0 10px 22px rgba(0,0,0,.10);
+}
+.options-container .option-card:active{
+  transform: translateY(-1px);
+}
+
+/* Extra spacing & width on very large screens */
+@media (min-width: 1400px){
+  .options-container{ gap: 28px; }
+  .options-container .option-card{ max-width: 880px; }
+}
+
+/* If earlier CSS forced Bootstrap rows/cols, keep them*
+
+/* === HOMEPAGE options: make spacing uniform between ALL cards === */
+
+/* 1) Stack vertically and set a single source of spacing */
+.options-container{
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* consistent space between every option */
+}
+
+/* 2) Flatten Bootstrap wrappers so each .option-card is a direct child */
+.options-container .row,
+.options-container .center-last-row,
+.options-container .col-md-6,
+.options-container .mb-3,
+.options-container .text-center{
+  display: contents !important;   /* let .option-card bubble up */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 3) Ensure each card stays centered & sized the way you want */
+.options-container .option-card{
+  width: 100% !important;
+  max-width: 820px;         /* adjust to taste */
+  margin: 0 auto;           /* center */
+  /* your other card styles here (boxy corners, top strip, etc.) */
+}
+
+/* =========================
+   Google Fonts (CSS-only)
+========================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap");
+
+/* =========================
+   Design tokens (reuse across pages)
+========================= */
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --teal:#00BFA6;
+  --amber:#FFB300;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
+}
+
+body.recog-pages{
+  font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 700px at 8% -8%, rgba(143,22,135,.10), transparent 60%),
+    radial-gradient(900px 700px at 108% 8%, rgba(63,81,181,.08), transparent 55%),
+    linear-gradient(180deg, #fafafb 0%, #f4f6fb 100%);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* Top bar — consistent brand */
+body.recog-pages .top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100;
+  width:100%;
+}
+body.recog-pages header h3{
+  font-family:"Poppins", inherit;
+  color:var(--purple);
+  font-weight:800;
+}
+
+/* =========================
+   Leave Recognition card
+========================= */
+.leave_recognition{
+  width: min(1000px, 94vw);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  margin: 1.25rem auto 2rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+/* Top row (employee/category) — tidy 2-col grid on desktop */
+.leave_recognition .top_bar{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+@media (min-width: 768px){
+  .leave_recognition .top_bar{ grid-template-columns: 1fr 1fr; }
+}
+
+/* Labels on-brand */
+#employee_section label,
+#category_section label,
+.mid_page label,
+#skills_title{
+  font-weight:700;
+  color: var(--purple);
+  margin-bottom: .35rem;
+  font-family:"Poppins", inherit;
+}
+
+/* Inputs/selects consistent styling */
+.leave_recognition .form-control,
+.leave_recognition .form-select{
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  box-shadow: none;
+}
+.leave_recognition .form-control:focus,
+.leave_recognition .form-select:focus{
+  border-color: var(--purple);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(143,22,135,.18);
+}
+
+/* Middle section spacing */
+.mid_page{ display:flex; flex-direction:column; gap: 14px; margin-top: 6px; }
+#recog_review{ min-height: 140px; resize: vertical; }
+
+/* =========================
+   Skills selector + rating
+========================= */
+.skills_used{ margin-top: 12px; }
+#ratingContainer{
+  display: none; /* shown by JS */
+  background: #faf7fc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* Range slider styling */
+#skillRating{
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-radius: 999px;
+  outline: none;
+}
+#skillRating::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--purple);
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+#skillRating::-moz-range-thumb{
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--purple);
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+
+/* Rating number badge */
+#ratingValue{
+  display:inline-block;
+  min-width: 28px;
+  text-align:center;
+  font-weight:700;
+  color: var(--ink);
+  background:#fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 6px;
+}
+
+/* Add Skill button — brand it */
+#addSkillBtn{
+  background: linear-gradient(135deg, var(--teal), var(--indigo));
+  border: none;
+  border-radius: 10px;
+  padding: .45rem .75rem;
+  font-weight: 700;
+}
+#addSkillBtn:hover{ filter: brightness(1.05); }
+
+/* Skills list as clean items/chips */
+#skillsList.list-group{
+  gap: 8px;
+}
+#skillsList .list-group-item{
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .55rem .75rem;
+}
+
+/* =========================
+   Submit button — purple gradient
+========================= */
+#submit_button{
+  all: unset;  /* neutralize Bootstrap .btn-warning look */
+  display: inline-block;
+  margin-top: 10px;
+  font-family:"Poppins", inherit;
+  font-weight:800;
+  font-size: 1rem;
+  color:#fff;
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  padding: .85rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  cursor: pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+#submit_button:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+#submit_button:active{ transform: translateY(0); }
+
+/* Keep it large like your original btn-lg intent */
+#submit_button{ font-size: 1.05rem; }
+
+/* =========================
+   Popup (toast) consistency
+========================= */
+.popup{
+  visibility: hidden;
+  min-width: 260px;
+  max-width: 90vw;
+  background-color: #333;
+  color:#fff;
+  text-align:center;
+  border-radius: 10px;
+  padding: 12px 16px;
+  position: fixed;
+  z-index: 1000;
+  left: 50%; top: 16px; transform: translateX(-50%);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity .3s, transform .3s;
+}
+.popup.show{ visibility: visible; opacity: 1; transform: translate(-50%, 6px); }
+.popup.success{ background-color: var(--teal); }
+.popup.error{ background-color: #e53935; }
+
+/* =========================
+   Focus visibility (a11y)
+========================= */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Center the title in the top bar on every page */
+.top-bar{
+  position: relative;              /* create a positioning context */
+  padding-left: 64px;              /* reserve space for left icon */
+  padding-right: 64px;             /* reserve space for right menu */
+}
+
+.top-bar h3{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  text-align: center;
+  max-width: calc(100% - 160px);   /* avoid overlap; adds ellipsis if long */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- Global heading weight (single source of truth) ---- */
+:root { --heading-weight: 500; }  /* change this to 400 if you want fully normal */
+
+h1, h2, h3,
+header h3,
+.top-bar h3,
+body.recog-pages header h3 {
+  font-weight: var(--heading-weight) !important;
+}
+
+/* =========================
+   Data Page (scoped to .datapage)
+========================= */
+
+body.datapage{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 700px at 8% -8%, rgba(143,22,135,.10), transparent 60%),
+    radial-gradient(900px 700px at 108% 8%, rgba(63,81,181,.08), transparent 55%),
+    linear-gradient(180deg, #fafafb 0%, #f4f6fb 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Top bar text / links */
-body.datapage .top-bar,
-body.datapage .top-bar a,
-body.datapage .top-bar h3,
+/* Top bar consistent with the rest */
+body.datapage .top-bar{
+  background: #fff !important;
+  border-bottom: 1px solid var(--border, #E6E6E6);
+  position: sticky; top: 0; z-index: 100;
+}
 body.datapage .home-icon a,
-body.datapage #dropdownUsername {
-  color: #8F1687;
-  background: none; 
+body.datapage .top-bar a,
+body.datapage #dropdownUsername{ color: var(--purple, #8F1687); }
+
+/* Centered title uses global heading weight if you set it */
+body.datapage .top-bar h3.title{
+  font-family: "Poppins", inherit;
+  color: var(--purple, #8F1687);
+  font-weight: var(--heading-weight, 500); /* keep consistent (not bold) */
 }
 
-.data-page-h1 {
-  color: white;
-  font-weight: bold;
+/* Main container width & spacing */
+body.datapage main.container{
+  max-width: min(1200px, 94vw);
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
-/* Cards (charts) */
-body.datapage .card {
-  background-color: #fff; 
-  border-radius: 10px;
+/* Big page heading over the gradient */
+.data-page-h1{
+  font-family: "Poppins", inherit;
+  font-weight: var(--heading-weight, 500);
+  color: #1f2937 ;
+  text-shadow: 0 1px 6px rgba(0,0,0,.18);
+}
+
+/* Cards: clean, with colored top strip + hover lift */
+body.datapage .card{
+  background: #fff;
+  border: 1px solid var(--border, #E6E6E6);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
+  position: relative;
+}
+body.datapage .card::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple, #8F1687), #3F51B5);
+}
+body.datapage .card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.12);
+  background-color: #f7f7f7;
+}
+
+/* Card header/body spacing */
+body.datapage .card-header{
+  background: transparent;
+  border-bottom: 1px solid #f1f1f1;
+  padding: .75rem 1rem;
+}
+body.datapage .card-header h5{
+  margin: 0;
+  font-family: "Poppins", inherit;
+  font-weight: var(--heading-weight, 500);
+  color: #1f2937;
+}
+body.datapage .card-body{
   padding: 1rem;
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* Chart containers inside cards */
-body.datapage #pie-chart,
-body.datapage #bar-chart {
-  background-color: #fff;
-  padding: 1rem;
+/* Plotly chart containers: responsive heights */
+#pie-chart, #bar-chart{
+  width: 100%;
+  min-height: 360px;   /* comfortable desktop height */
+}
+@media (max-width: 768px){
+  #pie-chart, #bar-chart{ min-height: 280px; }
+}
+
+/* Buttons / links in header keep brand color */
+body.datapage .dropdown-menu a.dropdown-item:hover{
+  background-color: rgba(143,22,135,.08);
+  color: var(--purple, #8F1687);
+}
+
+/* Accessibility focus */
+body.datapage a:focus-visible,
+body.datapage button:focus-visible{
+  outline: 3px solid var(--amber, #FFB300);
+  outline-offset: 2px;
   border-radius: 8px;
 }
 
-.newsletter_cont{
-  display: flex;
-  align-items: center;
-  width: 75%;
-  justify-content: center;
-  background-color: white;
-  border: 5px solid white;
-  border-radius: 15px;
-  margin: 100px auto;
-  padding: 30px 100px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
+/* =========================
+   Google Fonts (if not already added)
+========================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500&display=swap");
+
+/* =========================
+   Newsletter page (inspired by Leidos Insights)
+========================= */
+:root{
+  --purple: #8F1687;         /* your brand purple */
+  --indigo: #3F51B5;         /* accent like Leidos */
+  --deep: #1F1646;           /* deep navy-purple tone */
+  --border: #E6E6E6;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --card: #fff;
+  --shadow: 0 10px 28px rgba(0,0,0,.10);
 }
 
-.news_content{
-  display: flex;
-}
-
-.news_content img{
-  width: 400px;
-}
-
-.change_info{
-  background-color: white;
+/* Page background + top bar consistent with app */
+body.newsletter-page{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 700px at 8% -8%, rgba(143,22,135,.10), transparent 60%),
+    radial-gradient(900px 700px at 108% 8%, rgba(63,81,181,.08), transparent 55%),
+    linear-gradient(180deg, #fafafb 0%, #f4f6fb 100%);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  width: 800px;
-  height: 75%;
-  margin: auto;
-  border: 5px solid white;
-  border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+body.newsletter-page .top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+body.newsletter-page header h3{
+  font-family: "Poppins", inherit;
+  font-weight: var(--heading-weight, 500); /* keep consistent (not bold) */
+  color: var(--purple);
 }
 
-.change_info h2{
-  color: #8F1687;
-  text-align: center;
-  font-weight: bold;
+/* ===== Cards ===== */
+.newsletter_cont{
+  position: relative;
+  width: min(1100px, 94vw);
+  margin: 1.25rem auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
 }
 
-.changers{
-  width: 500px;
-  height: 70px;
-  border: 5px solid #535353;
-  border-radius: 10px;
-  margin: 30px auto;
-  margin-bottom: 50px;
+/* Leidos-style colored top strip */
+.newsletter_cont::after{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
 }
 
-.changers:hover{
-  width: 500px;
-  height: 70px;
-  border: 5px solid #eeeeee;
-  background-color: #8F1687;
-  transition-duration: 0.4s;
-  cursor: pointer;
+/* Subtle geometric accent (angled motif in the corner) */
+.newsletter_cont::before{
+  content:"";
+  position:absolute; right:-40px; top:-40px;
+  width:180px; height:180px; opacity:.12;
+  background:
+    radial-gradient(closest-side, rgba(31,22,70,.22), transparent 70%),
+    conic-gradient(from 220deg, var(--purple), var(--indigo));
+  filter: saturate(1.2);
+  transform: rotate(15deg);
+  pointer-events: none;
 }
 
-.changers a:hover{
-  color: white;
+/* Inner layout: alternating image/text */
+.news_content{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 1.25rem 1.25rem;
+}
+.newsletter_cont:nth-of-type(even) .news_content{
+  grid-template-columns: 1fr 1.1fr;
 }
 
-.changers a{
-  color: #8F1687;
-  text-decoration: none;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.changeMain{
-  margin-top:300px;
-}
-
-
- /* request support page *
-/* ===== Modal Overlay ===== */
-.modal {
-  display: none; /* hidden by default */
-  position: fixed;
-  top: 0;
-  left: 0;
+/* Images */
+.news_content img{
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5); /* semi-transparent dark overlay */
-  z-index: 1000;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.10);
+}
+
+/* Copy */
+.news_content p{
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+/* Hover polish */
+.newsletter_cont:hover{
+  transform: translateY(-2px);
+  background-color: #f7f7f7;
+  border-color: #dcdcdc;
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+/* Responsive */
+@media (max-width: 768px){
+  .news_content{ grid-template-columns: 1fr; gap: 12px; }
+  .news_content img{ max-height: 220px; }
+}
+
+/* Links in dropdown keep brand feel */
+body.newsletter-page .dropdown-menu a.dropdown-item:hover{
+  background-color: rgba(143,22,135,.08);
+  color: var(--purple);
+}
+
+/* Focus visibility */
+body.newsletter-page a:focus-visible,
+body.newsletter-page button:focus-visible{
+  outline: 3px solid #FFB300;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* HOMEPAGE option icons */
+.options-container .option-card a{
   display: flex;
-  justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease;
+  justify-content: center;   /* center icon + text together */
+  gap: 12px;
 }
 
-/* ===== Modal Content Box ===== */
-.modal-content {
-  background-color: #fff;
-  width: 400px;
-  max-width: 90%;
-  padding: 30px 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+.opt-icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  /* default gradient; per-option overrides below */
+  background: linear-gradient(135deg, #8F1687, #3F51B5);
+}
+.opt-icon svg{ fill: #fff; }
+
+/* Match your per-option top strip colors */
+.option-card[data-option="1"] .opt-icon{
+  background: linear-gradient(135deg, #8F1687, #E91E63);
+}
+.option-card[data-option="2"] .opt-icon{
+  background: linear-gradient(135deg, #3F51B5, #00BCD4);
+}
+.option-card[data-option="3"] .opt-icon{
+  background: linear-gradient(135deg, #00BFA6, #8F1687);
+}
+.option-card[data-option="4"] .opt-icon{
+  background: linear-gradient(135deg, #FFB300, #3F51B5);
+}
+
+/* Keep your existing hover effect; add a tiny icon pop */
+.options-container .option-card:hover .opt-icon{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+}
+
+/* Global: make the home icon (and other top-bar links) the same color everywhere */
+:root { --brand-purple: #8F1687; }
+
+.top-bar .home-icon a,
+.top-bar a,
+.top-bar #dropdownUsername {
+  color: var(--brand-purple) !important;
+}
+
+/* Ensure the SVG uses the link color */
+.top-bar .home-icon svg { fill: currentColor; }
+
+/* === Data page: wider layout + taller charts === */
+body.datapage main.container{
+  max-width: min(1600px, 96vw) !important;  /* was ~1200 — go wider */
+}
+
+/* Cards breathe a bit more on big screens */
+@media (min-width: 1400px){
+  body.datapage .card-body{ padding: 1.25rem 1.25rem; }
+}
+
+/* Chart containers: taller defaults, scale up on large screens */
+#pie-chart, #bar-chart{
+  width: 100%;
+  min-height: 520px;                 /* was ~360 — taller */
+}
+@media (min-width: 1400px){
+  #pie-chart, #bar-chart{ min-height: 620px; }
+}
+
+/* Help Plotly stretch to fill the parent */
+#pie-chart > div,
+#bar-chart > div,
+#pie-chart .js-plotly-plot,
+#bar-chart .js-plotly-plot,
+#pie-chart .plot-container,
+#bar-chart .plot-container{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Data page: stack charts full-width on large screens */
+@media (min-width: 992px){ /* Bootstrap "lg" breakpoint */
+  body.datapage main.container > .row:nth-of-type(2) > .col-md-6{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Stack each chart card full-width on lg+ and add space between them */
+@media (min-width: 992px){ /* Bootstrap lg */
+  /* target the 2nd row (the charts row) */
+  body.datapage main.container > .row:nth-of-type(2){
+    row-gap: 24px;                 /* vertical spacing between stacked cards */
+  }
+  body.datapage main.container > .row:nth-of-type(2) > .col-md-6{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Minimal footer */
+:root{ --brand-purple:#8F1687; --border:#E6E6E6; --muted:#6b7280; }
+
+.mini-footer{
+  border-top: 1px solid var(--border);
+  background: #fff;           /* or transparent */
+}
+.mini-footer::before{          /* tiny brand accent line */
+  content:"";
+  display:block;
+  height:3px;
+  background: linear-gradient(90deg, var(--brand-purple), #3F51B5);
+}
+
+.mini-footer__inner{
+  width: min(1200px, 94vw);
+  margin: 0 auto;
+  padding: .75rem 0;
+  display:flex;
+  gap:.75rem 1rem;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  font-size:.95rem;
+  color: var(--muted);
+}
+
+.mini-footer__links{
+  display:flex; align-items:center; gap:.5rem;
+}
+.mini-footer__links a{
+  color: var(--muted); text-decoration:none;
+}
+.mini-footer__links a:hover{
+  color:#111; text-decoration:underline;
+}
+
+/* ===== Sticky footer (works on every page) ===== */
+html, body { height: 100%; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the main content take up remaining space */
+main { flex: 1 0 auto; }
+
+/* Push the footer to the bottom when content is short */
+.mini-footer { margin-top: auto; }
+
+/* Full-width minimal footer with content on each side */
+.mini-footer {
+  width: 100%;
+}
+
+.mini-footer__inner{
+  max-width: none;           /* remove container limit */
+  width: 100%;               /* full screen width */
+  margin: 0;                 /* no centering container */
+  padding: .75rem clamp(16px, 4vw, 32px); /* side padding; adjust if you want tighter */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* left + right edges */
+  gap: 1rem;
+  flex-wrap: wrap;           /* wraps nicely on small screens */
+}
+
+/* Optional: on very small screens, center & stack */
+@media (max-width: 480px){
+  .mini-footer__inner{
+    justify-content: center;
+    gap: .5rem 1rem;
+  }
+}
+
+/* =========================
+   Change Email page
+========================= */
+
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
+}
+
+/* Top bar consistency */
+.top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+
+/* Page card */
+.change{
+  width: min(760px, 94vw);
+  margin: 1.5rem auto 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1.5rem;
   position: relative;
-  transform: translateY(-50px);
-  animation: slideIn 0.3s forwards;
-  font-family: Corbel, sans-serif;
 }
 
-/* Close Button */
-.modal-content .close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 25px;
-  font-weight: bold;
-  color: #8F1687;
+/* Colored accent strip (brand) */
+.change::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+}
+
+/* Heading */
+.change h1{
+  margin: .25rem 0 1rem;
+  font-weight: var(--heading-weight, 500); /* keeps your global heading consistency */
+  color: var(--ink);
+}
+
+/* Form layout & fields */
+.change_email{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.change_email label{
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: .25rem;
+}
+
+.change_email input[type="email"]{
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.change_email input[type="email"]::placeholder{
+  color: #9aa0a6;
+}
+
+.change_email input[type="email"]:focus{
+  outline: 0;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(143,22,135,.18);
+}
+
+/* Submit button (brand gradient) */
+.change_email button[type="submit"]{
+  justify-self: start;
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: .85rem 1.25rem;
+  font-weight: 800;
   cursor: pointer;
-  transition: color 0.2s;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
 }
 
-.modal-content .close:hover {
-  color: #5e0e58;
+.change_email button[type="submit"]:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+.change_email button[type="submit"]:active{ transform: translateY(0); }
+
+/* Clean up the <br> gaps the markup adds */
+.change_email br{ display:none; }
+
+/* Toast popup consistent (if used) */
+.popup{
+  visibility: hidden;
+  min-width: 260px; max-width: 90vw;
+  background-color: #333; color:#fff;
+  text-align:center; border-radius: 10px;
+  padding: 12px 16px; position: fixed; z-index: 1000;
+  left: 50%; top: 16px; transform: translateX(-50%);
+  font-size: 14px; opacity: 0;
+  transition: opacity .3s, transform .3s;
+}
+.popup.show{ visibility: visible; opacity: 1; transform: translate(-50%, 6px); }
+.popup.success{ background-color: #00BFA6; }
+.popup.error{ background-color: #e53935; }
+
+/* Sticky minimal footer support (if not already set globally) */
+html, body { height: 100%; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+.mini-footer { margin-top: auto; }
+
+/* =========================
+   Change Information page
+========================= */
+
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
 }
 
-/* Modal Heading */
-.modal-content h2 {
-  color: #8F1687;
-  margin-bottom: 20px;
+/* Keep header consistent (if not already set globally) */
+.top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+
+/* Remove the huge top gap from earlier styles */
+.changeMain{ margin-top: 1.5rem !important; }
+
+/* Card container (override any older absolute centering) */
+.change_info{
+  position: relative !important;
+  top: auto !important; left: auto !important; transform: none !important;
+
+  width: min(760px, 94vw);
+  margin: 1.5rem auto 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1.5rem;
+
+  display: grid;
+  gap: 14px;
+}
+
+/* Brand accent strip on top */
+.change_info::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+}
+
+/* Heading */
+.change_info h2{
+  margin: .25rem 0 .5rem;
+  font-weight: var(--heading-weight, 500);
+  color: var(--ink);
   text-align: center;
 }
 
-/* Form Fields */
-.modal-content label {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.modal-content input,
-.modal-content textarea {
+/* The three action buttons: boxy, centered, consistent */
+.changers{
+  display: block;
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-}
-
-.modal-content textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* Submit Button */
-.modal-content button {
-  background-color: #8F1687;
-  color: #fff;
-  border: none;
+  min-height: 64px;
+  border: 1.5px solid #e2e2e2;
   border-radius: 10px;
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  margin-top: 20px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
 }
 
-.modal-content button:hover {
-  background-color: #6f1061;
+/* Colored top strip on each button */
+.changers::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+/* Make the inner link fill the button and look like a label */
+.changers a{
+  display: block;
+  width: 100%; height: 100%;
+  padding: .95rem 1rem;
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 800;
+  letter-spacing: .2px;
+  text-align: center;
 }
 
-@keyframes slideIn {
-  from {transform: translateY(-50px); opacity: 0;}
-  to {transform: translateY(0); opacity: 1;}
+/* Hover */
+.changers:hover{
+  transform: translateY(-1px);
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+@media (min-width: 1400px){
+  .change_info{ width: min(820px, 92vw); }
+}
+
+/* =========================
+   Change Username page
+========================= */
+
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
+}
+
+/* Top bar consistency (safe if already present elsewhere) */
+.top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+
+/* Card container */
+.change{
+  width: min(760px, 94vw);
+  margin: 1.5rem auto 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1.5rem;
+  position: relative;
+}
+
+/* Brand accent strip on top */
+.change::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+}
+
+/* Heading */
+.change h1{
+  margin: .25rem 0 1rem;
+  font-weight: var(--heading-weight, 500);
+  color: var(--ink);
+}
+
+/* Form layout & fields */
+.change_username{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.change_username label{
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: .25rem;
+}
+
+.change_username input[type="text"]{
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.change_username input[type="text"]::placeholder{ color: #9aa0a6; }
+.change_username input[type="text"]:focus{
+  outline: 0;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(143,22,135,.18);
+}
+
+/* Submit button (brand gradient) */
+.change_username button[type="submit"]{
+  justify-self: start;
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: .85rem 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+.change_username button[type="submit"]:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+.change_username button[type="submit"]:active{ transform: translateY(0); }
+
+/* Clean up the <br> gaps in markup */
+.change_username br{ display:none; }
+
+/* Toast popup (shared) */
+.popup{
+  visibility: hidden;
+  min-width: 260px; max-width: 90vw;
+  background-color: #333; color:#fff;
+  text-align:center; border-radius: 10px;
+  padding: 12px 16px; position: fixed; z-index: 1000;
+  left: 50%; top: 16px; transform: translateX(-50%);
+  font-size: 14px; opacity: 0;
+  transition: opacity .3s, transform .3s;
+}
+.popup.show{ visibility: visible; opacity: 1; transform: translate(-50%, 6px); }
+.popup.success{ background-color: #00BFA6; }
+.popup.error{ background-color: #e53935; }
+
+/* Sticky minimal footer support (if not already global) */
+html, body { height: 100%; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+.mini-footer { margin-top: auto; }
+
+/* Footer full-width edges (if using the minimal footer variant) */
+.mini-footer__inner{
+  max-width: none; width: 100%; margin: 0;
+  padding: .75rem clamp(16px, 4vw, 32px);
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+}
+
+/* =========================
+   Change Password page
+========================= */
+
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
+}
+
+/* Keep header consistent (safe if already defined) */
+.top-bar{
+  background:#fff !important;
+  border-bottom:1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+
+/* Card container */
+.login{
+  width: min(760px, 94vw);
+  margin: 1.5rem auto 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1.5rem;
+  position: relative;
+}
+
+/* Brand accent strip */
+.login::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+}
+
+/* Heading */
+.login h1{
+  margin: .25rem 0 1rem;
+  font-weight: var(--heading-weight, 500);
+  color: var(--ink);
+}
+
+/* Form layout */
+#changePass{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Labels & inputs */
+#changePass label{
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: .25rem;
+}
+#changePass input[type="password"]{
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+}
+#changePass input[type="password"]::placeholder{ color:#9aa0a6; }
+#changePass input[type="password"]:focus{
+  outline: 0;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(143,22,135,.18);
+}
+
+/* Submit button */
+#changePass button[type="submit"]{
+  justify-self: start;
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: .85rem 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+#changePass button[type="submit"]:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+#changePass button[type="submit"]:active{ transform: translateY(0); }
+
+/* Remove extra gaps from <br> in markup */
+#changePass br{ display:none; }
+
+/* Toast popup (shared look) */
+.popup{
+  visibility: hidden;
+  min-width: 260px; max-width: 90vw;
+  background-color: #333; color:#fff;
+  text-align:center; border-radius: 10px;
+  padding: 12px 16px; position: fixed; z-index: 1000;
+  left: 50%; top: 16px; transform: translateX(-50%);
+  font-size: 14px; opacity: 0;
+  transition: opacity .3s, transform .3s;
+}
+.popup.show{ visibility: visible; opacity: 1; transform: translate(-50%, 6px); }
+.popup.success{ background-color: #00BFA6; }
+.popup.error{ background-color: #e53935; }
+
+/* Sticky minimal footer (if not already global) */
+html, body { height: 100%; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+.mini-footer { margin-top: auto; }
+
+/* ==== Canonical footer: typography + spacing (single source of truth) ==== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --muted:#6b7280;
+
+  /* Footer typography + rhythm */
+  --footer-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --footer-font-size: .95rem;
+  --footer-font-weight: 500;
+  --footer-line-height: 1.35;
+  --page-gutter: clamp(16px, 4vw, 32px);
+}
+
+/* Sticky layout support */
+html, body { height: 100%; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+
+/* Footer container + accent */
+.mini-footer{
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+.mini-footer::before{
+  content:""; display:block; height:3px;
+  background: linear-gradient(90deg, var(--brand-purple), var(--indigo));
+}
+
+/* Footer inner + typography lock */
+.mini-footer__inner{
+  width: 100%;
+  padding: 12px var(--page-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  /* lock font + rhythm so all pages look the same */
+  font-family: var(--footer-font-family);
+  font-size: var(--footer-font-size);
+  font-weight: var(--footer-font-weight);
+  line-height: var(--footer-line-height);
+}
+
+/* Normalize element defaults inside the footer */
+.mini-footer__inner p{ margin: 0; }
+.mini-footer__links{ display:flex; align-items:center; gap:.5rem; }
+.mini-footer__links a{
+  color: var(--muted);
+  text-decoration: none;
+  line-height: var(--footer-line-height);
+}
+.mini-footer__links a:hover{ color:#111; text-decoration: underline; }
+
+/* ===== Bigger navbar + bigger home icon (global) ===== */
+:root{
+  --nav-h: 64px;                  /* base navbar height */
+  --nav-h-lg: 72px;               /* large screens */
+  --nav-xpad: clamp(16px, 3vw, 28px);
+  --brand-purple: #8F1687;
+}
+
+/* Navbar container */
+.top-bar{
+  padding: clamp(12px, 1.8vh, 18px) var(--nav-xpad) !important;
+  min-height: var(--nav-h);
+  background: #fff !important;                /* keep consistent */
+  border-bottom: 1px solid #E6E6E6;
+}
+
+/* Header title size */
+.top-bar h3{
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.1;
+}
+
+/* Right-side dropdown button size */
+.top-bar .navbar-right .btn{
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+/* Home icon: bigger touch target + larger svg */
+.top-bar .home-icon a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--brand-purple);
+  transition: background-color .15s ease, transform .15s ease;
+}
+.top-bar .home-icon a:hover{
+  background-color: rgba(143,22,135,.08);
+  transform: translateY(-1px);
+}
+
+/* Make the SVG bigger (overrides width/height attrs in HTML) */
+.top-bar .home-icon svg{
+  width: 28px !important;
+  height: 28px !important;
+  fill: currentColor; /* stay purple */
+}
+
+/* Larger on big screens */
+@media (min-width: 992px){
+  .top-bar{ min-height: var(--nav-h-lg); }
+  .top-bar h3{ font-size: 1.6rem; }
+  .top-bar .home-icon a{ width: 48px; height: 48px; }
+  .top-bar .home-icon svg{ width: 32px !important; height: 32px !important; }
+}
+
+/* Ensure all top-bar links use brand color globally (if not set already) */
+.top-bar .home-icon a,
+.top-bar a,
+.top-bar #dropdownUsername{
+  color: var(--brand-purple) !important;
+}
+
+/* ===== Bigger header / navbar (global) ===== */
+:root{
+  --nav-h: 72px;                           /* base header height */
+  --nav-h-lg: 88px;                        /* large screens */
+  --nav-xpad: clamp(20px, 4vw, 36px);      /* side padding */
+  --header-title-size: clamp(1.4rem, 2.4vw, 2rem); /* title size */
+  --brand-purple: #8F1687;
+}
+
+/* Top bar container */
+.top-bar{
+  padding: clamp(14px, 2vh, 22px) var(--nav-xpad) !important;
+  min-height: var(--nav-h);
+  background: #fff !important;
+  border-bottom: 1px solid #E6E6E6;
+  display: flex !important;                /* ensure flex even if classes change */
+  align-items: center !important;
+  gap: 12px;
+}
+
+/* Make the center title bigger & truly centered */
+.top-bar h3,
+.top-bar .title{
+  flex: 1 1 auto;                          /* allows center text */
+  text-align: center;
+  margin: 0;
+  font-size: var(--header-title-size);
+  font-weight: 500;                         /* keep consistent weight */
+  letter-spacing: .2px;
+  line-height: 1.1;
+}
+
+/* Keep left/right regions from stealing space */
+.top-bar .home-icon,
+.top-bar .navbar-right{
+  flex: 0 0 auto;
+}
+
+/* Bigger home icon + touch target */
+.top-bar .home-icon a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  color: var(--brand-purple);
+  transition: background-color .15s ease, transform .15s ease;
+}
+.top-bar .home-icon a:hover{
+  background-color: rgba(143,22,135,.08);
+  transform: translateY(-1px);
+}
+/* Enlarge the SVG regardless of inline width/height */
+.top-bar .home-icon svg{
+  width: 34px !important;
+  height: 34px !important;
+  fill: currentColor;
+}
+
+/* Right-side dropdown button scales with header */
+.top-bar .navbar-right .btn{
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+/* Even larger on desktops */
+@media (min-width: 992px){
+  .top-bar{ min-height: var(--nav-h-lg); }
+  .top-bar .home-icon a{ width: 56px; height: 56px; border-radius: 14px; }
+  .top-bar .home-icon svg{ width: 38px !important; height: 38px !important; }
+}
+
+/* ===== Homepage: bigger, centered quiz box + larger option buttons ===== */
+:root{
+  --home-max: 980px;                         /* width of the main box */
+  --home-pad: clamp(24px, 4vw, 44px);        /* padding inside the box */
+  --home-option-h: 88px;                     /* min height of each option */
+  --home-font: clamp(1.1rem, 1.35vw, 1.35rem);
+}
+
+/* Only affect the homepage (body has no .recog-pages/.datapage there) */
+body:not(.recog-pages):not(.datapage) .container{
+  padding-top: clamp(16px, 4vh, 40px) !important;
+}
+body:not(.recog-pages):not(.datapage) main.container{
+  min-height: calc(100vh - 140px);           /* pull content toward center */
+  display: grid;
+  place-items: center;
+}
+
+/* Bigger, centered main card */
+.quiz-container{
+  width: min(var(--home-max), 92vw);
+  max-width: var(--home-max);
+  margin: 0 auto;                            /* horizontally centered */
+  padding: var(--home-pad);
+  border-radius: 14px;
+}
+
+/* Force one option per row and add consistent gaps */
+.options-container .row{ row-gap: 16px !important; }
+@media (min-width: 768px){
+  .options-container .row > [class*="col-"]{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Make option “buttons” larger and more prominent */
+.option-card{
+  max-width: 760px;                          /* slightly wider buttons */
+  margin: 0 auto;                            /* center each button */
+  padding: 1.25rem 1.5rem;
+  min-height: var(--home-option-h);
+  border-radius: 12px;
+}
+
+/* Bigger label text inside options */
+.option-card p,
+.option-card .text{
+  font-size: var(--home-font);
+  font-weight: 800;
+}
+
+/* Keep that little colored strip on top of each option */
+.option-card{ position: relative; }
+.option-card::before{
+  content:"";
+  position: absolute; left: 0; right: 0; top: 0; height: 6px;
+  border-top-left-radius: 12px; border-top-right-radius: 12px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+/* Per-option colors if you use data-option attrs */
+.option-card[data-option="1"]::before{ background: linear-gradient(90deg, #8F1687, #E91E63); }
+.option-card[data-option="2"]::before{ background: linear-gradient(90deg, #3F51B5, #00BCD4); }
+.option-card[data-option="3"]::before{ background: linear-gradient(90deg, #00BFA6, #8F1687); }
+.option-card[data-option="4"]::before{ background: linear-gradient(90deg, #FFB300, #3F51B5); }
+
+/* ==== Homepage options: bigger buttons, larger fonts, more spacing ==== */
+:root{
+  --option-max: 840px;                         /* max width per option card */
+  --option-min-h: 112px;                        /* taller buttons */
+  --option-pad-y: 1.25rem;                      /* vertical padding */
+  --option-pad-x: 1.5rem;                       /* horizontal padding */
+  --option-font: clamp(1.15rem, 1.6vw, 1.6rem); /* bigger label text */
+  --option-gap: clamp(20px, 3.2vh, 32px);       /* space between options/rows */
+}
+
+/* Force one option per row & add consistent gaps */
+.options-container .row > [class*="col-"]{
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+.options-container .row{ 
+  row-gap: var(--option-gap) !important; 
+}
+.options-container .row + .row{
+  margin-top: var(--option-gap) !important;   /* space between the main row and manager-only row */
+}
+
+/* Bigger, more “button-y” cards and centered in the page */
+.option-card{
+  max-width: var(--option-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--option-pad-y) var(--option-pad-x);
+  min-height: var(--option-min-h);
+  border-radius: 14px;
+}
+
+/* Larger text inside each option */
+.option-card p,
+.option-card .text{
+  font-size: var(--option-font);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;                                   /* tighten layout */
+}
+
+/* Keep the thin colored strip at the top of each option */
+.option-card{ position: relative; }
+.option-card::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0; height:6px;
+  border-top-left-radius: 14px; border-top-right-radius: 14px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+
+/* (Optional) slightly larger main box so everything feels roomier */
+body:not(.recog-pages):not(.datapage) .quiz-container{
+  max-width: 980px;
+  padding: clamp(24px, 4vw, 44px);
+}
+
+/* === Homepage options: force larger size + spacing (wins over Bootstrap) === */
+:root{
+  --option-max: 960px;                         /* width per option card */
+  --option-min-h: 128px;                        /* taller buttons */
+  --option-pad-y: 1.4rem;
+  --option-pad-x: 1.6rem;
+  --option-font: clamp(1.25rem, 2vw, 1.8rem);   /* bigger label text */
+  --option-gap: clamp(24px, 4vh, 40px);         /* space between options/rows */
+}
+
+/* Make the main card larger and centered */
+main.container .quiz-container{
+  width: min(1100px, 95vw) !important;
+  padding: clamp(28px, 4vw, 48px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Kill Bootstrap column widths & gutters for these rows */
+.options-container .row{
+  --bs-gutter-x: 0;                /* remove side gutters */
+  row-gap: var(--option-gap) !important;   /* vertical space between items */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.options-container .row + .row,
+.options-container .center-last-row{
+  margin-top: var(--option-gap) !important;      /* gap before the next row */
+}
+
+/* Force ONE per row regardless of col-md-6 */
+.options-container .row > [class^="col"],
+.options-container .row > [class*=" col-"],
+.options-container .row > [class*="col-"]{
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+/* Bigger option cards, centered */
+main.container .quiz-container .option-card{
+  max-width: var(--option-max) !important;
+  min-height: var(--option-min-h) !important;
+  padding: var(--option-pad-y) var(--option-pad-x) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-radius: 16px !important;
+}
+
+/* Larger text inside each option */
+main.container .quiz-container .option-card p,
+main.container .quiz-container .option-card .text{
+  font-size: var(--option-font) !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+}
+
+/* Keep the thin colored strip at the top of each option (a bit thicker now) */
+main.container .quiz-container .option-card{ position: relative; }
+main.container .quiz-container .option-card::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:8px;
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+
+/* Optional: make the whole homepage block sit closer to screen center */
+body:not(.recog-pages):not(.datapage) main.container{
+  min-height: calc(100vh - 200px);          /* adjust if your header/footer size differs */
+  display: grid; place-items: center;
+}
+
+/* === 1) Restore original top-bar color scheme === */
+:root{
+  --brand-purple:#8F1687;
+  --topbar-bg:#e0e0e0;  /* your old grey */
+}
+
+.top-bar{
+  background: var(--topbar-bg) !important;  /* back to grey */
+  border-bottom: none !important;           /* remove white header border if present */
+}
+
+/* Keep all header text/icons purple like before */
+.top-bar a,
+.top-bar #dropdownUsername,
+.top-bar h3,
+.top-bar .home-icon a{ color: var(--brand-purple) !important; }
+.top-bar .home-icon svg{ fill: currentColor; }
+
+/* === 2) Center option text horizontally + vertically === */
+main.container .quiz-container .option-card{
+  display: flex !important;
+  align-items: center !important;   /* vertical center */
+  justify-content: center !important;/* horizontal center */
+  text-align: center !important;
+}
+
+/* Make the link fill the card for consistent centering/click area */
+main.container .quiz-container .option-card a{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Tighten the paragraph inside so it doesn't fight centering */
+main.container .quiz-container .option-card p{
+  margin: 0 !important;
+}
+
+/* ==== Restore original top-bar colours globally (grey bg + purple text) ==== */
+:root{
+  --brand-purple:#8F1687;
+  --topbar-grey:#e0e0e0;
+}
+
+/* Beat Bootstrap's .bg-light and any earlier overrides */
+html body .top-bar,
+html body .top-bar.bg-light{
+  background-color: var(--topbar-grey) !important;
+  border-bottom: none !important;
+}
+
+/* Make all header text/icons purple */
+html body .top-bar h3,
+html body .top-bar a,
+html body .top-bar #dropdownUsername,
+html body .top-bar .home-icon a,
+html body .top-bar .navbar-right .btn{
+  color: var(--brand-purple) !important;
+}
+
+/* Ensure SVG icons inherit the purple */
+html body .top-bar .home-icon svg,
+html body .top-bar svg{
+  fill: currentColor !important;
+}
+
+/* Some pages set the header back to white — neutralise those */
+body.datapage .top-bar,
+body.recog-pages .top-bar{
+  background-color: var(--topbar-grey) !important;
+}
+
+/* Remove the white pill look of .btn-light in the top bar so text stays purple on grey */
+.top-bar .navbar-right .btn.btn-light{
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/* === Fix: make the colored top strip visible on homepage option cards === */
+main.container .quiz-container .options-container .option-card{
+  position: relative !important;
+  overflow: hidden !important;  /* keep the strip inside rounded corners */
+}
+
+main.container .quiz-container .options-container .option-card::before{
+  content: "" !important;
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  height: 8px !important;                     /* visible thickness */
+  border-top-left-radius: inherit !important;  /* match card corners */
+  border-top-right-radius: inherit !important;
+  background: linear-gradient(90deg, #8F1687, #3F51B5) !important; /* default */
+  z-index: 2 !important;                       /* sit above card bg */
+  pointer-events: none !important;             /* never block clicks */
+}
+
+/* Per-option gradient colours (override default) */
+main.container .quiz-container .options-container .option-card[data-option="1"]::before{
+  background: linear-gradient(90deg, #8F1687, #E91E63) !important;
+}
+main.container .quiz-container .options-container .option-card[data-option="2"]::before{
+  background: linear-gradient(90deg, #3F51B5, #00BCD4) !important;
+}
+main.container .quiz-container .options-container .option-card[data-option="3"]::before{
+  background: linear-gradient(90deg, #00BFA6, #8F1687) !important;
+}
+main.container .quiz-container .options-container .option-card[data-option="4"]::before{
+  background: linear-gradient(90deg, #FFB300, #3F51B5) !important;
+}
+
+/* Ensure the clickable content is above the strip (just in case) */
+main.container .quiz-container .options-container .option-card a{
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* =========================
+   Navbar dropdown (global)
+   — matches the styling you used elsewhere
+========================= */
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+}
+
+/* Trigger button (user pill) */
+.top-bar .navbar-right .btn,
+.top-bar #userDropdown{
+  background: transparent !important;
+  color: var(--brand-purple) !important;
+  border: 0 !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  font-weight: 600;
+}
+.top-bar .navbar-right .btn:hover,
+.top-bar #userDropdown:hover{
+  background-color: rgba(143,22,135,.08) !important;
+}
+.top-bar .navbar-right .btn:focus-visible,
+.top-bar #userDropdown:focus-visible{
+  outline: 3px solid #FFB300;
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* Caret color */
+.top-bar .navbar-right .btn.dropdown-toggle::after,
+.top-bar #userDropdown.dropdown-toggle::after{
+  border-top-color: currentColor !important;
+}
+
+/* Menu panel */
+.top-bar .dropdown-menu{
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+  min-width: 220px;
+}
+
+/* Menu items */
+.top-bar .dropdown-menu .dropdown-item{
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--ink);
+  font-weight: 700;
+}
+.top-bar .dropdown-menu .dropdown-item:hover,
+.top-bar .dropdown-menu .dropdown-item:focus{
+  background-color: rgba(143,22,135,.08);
+  color: var(--brand-purple);
+}
+.top-bar .dropdown-menu .dropdown-item:active{
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo));
+  color: #fff;
+}
+
+/* Divider */
+.top-bar .dropdown-menu .dropdown-divider{
+  margin: 6px 4px;
+  border-top-color: #eee;
+}
+
+/* =========================================
+   Navbar dropdown — match index.css "pill" look
+   (gradient button, bold text, shadow, hover lift)
+========================================= */
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+}
+
+/* Toggle (user button) styled exactly like #signup pill */
+html body .top-bar .navbar-right .btn,
+html body .top-bar #userDropdown{
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: .5rem .8rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 18px rgba(63,81,181,.18) !important;
+  display: inline-flex; align-items: center; gap: .5rem;
+  transition: transform .12s ease, filter .12s ease !important;
+}
+html body .top-bar .navbar-right .btn:hover,
+html body .top-bar #userDropdown:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+html body .top-bar .navbar-right .btn:active,
+html body .top-bar #userDropdown:active{
+  transform: translateY(0);
+}
+
+/* Caret matches text color (white on gradient) */
+html body .top-bar .navbar-right .btn.dropdown-toggle::after,
+html body .top-bar #userDropdown.dropdown-toggle::after{
+  border-top-color: currentColor !important;
+}
+
+/* Accessible focus ring (same as index.css) */
+html body .top-bar .navbar-right .btn:focus-visible,
+html body .top-bar #userDropdown:focus-visible{
+  outline: 3px solid #FFB300 !important;
+  outline-offset: 2px !important;
+  border-radius: 12px !important;
+}
+
+/* Dropdown menu panel */
+html body .top-bar .dropdown-menu{
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  min-width: 220px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+}
+
+/* Menu items: bold, crisp, with brand hover */
+html body .top-bar .dropdown-menu .dropdown-item{
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  color: var(--ink) !important;
+  font-weight: 700 !important;
+}
+html body .top-bar .dropdown-menu .dropdown-item:hover,
+html body .top-bar .dropdown-menu .dropdown-item:focus{
+  background-color: rgba(143,22,135,.08) !important;
+  color: var(--brand-purple) !important;
+}
+
+/* Active click state: same gradient treatment */
+html body .top-bar .dropdown-menu .dropdown-item:active{
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important;
+  color: #fff !important;
+}
+
+/* Divider spacing/colors */
+html body .top-bar .dropdown-menu .dropdown-divider{
+  margin: 6px 4px !important;
+  border-top-color: #eee !important;
+}
+
+/* =========================
+   Navbar dropdown — lock font formatting to match index.css
+========================= */
+:root{
+  --dd-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --dd-font-size: .95rem;      /* same scale used on auth pages */
+  --dd-font-weight-btn: 600;   /* pill button weight */
+  --dd-font-weight-item: 700;  /* menu item weight */
+  --dd-line-height: 1.35;
+  --dd-letter-spacing: .2px;
+}
+
+/* Toggle (user button / pill) */
+html body .top-bar .navbar-right .btn,
+html body .top-bar #userDropdown{
+  font-family: var(--dd-font-family) !important;
+  font-size: var(--dd-font-size) !important;
+  font-weight: var(--dd-font-weight-btn) !important;
+  line-height: var(--dd-line-height) !important;
+  letter-spacing: var(--dd-letter-spacing) !important;
+}
+
+/* Menu panel + items */
+html body .top-bar .dropdown-menu{
+  font-family: var(--dd-font-family) !important;
+  font-size: var(--dd-font-size) !important;
+  line-height: var(--dd-line-height) !important;
+  letter-spacing: var(--dd-letter-spacing) !important;
+}
+
+html body .top-bar .dropdown-menu .dropdown-item{
+  font-family: var(--dd-font-family) !important;
+  font-size: var(--dd-font-size) !important;
+  font-weight: var(--dd-font-weight-item) !important;
+  line-height: var(--dd-line-height) !important;
+  letter-spacing: var(--dd-letter-spacing) !important;
+}
+
+/* Force the username + icon inside the dropdown toggle to be white */
+html body .top-bar #userDropdown #dropdownUsername,
+html body .top-bar .navbar-right .btn #dropdownUsername{
+  color: #fff !important;
+}
+
+html body .top-bar #userDropdown svg,
+html body .top-bar .navbar-right .btn svg{
+  color: #fff !important;
+  fill: #fff !important; /* ensure the SVG uses white */
+}
+
+/* (optional) keep the caret white too */
+html body .top-bar #userDropdown.dropdown-toggle::after{
+  border-top-color: #fff !important;
+}
+
+/* === Homepage only: make the white panel (quiz-container) wider & taller === */
+html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container .quiz-container{
+  /* Wider */
+  width: min(1200px, 96vw) !important;        /* was ~980–1100 in earlier rules */
+  max-width: 1200px !important;
+
+  /* Taller */
+  min-height: clamp(520px, 60vh, 820px) !important;
+
+  /* Roomier inner spacing so it *feels* larger too */
+  padding: clamp(36px, 5vw, 64px) !important;
+
+  /* Keep it centered */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Optional: on very large screens, let it breathe even more */
+@media (min-width: 1400px){
+  html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container .quiz-container{
+    width: min(1320px, 96vw) !important;
+    min-height: clamp(600px, 64vh, 900px) !important;
+    padding: clamp(44px, 5.5vw, 72px) !important;
+  }
+}
+
+/* =========================================
+   HOMEPAGE STYLING (scoped to pages without .recog-pages/.datapage/.newsletter-page)
+   Paste at the end of style.css
+========================================= */
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --topbar-grey:#e0e0e0;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+}
+
+/* ---- Keep the old top-bar colour scheme (grey bg + purple text/icons) ---- */
+html body .top-bar,
+html body .top-bar.bg-light{ background-color: var(--topbar-grey) !important; border-bottom:none !important; }
+html body .top-bar h3,
+html body .top-bar a,
+html body .top-bar #dropdownUsername,
+html body .top-bar .home-icon a,
+html body .top-bar .navbar-right .btn{ color: var(--brand-purple) !important; }
+html body .top-bar .home-icon svg{ fill: currentColor !important; }
+
+/* Bigger navbar + bigger home icon */
+html body .top-bar{
+  padding: clamp(14px, 2vh, 22px) clamp(20px, 4vw, 36px) !important;
+  display:flex !important; align-items:center !important; gap:12px;
+}
+html body .top-bar .home-icon a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 52px; height: 52px; border-radius: 12px;
+  color: var(--brand-purple);
+  transition: background-color .15s ease, transform .15s ease;
+}
+html body .top-bar .home-icon a:hover{ background-color: rgba(143,22,135,.08); transform: translateY(-1px); }
+html body .top-bar .home-icon svg{ width: 34px !important; height: 34px !important; }
+
+/* Center the title perfectly */
+html body .top-bar h3{
+  flex:1 1 auto; text-align:center; margin:0; font-weight:500; letter-spacing:.2px;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+}
+
+/* ---- Dropdown: match login/register gradient pill ---- */
+html body .top-bar .navbar-right .btn,
+html body .top-bar #userDropdown{
+  color:#fff !important;
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important;
+  border:0 !important; border-radius:999px !important;
+  padding:.5rem .8rem !important; font-weight:600 !important;
+  box-shadow:0 8px 18px rgba(63,81,181,.18) !important;
+  display:inline-flex; align-items:center; gap:.5rem;
+  transition: transform .12s ease, filter .12s ease !important;
+}
+html body .top-bar .navbar-right .btn:hover,
+html body .top-bar #userDropdown:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+html body .top-bar #userDropdown #dropdownUsername,
+html body .top-bar .navbar-right .btn #dropdownUsername{ color:#fff !important; }
+html body .top-bar #userDropdown svg,
+html body .top-bar .navbar-right .btn svg{ color:#fff !important; fill:#fff !important; }
+html body .top-bar #userDropdown.dropdown-toggle::after{ border-top-color:#fff !important; }
+
+/* Dropdown panel + items */
+html body .top-bar .dropdown-menu{
+  border:1px solid var(--border) !important; border-radius:14px !important; padding:8px !important;
+  min-width:220px; box-shadow:0 12px 28px rgba(0,0,0,.12) !important;
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+  font-size:.95rem !important; line-height:1.35 !important; letter-spacing:.2px !important;
+}
+html body .top-bar .dropdown-menu .dropdown-item{
+  border-radius:10px !important; padding:10px 12px !important; font-weight:700 !important; color:var(--ink) !important;
+}
+html body .top-bar .dropdown-menu .dropdown-item:hover{ background-color: rgba(143,22,135,.08) !important; color: var(--brand-purple) !important; }
+html body .top-bar .dropdown-menu .dropdown-item:active{ background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important; color:#fff !important; }
+html body .top-bar .dropdown-menu .dropdown-divider{ margin:6px 4px !important; border-top-color:#eee !important; }
+
+/* ---- Homepage layout: make the white panel bigger, wider, taller ---- */
+html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container{
+  min-height: calc(100vh - 200px);  /* pulls the block toward middle */
+  display:grid; place-items:center;
+}
+html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container .quiz-container{
+  width: min(1200px, 96vw) !important;   /* wider */
+  max-width: 1200px !important;
+  min-height: clamp(560px, 62vh, 900px) !important;  /* taller */
+  padding: clamp(36px, 5vw, 64px) !important;
+  margin-left:auto !important; margin-right:auto !important;
+  border: 1px solid var(--border); border-radius:14px; background:#fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.10);
+}
+
+/* ---- Option buttons: bigger, centered, one per row, colored top strip ---- */
+.options-container .row{ --bs-gutter-x:0; row-gap: clamp(22px, 3vh, 36px) !important; margin:0 !important; }
+.options-container .row > [class^="col"],
+.options-container .row > [class*=" col-"],
+.options-container .row > [class*="col-"]{ flex: 0 0 100% !important; max-width:100% !important; }
+
+.option-card{
+  position:relative;
+  max-width: 960px; margin-left:auto; margin-right:auto;
+  min-height: 128px; padding: 1.4rem 1.6rem;
+  border:1.5px solid #e2e2e2; border-radius:16px; background:#fff;
+  display:flex !important; align-items:center !important; justify-content:center !important; text-align:center !important;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
+}
+.option-card::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:8px; border-top-left-radius:16px; border-top-right-radius:16px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+.option-card[data-option="1"]::before{ background: linear-gradient(90deg, #8F1687, #E91E63); }
+.option-card[data-option="2"]::before{ background: linear-gradient(90deg, #3F51B5, #00BCD4); }
+.option-card[data-option="3"]::before{ background: linear-gradient(90deg, #00BFA6, #8F1687); }
+.option-card[data-option="4"]::before{ background: linear-gradient(90deg, #FFB300, #3F51B5); }
+
+.option-card a{ display:flex !important; align-items:center !important; justify-content:center !important; gap:12px; width:100%; height:100%; text-decoration:none; }
+.option-card p{ margin:0 !important; font-size: clamp(1.25rem, 2vw, 1.8rem) !important; font-weight:800 !important; color:#1f2937 !important; }
+.option-card:hover{ transform: translateY(-2px); background-color:#f5f5f5; border-color:#d0d0d0; box-shadow: 0 10px 22px rgba(0,0,0,.10); }
+
+/* Option icons (the little square with SVG) */
+.opt-icon{
+  width: 44px; height: 44px; border-radius: 10px;
+  display:inline-flex; align-items:center; justify-content:center; flex:0 0 44px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  background: linear-gradient(135deg, #8F1687, #3F51B5);
+}
+.option-card[data-option="1"] .opt-icon{ background: linear-gradient(135deg, #8F1687, #E91E63); }
+.option-card[data-option="2"] .opt-icon{ background: linear-gradient(135deg, #3F51B5, #00BCD4); }
+.option-card[data-option="3"] .opt-icon{ background: linear-gradient(135deg, #00BFA6, #8F1687); }
+.option-card[data-option="4"] .opt-icon{ background: linear-gradient(135deg, #FFB300, #3F51B5); }
+.opt-icon svg{ fill:#fff; }
+
+/* ---- Modal polish (support form) ---- */
+#supportModal.modal{ display:none; position:fixed; inset:0; z-index:1000; background: rgba(0,0,0,.5); }
+#supportModal .modal-content{
+  background:#fff; width:min(480px, 92vw); border-radius:16px; padding:24px 20px; margin:auto;
+  box-shadow:0 12px 28px rgba(0,0,0,.22);
+}
+#supportModal .modal-content h2{ color: var(--brand-purple); margin-bottom: 12px; text-align:center; }
+#supportModal .modal-content input, #supportModal .modal-content textarea{
+  width:100%; border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-top:6px;
+}
+#supportModal .modal-content button{
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)); color:#fff; border:0; border-radius:12px;
+  padding:.9rem 1rem; font-size:1rem; width:100%; margin-top:12px;
+  box-shadow:0 10px 22px rgba(63,81,181,.18); transition: transform .12s ease, filter .12s ease;
+}
+#supportModal .modal-content button:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+
+/* === Global heading weight: bold across the app === */
+:root { --heading-weight: 700; }  /* 700 = bold */
+
+h1, h2, h3,
+header h3,
+.top-bar h3,
+.top-bar .title {
+  font-weight: var(--heading-weight) !important;
 }

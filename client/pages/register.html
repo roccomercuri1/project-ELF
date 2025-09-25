@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/style.css" />
     <link rel="stylesheet" href="../static/styles/index.css" />
     <title>Sign Up</title>
+    <link rel="icon" href="../static/icons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="../static/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="../static/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="../static/icons/site.webmanifest" />
+    <meta name="theme-color" content="#8F1687" />
   </head>
   <body>
     <header>
@@ -16,9 +22,7 @@
     <main>
       <section class="login">
         <h1 id="signup_h1">Sign Up</h1>
-        <form
-          class="signup_form"
-        >
+        <form class="signup_form">
           <label for="signup_name" id="loginLabel">Name</label><br />
           <input
             type="text"
@@ -79,7 +83,9 @@
           <button type="submit">Sign Up</button>
         </form>
         <br />
-        <h3 id="redirectLogin" style="cursor: pointer;">Already have an account?</h3>
+        <h3 id="redirectLogin" style="cursor: pointer">
+          Already have an account?
+        </h3>
       </section>
       <br />
     </main>
@@ -89,5 +95,20 @@
     ></script>
     <script src="../static/js/register.js"></script>
     <div id="popup" class="popup"></div>
+    <footer class="mini-footer">
+      <div class="mini-footer__inner">
+        <p>© <span id="year"></span> ELF</p>
+        <nav class="mini-footer__links" aria-label="Footer">
+          <a href="#">Privacy</a>
+          <span aria-hidden="true">•</span>
+          <a href="#">Terms</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("year")
+        ?.appendChild(document.createTextNode(new Date().getFullYear()));
+    </script>
   </body>
 </html>

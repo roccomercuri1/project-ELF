@@ -24,7 +24,7 @@ skills = [
     {"id": 11, "name": "Initiative"}
 ]
 
-jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjYsImlhdCI6MTc1ODcxNDEzOCwiZXhwIjoxNzU4NzE3NzM4fQ.l299IyiFz6fEJpmY2V-GRVMhRz8IiiSRl7BOklwxSds'
+jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjYsImlhdCI6MTc1ODc5MDA2NCwiZXhwIjoxNzU4NzkzNjY0fQ.ew7vVdQ4WK4ZqUS7jYxNiXepmk_xOaf8EvcSFQAnumY'
 
 headers = {
     'Authorization': jwt_token
