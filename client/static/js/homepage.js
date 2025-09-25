@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.clear();
-      window.location.assign("./login.html");
+      window.location.href("./login.html");
     });
   }
 });
