@@ -55,10 +55,10 @@ class Reviews {
     }
     
     static async getOneByUserId(id) {
-        try{
+        try{ //gets reviews for each user and joins it to the user table
             const response = await db.query(`SELECT reviews.*, users.username FROM reviews
                 LEFT JOIN users ON users.userid = reviews.userid WHERE reviews.userid = $1;`, [id]);
-            
+
             if(response.rows.length === 0){
                 throw new Error ('No response')
             }
@@ -66,21 +66,18 @@ class Reviews {
             const result = response.rows.map(review => new Reviews(review))
 
             const skills = await db.query(
+                //selects all the review information and the specific skills(id) and joins them together
+                // so that each skill is mapped to correct review
                 `
-                SELECT 
-                    review_skills.reviewid, 
-                    skills.skillname, 
-                    review_skills.score
+                SELECT review_skills.reviewid, skills.skillname, review_skills.score
                 FROM review_skills
-                LEFT JOIN skills 
-                    ON skills.skillid = review_skills.skillid
-                LEFT JOIN reviews 
-                    ON reviews.reviewid = review_skills.reviewid
+                LEFT JOIN skills ON skills.skillid = review_skills.skillid
+                LEFT JOIN reviews ON reviews.reviewid = review_skills.reviewid
                 WHERE userid = $1;
                 `,
                 [id]
                 );
-            
+
             const skillMap = {}
 
             for (const s of skills.rows) {
@@ -95,9 +92,9 @@ class Reviews {
             }
 
             return result
-            
-            
-        } 
+
+
+        }
         catch(err){throw new Error(err.message)
         }
     }

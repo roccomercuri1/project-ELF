@@ -59,7 +59,7 @@ addSkillBtn.addEventListener("click", () => {
   const hidden = document.createElement("input");
   hidden.type = "hidden";
   hidden.name = "skills[]"; // using array syntax to collect multiple skills
-  hidden.value = JSON.stringify({ skill, rating }); // or `${skill}:${rating}`
+  hidden.value = JSON.stringify({ skill, rating }); 
   li.appendChild(hidden);
 
   // added the remove button
@@ -67,14 +67,14 @@ addSkillBtn.addEventListener("click", () => {
   removeBtn.textContent = "Remove";
   removeBtn.className = "btn btn-sm btn-danger ms-2";
   removeBtn.onclick = () => {
-    // putting the option back in dropdown
+
     const opt = document.createElement("option");
     opt.value = skill;
     opt.textContent = skill;
     const insertIndex = allSkills.indexOf(skill);
     const currentOptions = Array.from(skillSelect.options);
     let inserted = false;
-    // checking if the option is inside the dropdown bar, if not it puts the option back
+
     for (let i = 0; i < currentOptions.length; i++) {
       const idx = allSkills.indexOf(currentOptions[i].value);
       if (idx > insertIndex) {
