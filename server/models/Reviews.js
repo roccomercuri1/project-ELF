@@ -55,7 +55,7 @@ class Reviews {
     }
     
     static async getOneByUserId(id) {
-        try{
+        try{ //gets reviews for each user and joins it to the user table
             const response = await db.query(`SELECT reviews.*, users.username FROM reviews
                 LEFT JOIN users ON users.userid = reviews.userid WHERE reviews.userid = $1;`, [id]);
 
@@ -66,6 +66,8 @@ class Reviews {
             const result = response.rows.map(review => new Reviews(review))
 
             const skills = await db.query(
+                //selects all the review information and the specific skills(id) and joins them together
+                // so that each skill is mapped to correct review
                 `
                 SELECT review_skills.reviewid, skills.skillname, review_skills.score
                 FROM review_skills
