@@ -1907,3 +1907,846 @@ main { flex: 1 0 auto; }
 }
 .mini-footer__links a:hover{ color:#111; text-decoration: underline; }
 
+/* ===== Bigger navbar + bigger home icon (global) ===== */
+:root{
+  --nav-h: 64px;                  /* base navbar height */
+  --nav-h-lg: 72px;               /* large screens */
+  --nav-xpad: clamp(16px, 3vw, 28px);
+  --brand-purple: #8F1687;
+}
+
+/* Navbar container */
+.top-bar{
+  padding: clamp(12px, 1.8vh, 18px) var(--nav-xpad) !important;
+  min-height: var(--nav-h);
+  background: #fff !important;                /* keep consistent */
+  border-bottom: 1px solid #E6E6E6;
+}
+
+/* Header title size */
+.top-bar h3{
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.1;
+}
+
+/* Right-side dropdown button size */
+.top-bar .navbar-right .btn{
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+/* Home icon: bigger touch target + larger svg */
+.top-bar .home-icon a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--brand-purple);
+  transition: background-color .15s ease, transform .15s ease;
+}
+.top-bar .home-icon a:hover{
+  background-color: rgba(143,22,135,.08);
+  transform: translateY(-1px);
+}
+
+/* Make the SVG bigger (overrides width/height attrs in HTML) */
+.top-bar .home-icon svg{
+  width: 28px !important;
+  height: 28px !important;
+  fill: currentColor; /* stay purple */
+}
+
+/* Larger on big screens */
+@media (min-width: 992px){
+  .top-bar{ min-height: var(--nav-h-lg); }
+  .top-bar h3{ font-size: 1.6rem; }
+  .top-bar .home-icon a{ width: 48px; height: 48px; }
+  .top-bar .home-icon svg{ width: 32px !important; height: 32px !important; }
+}
+
+/* Ensure all top-bar links use brand color globally (if not set already) */
+.top-bar .home-icon a,
+.top-bar a,
+.top-bar #dropdownUsername{
+  color: var(--brand-purple) !important;
+}
+
+/* ===== Bigger header / navbar (global) ===== */
+:root{
+  --nav-h: 72px;                           /* base header height */
+  --nav-h-lg: 88px;                        /* large screens */
+  --nav-xpad: clamp(20px, 4vw, 36px);      /* side padding */
+  --header-title-size: clamp(1.4rem, 2.4vw, 2rem); /* title size */
+  --brand-purple: #8F1687;
+}
+
+/* Top bar container */
+.top-bar{
+  padding: clamp(14px, 2vh, 22px) var(--nav-xpad) !important;
+  min-height: var(--nav-h);
+  background: #fff !important;
+  border-bottom: 1px solid #E6E6E6;
+  display: flex !important;                /* ensure flex even if classes change */
+  align-items: center !important;
+  gap: 12px;
+}
+
+/* Make the center title bigger & truly centered */
+.top-bar h3,
+.top-bar .title{
+  flex: 1 1 auto;                          /* allows center text */
+  text-align: center;
+  margin: 0;
+  font-size: var(--header-title-size);
+  font-weight: 500;                         /* keep consistent weight */
+  letter-spacing: .2px;
+  line-height: 1.1;
+}
+
+/* Keep left/right regions from stealing space */
+.top-bar .home-icon,
+.top-bar .navbar-right{
+  flex: 0 0 auto;
+}
+
+/* Bigger home icon + touch target */
+.top-bar .home-icon a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  color: var(--brand-purple);
+  transition: background-color .15s ease, transform .15s ease;
+}
+.top-bar .home-icon a:hover{
+  background-color: rgba(143,22,135,.08);
+  transform: translateY(-1px);
+}
+/* Enlarge the SVG regardless of inline width/height */
+.top-bar .home-icon svg{
+  width: 34px !important;
+  height: 34px !important;
+  fill: currentColor;
+}
+
+/* Right-side dropdown button scales with header */
+.top-bar .navbar-right .btn{
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+/* Even larger on desktops */
+@media (min-width: 992px){
+  .top-bar{ min-height: var(--nav-h-lg); }
+  .top-bar .home-icon a{ width: 56px; height: 56px; border-radius: 14px; }
+  .top-bar .home-icon svg{ width: 38px !important; height: 38px !important; }
+}
+
+/* ===== Homepage: bigger, centered quiz box + larger option buttons ===== */
+:root{
+  --home-max: 980px;                         /* width of the main box */
+  --home-pad: clamp(24px, 4vw, 44px);        /* padding inside the box */
+  --home-option-h: 88px;                     /* min height of each option */
+  --home-font: clamp(1.1rem, 1.35vw, 1.35rem);
+}
+
+/* Only affect the homepage (body has no .recog-pages/.datapage there) */
+body:not(.recog-pages):not(.datapage) .container{
+  padding-top: clamp(16px, 4vh, 40px) !important;
+}
+body:not(.recog-pages):not(.datapage) main.container{
+  min-height: calc(100vh - 140px);           /* pull content toward center */
+  display: grid;
+  place-items: center;
+}
+
+/* Bigger, centered main card */
+.quiz-container{
+  width: min(var(--home-max), 92vw);
+  max-width: var(--home-max);
+  margin: 0 auto;                            /* horizontally centered */
+  padding: var(--home-pad);
+  border-radius: 14px;
+}
+
+/* Force one option per row and add consistent gaps */
+.options-container .row{ row-gap: 16px !important; }
+@media (min-width: 768px){
+  .options-container .row > [class*="col-"]{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Make option “buttons” larger and more prominent */
+.option-card{
+  max-width: 760px;                          /* slightly wider buttons */
+  margin: 0 auto;                            /* center each button */
+  padding: 1.25rem 1.5rem;
+  min-height: var(--home-option-h);
+  border-radius: 12px;
+}
+
+/* Bigger label text inside options */
+.option-card p,
+.option-card .text{
+  font-size: var(--home-font);
+  font-weight: 800;
+}
+
+/* Keep that little colored strip on top of each option */
+.option-card{ position: relative; }
+.option-card::before{
+  content:"";
+  position: absolute; left: 0; right: 0; top: 0; height: 6px;
+  border-top-left-radius: 12px; border-top-right-radius: 12px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+/* Per-option colors if you use data-option attrs */
+.option-card[data-option="1"]::before{ background: linear-gradient(90deg, #8F1687, #E91E63); }
+.option-card[data-option="2"]::before{ background: linear-gradient(90deg, #3F51B5, #00BCD4); }
+.option-card[data-option="3"]::before{ background: linear-gradient(90deg, #00BFA6, #8F1687); }
+.option-card[data-option="4"]::before{ background: linear-gradient(90deg, #FFB300, #3F51B5); }
+
+/* ==== Homepage options: bigger buttons, larger fonts, more spacing ==== */
+:root{
+  --option-max: 840px;                         /* max width per option card */
+  --option-min-h: 112px;                        /* taller buttons */
+  --option-pad-y: 1.25rem;                      /* vertical padding */
+  --option-pad-x: 1.5rem;                       /* horizontal padding */
+  --option-font: clamp(1.15rem, 1.6vw, 1.6rem); /* bigger label text */
+  --option-gap: clamp(20px, 3.2vh, 32px);       /* space between options/rows */
+}
+
+/* Force one option per row & add consistent gaps */
+.options-container .row > [class*="col-"]{
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+.options-container .row{ 
+  row-gap: var(--option-gap) !important; 
+}
+.options-container .row + .row{
+  margin-top: var(--option-gap) !important;   /* space between the main row and manager-only row */
+}
+
+/* Bigger, more “button-y” cards and centered in the page */
+.option-card{
+  max-width: var(--option-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--option-pad-y) var(--option-pad-x);
+  min-height: var(--option-min-h);
+  border-radius: 14px;
+}
+
+/* Larger text inside each option */
+.option-card p,
+.option-card .text{
+  font-size: var(--option-font);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;                                   /* tighten layout */
+}
+
+/* Keep the thin colored strip at the top of each option */
+.option-card{ position: relative; }
+.option-card::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0; height:6px;
+  border-top-left-radius: 14px; border-top-right-radius: 14px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+
+/* (Optional) slightly larger main box so everything feels roomier */
+body:not(.recog-pages):not(.datapage) .quiz-container{
+  max-width: 980px;
+  padding: clamp(24px, 4vw, 44px);
+}
+
+/* === Homepage options: force larger size + spacing (wins over Bootstrap) === */
+:root{
+  --option-max: 960px;                         /* width per option card */
+  --option-min-h: 128px;                        /* taller buttons */
+  --option-pad-y: 1.4rem;
+  --option-pad-x: 1.6rem;
+  --option-font: clamp(1.25rem, 2vw, 1.8rem);   /* bigger label text */
+  --option-gap: clamp(24px, 4vh, 40px);         /* space between options/rows */
+}
+
+/* Make the main card larger and centered */
+main.container .quiz-container{
+  width: min(1100px, 95vw) !important;
+  padding: clamp(28px, 4vw, 48px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Kill Bootstrap column widths & gutters for these rows */
+.options-container .row{
+  --bs-gutter-x: 0;                /* remove side gutters */
+  row-gap: var(--option-gap) !important;   /* vertical space between items */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.options-container .row + .row,
+.options-container .center-last-row{
+  margin-top: var(--option-gap) !important;      /* gap before the next row */
+}
+
+/* Force ONE per row regardless of col-md-6 */
+.options-container .row > [class^="col"],
+.options-container .row > [class*=" col-"],
+.options-container .row > [class*="col-"]{
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+/* Bigger option cards, centered */
+main.container .quiz-container .option-card{
+  max-width: var(--option-max) !important;
+  min-height: var(--option-min-h) !important;
+  padding: var(--option-pad-y) var(--option-pad-x) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-radius: 16px !important;
+}
+
+/* Larger text inside each option */
+main.container .quiz-container .option-card p,
+main.container .quiz-container .option-card .text{
+  font-size: var(--option-font) !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+}
+
+/* Keep the thin colored strip at the top of each option (a bit thicker now) */
+main.container .quiz-container .option-card{ position: relative; }
+main.container .quiz-container .option-card::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:8px;
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+
+/* Optional: make the whole homepage block sit closer to screen center */
+body:not(.recog-pages):not(.datapage) main.container{
+  min-height: calc(100vh - 200px);          /* adjust if your header/footer size differs */
+  display: grid; place-items: center;
+}
+
+/* === 1) Restore original top-bar color scheme === */
+:root{
+  --brand-purple:#8F1687;
+  --topbar-bg:#e0e0e0;  /* your old grey */
+}
+
+.top-bar{
+  background: var(--topbar-bg) !important;  /* back to grey */
+  border-bottom: none !important;           /* remove white header border if present */
+}
+
+/* Keep all header text/icons purple like before */
+.top-bar a,
+.top-bar #dropdownUsername,
+.top-bar h3,
+.top-bar .home-icon a{ color: var(--brand-purple) !important; }
+.top-bar .home-icon svg{ fill: currentColor; }
+
+/* === 2) Center option text horizontally + vertically === */
+main.container .quiz-container .option-card{
+  display: flex !important;
+  align-items: center !important;   /* vertical center */
+  justify-content: center !important;/* horizontal center */
+  text-align: center !important;
+}
+
+/* Make the link fill the card for consistent centering/click area */
+main.container .quiz-container .option-card a{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Tighten the paragraph inside so it doesn't fight centering */
+main.container .quiz-container .option-card p{
+  margin: 0 !important;
+}
+
+/* ==== Restore original top-bar colours globally (grey bg + purple text) ==== */
+:root{
+  --brand-purple:#8F1687;
+  --topbar-grey:#e0e0e0;
+}
+
+/* Beat Bootstrap's .bg-light and any earlier overrides */
+html body .top-bar,
+html body .top-bar.bg-light{
+  background-color: var(--topbar-grey) !important;
+  border-bottom: none !important;
+}
+
+/* Make all header text/icons purple */
+html body .top-bar h3,
+html body .top-bar a,
+html body .top-bar #dropdownUsername,
+html body .top-bar .home-icon a,
+html body .top-bar .navbar-right .btn{
+  color: var(--brand-purple) !important;
+}
+
+/* Ensure SVG icons inherit the purple */
+html body .top-bar .home-icon svg,
+html body .top-bar svg{
+  fill: currentColor !important;
+}
+
+/* Some pages set the header back to white — neutralise those */
+body.datapage .top-bar,
+body.recog-pages .top-bar{
+  background-color: var(--topbar-grey) !important;
+}
+
+/* Remove the white pill look of .btn-light in the top bar so text stays purple on grey */
+.top-bar .navbar-right .btn.btn-light{
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/* === Fix: make the colored top strip visible on homepage option cards === */
+main.container .quiz-container .options-container .option-card{
+  position: relative !important;
+  overflow: hidden !important;  /* keep the strip inside rounded corners */
+}
+
+main.container .quiz-container .options-container .option-card::before{
+  content: "" !important;
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  height: 8px !important;                     /* visible thickness */
+  border-top-left-radius: inherit !important;  /* match card corners */
+  border-top-right-radius: inherit !important;
+  background: linear-gradient(90deg, #8F1687, #3F51B5) !important; /* default */
+  z-index: 2 !important;                       /* sit above card bg */
+  pointer-events: none !important;             /* never block clicks */
+}
+
+/* Per-option gradient colours (override default) */
+main.container .quiz-container .options-container .option-card[data-option="1"]::before{
+  background: linear-gradient(90deg, #8F1687, #E91E63) !important;
+}
+main.container .quiz-container .options-container .option-card[data-option="2"]::before{
+  background: linear-gradient(90deg, #3F51B5, #00BCD4) !important;
+}
+main.container .quiz-container .options-container .option-card[data-option="3"]::before{
+  background: linear-gradient(90deg, #00BFA6, #8F1687) !important;
+}
+main.container .quiz-container .options-container .option-card[data-option="4"]::before{
+  background: linear-gradient(90deg, #FFB300, #3F51B5) !important;
+}
+
+/* Ensure the clickable content is above the strip (just in case) */
+main.container .quiz-container .options-container .option-card a{
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* =========================
+   Navbar dropdown (global)
+   — matches the styling you used elsewhere
+========================= */
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+}
+
+/* Trigger button (user pill) */
+.top-bar .navbar-right .btn,
+.top-bar #userDropdown{
+  background: transparent !important;
+  color: var(--brand-purple) !important;
+  border: 0 !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  font-weight: 600;
+}
+.top-bar .navbar-right .btn:hover,
+.top-bar #userDropdown:hover{
+  background-color: rgba(143,22,135,.08) !important;
+}
+.top-bar .navbar-right .btn:focus-visible,
+.top-bar #userDropdown:focus-visible{
+  outline: 3px solid #FFB300;
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* Caret color */
+.top-bar .navbar-right .btn.dropdown-toggle::after,
+.top-bar #userDropdown.dropdown-toggle::after{
+  border-top-color: currentColor !important;
+}
+
+/* Menu panel */
+.top-bar .dropdown-menu{
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+  min-width: 220px;
+}
+
+/* Menu items */
+.top-bar .dropdown-menu .dropdown-item{
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--ink);
+  font-weight: 700;
+}
+.top-bar .dropdown-menu .dropdown-item:hover,
+.top-bar .dropdown-menu .dropdown-item:focus{
+  background-color: rgba(143,22,135,.08);
+  color: var(--brand-purple);
+}
+.top-bar .dropdown-menu .dropdown-item:active{
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo));
+  color: #fff;
+}
+
+/* Divider */
+.top-bar .dropdown-menu .dropdown-divider{
+  margin: 6px 4px;
+  border-top-color: #eee;
+}
+
+/* =========================================
+   Navbar dropdown — match index.css "pill" look
+   (gradient button, bold text, shadow, hover lift)
+========================================= */
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+}
+
+/* Toggle (user button) styled exactly like #signup pill */
+html body .top-bar .navbar-right .btn,
+html body .top-bar #userDropdown{
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: .5rem .8rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 18px rgba(63,81,181,.18) !important;
+  display: inline-flex; align-items: center; gap: .5rem;
+  transition: transform .12s ease, filter .12s ease !important;
+}
+html body .top-bar .navbar-right .btn:hover,
+html body .top-bar #userDropdown:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+html body .top-bar .navbar-right .btn:active,
+html body .top-bar #userDropdown:active{
+  transform: translateY(0);
+}
+
+/* Caret matches text color (white on gradient) */
+html body .top-bar .navbar-right .btn.dropdown-toggle::after,
+html body .top-bar #userDropdown.dropdown-toggle::after{
+  border-top-color: currentColor !important;
+}
+
+/* Accessible focus ring (same as index.css) */
+html body .top-bar .navbar-right .btn:focus-visible,
+html body .top-bar #userDropdown:focus-visible{
+  outline: 3px solid #FFB300 !important;
+  outline-offset: 2px !important;
+  border-radius: 12px !important;
+}
+
+/* Dropdown menu panel */
+html body .top-bar .dropdown-menu{
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  min-width: 220px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+}
+
+/* Menu items: bold, crisp, with brand hover */
+html body .top-bar .dropdown-menu .dropdown-item{
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  color: var(--ink) !important;
+  font-weight: 700 !important;
+}
+html body .top-bar .dropdown-menu .dropdown-item:hover,
+html body .top-bar .dropdown-menu .dropdown-item:focus{
+  background-color: rgba(143,22,135,.08) !important;
+  color: var(--brand-purple) !important;
+}
+
+/* Active click state: same gradient treatment */
+html body .top-bar .dropdown-menu .dropdown-item:active{
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important;
+  color: #fff !important;
+}
+
+/* Divider spacing/colors */
+html body .top-bar .dropdown-menu .dropdown-divider{
+  margin: 6px 4px !important;
+  border-top-color: #eee !important;
+}
+
+/* =========================
+   Navbar dropdown — lock font formatting to match index.css
+========================= */
+:root{
+  --dd-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --dd-font-size: .95rem;      /* same scale used on auth pages */
+  --dd-font-weight-btn: 600;   /* pill button weight */
+  --dd-font-weight-item: 700;  /* menu item weight */
+  --dd-line-height: 1.35;
+  --dd-letter-spacing: .2px;
+}
+
+/* Toggle (user button / pill) */
+html body .top-bar .navbar-right .btn,
+html body .top-bar #userDropdown{
+  font-family: var(--dd-font-family) !important;
+  font-size: var(--dd-font-size) !important;
+  font-weight: var(--dd-font-weight-btn) !important;
+  line-height: var(--dd-line-height) !important;
+  letter-spacing: var(--dd-letter-spacing) !important;
+}
+
+/* Menu panel + items */
+html body .top-bar .dropdown-menu{
+  font-family: var(--dd-font-family) !important;
+  font-size: var(--dd-font-size) !important;
+  line-height: var(--dd-line-height) !important;
+  letter-spacing: var(--dd-letter-spacing) !important;
+}
+
+html body .top-bar .dropdown-menu .dropdown-item{
+  font-family: var(--dd-font-family) !important;
+  font-size: var(--dd-font-size) !important;
+  font-weight: var(--dd-font-weight-item) !important;
+  line-height: var(--dd-line-height) !important;
+  letter-spacing: var(--dd-letter-spacing) !important;
+}
+
+/* Force the username + icon inside the dropdown toggle to be white */
+html body .top-bar #userDropdown #dropdownUsername,
+html body .top-bar .navbar-right .btn #dropdownUsername{
+  color: #fff !important;
+}
+
+html body .top-bar #userDropdown svg,
+html body .top-bar .navbar-right .btn svg{
+  color: #fff !important;
+  fill: #fff !important; /* ensure the SVG uses white */
+}
+
+/* (optional) keep the caret white too */
+html body .top-bar #userDropdown.dropdown-toggle::after{
+  border-top-color: #fff !important;
+}
+
+/* === Homepage only: make the white panel (quiz-container) wider & taller === */
+html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container .quiz-container{
+  /* Wider */
+  width: min(1200px, 96vw) !important;        /* was ~980–1100 in earlier rules */
+  max-width: 1200px !important;
+
+  /* Taller */
+  min-height: clamp(520px, 60vh, 820px) !important;
+
+  /* Roomier inner spacing so it *feels* larger too */
+  padding: clamp(36px, 5vw, 64px) !important;
+
+  /* Keep it centered */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Optional: on very large screens, let it breathe even more */
+@media (min-width: 1400px){
+  html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container .quiz-container{
+    width: min(1320px, 96vw) !important;
+    min-height: clamp(600px, 64vh, 900px) !important;
+    padding: clamp(44px, 5.5vw, 72px) !important;
+  }
+}
+
+/* =========================================
+   HOMEPAGE STYLING (scoped to pages without .recog-pages/.datapage/.newsletter-page)
+   Paste at the end of style.css
+========================================= */
+:root{
+  --brand-purple:#8F1687;
+  --indigo:#3F51B5;
+  --topbar-grey:#e0e0e0;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+}
+
+/* ---- Keep the old top-bar colour scheme (grey bg + purple text/icons) ---- */
+html body .top-bar,
+html body .top-bar.bg-light{ background-color: var(--topbar-grey) !important; border-bottom:none !important; }
+html body .top-bar h3,
+html body .top-bar a,
+html body .top-bar #dropdownUsername,
+html body .top-bar .home-icon a,
+html body .top-bar .navbar-right .btn{ color: var(--brand-purple) !important; }
+html body .top-bar .home-icon svg{ fill: currentColor !important; }
+
+/* Bigger navbar + bigger home icon */
+html body .top-bar{
+  padding: clamp(14px, 2vh, 22px) clamp(20px, 4vw, 36px) !important;
+  display:flex !important; align-items:center !important; gap:12px;
+}
+html body .top-bar .home-icon a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 52px; height: 52px; border-radius: 12px;
+  color: var(--brand-purple);
+  transition: background-color .15s ease, transform .15s ease;
+}
+html body .top-bar .home-icon a:hover{ background-color: rgba(143,22,135,.08); transform: translateY(-1px); }
+html body .top-bar .home-icon svg{ width: 34px !important; height: 34px !important; }
+
+/* Center the title perfectly */
+html body .top-bar h3{
+  flex:1 1 auto; text-align:center; margin:0; font-weight:500; letter-spacing:.2px;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+}
+
+/* ---- Dropdown: match login/register gradient pill ---- */
+html body .top-bar .navbar-right .btn,
+html body .top-bar #userDropdown{
+  color:#fff !important;
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important;
+  border:0 !important; border-radius:999px !important;
+  padding:.5rem .8rem !important; font-weight:600 !important;
+  box-shadow:0 8px 18px rgba(63,81,181,.18) !important;
+  display:inline-flex; align-items:center; gap:.5rem;
+  transition: transform .12s ease, filter .12s ease !important;
+}
+html body .top-bar .navbar-right .btn:hover,
+html body .top-bar #userDropdown:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+html body .top-bar #userDropdown #dropdownUsername,
+html body .top-bar .navbar-right .btn #dropdownUsername{ color:#fff !important; }
+html body .top-bar #userDropdown svg,
+html body .top-bar .navbar-right .btn svg{ color:#fff !important; fill:#fff !important; }
+html body .top-bar #userDropdown.dropdown-toggle::after{ border-top-color:#fff !important; }
+
+/* Dropdown panel + items */
+html body .top-bar .dropdown-menu{
+  border:1px solid var(--border) !important; border-radius:14px !important; padding:8px !important;
+  min-width:220px; box-shadow:0 12px 28px rgba(0,0,0,.12) !important;
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+  font-size:.95rem !important; line-height:1.35 !important; letter-spacing:.2px !important;
+}
+html body .top-bar .dropdown-menu .dropdown-item{
+  border-radius:10px !important; padding:10px 12px !important; font-weight:700 !important; color:var(--ink) !important;
+}
+html body .top-bar .dropdown-menu .dropdown-item:hover{ background-color: rgba(143,22,135,.08) !important; color: var(--brand-purple) !important; }
+html body .top-bar .dropdown-menu .dropdown-item:active{ background: linear-gradient(135deg, var(--brand-purple), var(--indigo)) !important; color:#fff !important; }
+html body .top-bar .dropdown-menu .dropdown-divider{ margin:6px 4px !important; border-top-color:#eee !important; }
+
+/* ---- Homepage layout: make the white panel bigger, wider, taller ---- */
+html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container{
+  min-height: calc(100vh - 200px);  /* pulls the block toward middle */
+  display:grid; place-items:center;
+}
+html body:not(.recog-pages):not(.datapage):not(.newsletter-page) main.container .quiz-container{
+  width: min(1200px, 96vw) !important;   /* wider */
+  max-width: 1200px !important;
+  min-height: clamp(560px, 62vh, 900px) !important;  /* taller */
+  padding: clamp(36px, 5vw, 64px) !important;
+  margin-left:auto !important; margin-right:auto !important;
+  border: 1px solid var(--border); border-radius:14px; background:#fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.10);
+}
+
+/* ---- Option buttons: bigger, centered, one per row, colored top strip ---- */
+.options-container .row{ --bs-gutter-x:0; row-gap: clamp(22px, 3vh, 36px) !important; margin:0 !important; }
+.options-container .row > [class^="col"],
+.options-container .row > [class*=" col-"],
+.options-container .row > [class*="col-"]{ flex: 0 0 100% !important; max-width:100% !important; }
+
+.option-card{
+  position:relative;
+  max-width: 960px; margin-left:auto; margin-right:auto;
+  min-height: 128px; padding: 1.4rem 1.6rem;
+  border:1.5px solid #e2e2e2; border-radius:16px; background:#fff;
+  display:flex !important; align-items:center !important; justify-content:center !important; text-align:center !important;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
+}
+.option-card::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:8px; border-top-left-radius:16px; border-top-right-radius:16px;
+  background: linear-gradient(90deg, #8F1687, #3F51B5);
+}
+.option-card[data-option="1"]::before{ background: linear-gradient(90deg, #8F1687, #E91E63); }
+.option-card[data-option="2"]::before{ background: linear-gradient(90deg, #3F51B5, #00BCD4); }
+.option-card[data-option="3"]::before{ background: linear-gradient(90deg, #00BFA6, #8F1687); }
+.option-card[data-option="4"]::before{ background: linear-gradient(90deg, #FFB300, #3F51B5); }
+
+.option-card a{ display:flex !important; align-items:center !important; justify-content:center !important; gap:12px; width:100%; height:100%; text-decoration:none; }
+.option-card p{ margin:0 !important; font-size: clamp(1.25rem, 2vw, 1.8rem) !important; font-weight:800 !important; color:#1f2937 !important; }
+.option-card:hover{ transform: translateY(-2px); background-color:#f5f5f5; border-color:#d0d0d0; box-shadow: 0 10px 22px rgba(0,0,0,.10); }
+
+/* Option icons (the little square with SVG) */
+.opt-icon{
+  width: 44px; height: 44px; border-radius: 10px;
+  display:inline-flex; align-items:center; justify-content:center; flex:0 0 44px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  background: linear-gradient(135deg, #8F1687, #3F51B5);
+}
+.option-card[data-option="1"] .opt-icon{ background: linear-gradient(135deg, #8F1687, #E91E63); }
+.option-card[data-option="2"] .opt-icon{ background: linear-gradient(135deg, #3F51B5, #00BCD4); }
+.option-card[data-option="3"] .opt-icon{ background: linear-gradient(135deg, #00BFA6, #8F1687); }
+.option-card[data-option="4"] .opt-icon{ background: linear-gradient(135deg, #FFB300, #3F51B5); }
+.opt-icon svg{ fill:#fff; }
+
+/* ---- Modal polish (support form) ---- */
+#supportModal.modal{ display:none; position:fixed; inset:0; z-index:1000; background: rgba(0,0,0,.5); }
+#supportModal .modal-content{
+  background:#fff; width:min(480px, 92vw); border-radius:16px; padding:24px 20px; margin:auto;
+  box-shadow:0 12px 28px rgba(0,0,0,.22);
+}
+#supportModal .modal-content h2{ color: var(--brand-purple); margin-bottom: 12px; text-align:center; }
+#supportModal .modal-content input, #supportModal .modal-content textarea{
+  width:100%; border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-top:6px;
+}
+#supportModal .modal-content button{
+  background: linear-gradient(135deg, var(--brand-purple), var(--indigo)); color:#fff; border:0; border-radius:12px;
+  padding:.9rem 1rem; font-size:1rem; width:100%; margin-top:12px;
+  box-shadow:0 10px 22px rgba(63,81,181,.18); transition: transform .12s ease, filter .12s ease;
+}
+#supportModal .modal-content button:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+
+/* === Global heading weight: bold across the app === */
+:root { --heading-weight: 700; }  /* 700 = bold */
+
+h1, h2, h3,
+header h3,
+.top-bar h3,
+.top-bar .title {
+  font-weight: var(--heading-weight) !important;
+}
