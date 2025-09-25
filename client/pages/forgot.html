@@ -1,41 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Forgot Password</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../static/styles/index.css" />
-</head>
-<body>
-  <header>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Forgot Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/index.css" />
+    <link rel="icon" href="../static/icons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="../static/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="../static/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="../static/icons/site.webmanifest" />
+    <meta name="theme-color" content="#8F1687" />
+  </head>
+  <body>
+    <header>
       <a href="login.html" id="login">
         <i class="fa-solid fa-user"></i>
         <p id="login_p">Login</p>
       </a>
     </header>
-  <main>
-    <section class="login">
-      <h1>Forgot Password</h1>
-      <form id="selfResetForm" autocomplete="off">
-        <label for="fp_username">Username</label><br />
-        <input type="text" id="fp_username" name="username" required autocomplete="off" /><br />
+    <main>
+      <section class="login">
+        <h1>Forgot Password</h1>
+        <form id="selfResetForm" autocomplete="off">
+          <label for="fp_username">Username</label><br />
+          <input
+            type="text"
+            id="fp_username"
+            name="username"
+            required
+            autocomplete="off"
+          /><br />
 
-        <label for="fp_email">Email</label><br />
-        <input type="email" id="fp_email" name="email" required autocomplete="off" /><br />
+          <label for="fp_email">Email</label><br />
+          <input
+            type="email"
+            id="fp_email"
+            name="email"
+            required
+            autocomplete="off"
+          /><br />
 
-        <label for="fp_newpass">New Password</label><br />
-        <input type="password" id="fp_newpass" name="newPassword" required autocomplete="off" /><br /><br />
+          <label for="fp_newpass">New Password</label><br />
+          <input
+            type="password"
+            id="fp_newpass"
+            name="newPassword"
+            required
+            autocomplete="off"
+          /><br /><br />
 
-        <button class="forgotbtn" type="submit">Reset Password</button>
-      </form>
-    </section>
-  </main>
+          <button class="forgotbtn" type="submit">Reset Password</button>
+        </form>
+      </section>
+    </main>
 
-  <div id="popup" class="popup"></div>
-  <script src="../static/js/forgot.js"></script>
-  <script
+    <div id="popup" class="popup"></div>
+    <script src="../static/js/forgot.js"></script>
+    <script
       src="https://kit.fontawesome.com/3b9c76ecc4.js"
       crossorigin="anonymous"
     ></script>
-</body>
+    <footer class="mini-footer">
+      <div class="mini-footer__inner">
+        <p>© <span id="year"></span> ELF</p>
+        <nav class="mini-footer__links" aria-label="Footer">
+          <a href="#">Privacy</a>
+          <span aria-hidden="true">•</span>
+          <a href="#">Terms</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("year")
+        ?.appendChild(document.createTextNode(new Date().getFullYear()));
+    </script>
+  </body>
 </html>
