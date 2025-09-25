@@ -1,0 +1,391 @@
+/* =========================
+   Login page styling (index.css)
+========================= */
+
+/* Google Fonts (safe to include here) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500&display=swap");
+
+/* Design tokens */
+:root{
+  --purple:#8F1687;
+  --indigo:#3F51B5;
+  --border:#E6E6E6;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --card:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.10);
+}
+
+/* Page base */
+html, body { height: 100%; }
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 700px at 8% -8%, rgba(143,22,135,.10), transparent 60%),
+    radial-gradient(900px 700px at 108% 8%, rgba(63,81,181,.08), transparent 55%),
+    linear-gradient(180deg, #fafafb 0%, #f4f6fb 100%);
+  color: var(--ink);
+}
+
+/* Header — simple right-aligned Sign Up */
+header{
+  display: flex; justify-content: flex-end; align-items: center;
+  padding: .75rem clamp(16px, 4vw, 28px) 0;
+}
+#signup{
+  display: inline-flex; align-items: center; gap: .5rem;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  padding: .5rem .8rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+#signup:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+#signup_p{ margin: 0; font-weight: 600; }
+#signup i{ font-size: 0.95rem; }
+
+/* Main login card */
+main{ flex: 1 0 auto; display: grid; place-items: center; padding: 1rem; }
+
+.login{
+  width: min(520px, 92vw);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1.5rem;
+  position: relative;
+}
+
+/* Top accent strip */
+.login::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+}
+
+/* Headings/links */
+.login h1{
+  margin: .25rem 0 1rem;
+  font-family: "Poppins", inherit;
+  font-weight: 500; /* consistent with your global setting */
+  color: var(--ink);
+}
+.login h3{ margin: .5rem 0 0; font-weight: 500; }
+#forgotLink{
+  color: var(--purple); text-decoration: none; font-weight: 600;
+}
+#forgotLink:hover{ text-decoration: underline; }
+
+/* Form */
+.login_form{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.login_form label{
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: .25rem;
+}
+
+.login_form input[type="text"],
+.login_form input[type="password"]{
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.login_form input::placeholder{ color: #9aa0a6; }
+.login_form input:focus{
+  outline: 0;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(143,22,135,.18);
+}
+
+/* Submit */
+.login_form button[type="submit"]{
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: .85rem 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+.login_form button[type="submit"]:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+.login_form button[type="submit"]:active{ transform: translateY(0); }
+
+/* Remove extra gaps caused by <br> in markup */
+.login_form br{ display:none; }
+
+/* Toast popup (shared) */
+.popup{
+  visibility: hidden;
+  min-width: 260px; max-width: 90vw;
+  background-color: #333; color:#fff;
+  text-align:center; border-radius: 10px;
+  padding: 12px 16px; position: fixed; z-index: 1000;
+  left: 50%; top: 16px; transform: translateX(-50%);
+  font-size: 14px; opacity: 0;
+  transition: opacity .3s, transform .3s;
+}
+.popup.show{ visibility: visible; opacity: 1; transform: translate(-50%, 6px); }
+.popup.success{ background-color: #00BFA6; }
+.popup.error{ background-color: #e53935; }
+
+/* Minimal footer (sticky + edges) */
+
+
+/* Accessibility focus ring */
+a:focus-visible, button:focus-visible, input:focus-visible{
+  outline: 3px solid #FFB300;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* === Fix overflow + inputs breaking out of the card === */
+
+/* 1) Make sizing predictable everywhere */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* 2) Prevent accidental horizontal scroll */
+html, body { width: 100%; overflow-x: hidden; }
+
+/* 3) Ensure the login card never exceeds the viewport */
+.login{
+  /* border-box ensures padding + border are INCLUDED in width */
+  box-sizing: border-box;
+  width: min(520px, 92vw);
+  max-width: 100%;
+  margin: 1.25rem auto 2rem;
+  padding: 1.25rem;              /* safe with border-box */
+  overflow: hidden;              /* hide any 1px rounding artifacts */
+}
+
+/* 4) Inputs fill the card but don’t overflow */
+.login_form input[type="text"],
+.login_form input[type="password"]{
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+/* 5) Make the header pill & footer never extend past edges */
+#signup { max-width: 100%; }
+
+/* 6) Optional: slightly reduce card padding on very tiny screens */
+@media (max-width: 360px){
+  .login{ padding: 1rem; }
+}
+
+/* === Footer alignment + kill tiny scroll on the login page === */
+
+/* 0) Consistent box sizing + remove default body margin */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { width: 100%; margin: 0; }
+
+/* 1) Use the same side “gutter” for header + footer so edges line up */
+:root { --page-gutter: clamp(16px, 4vw, 32px); }
+
+header { padding: .75rem var(--page-gutter) 0 !important; }
+
+
+
+/* 2) Prevent horizontal scroll; also guard against 1px vertical jiggle */
+html, body { overflow-x: hidden; }
+@media (min-height: 560px){
+  /* only hide vertical scroll on comfortably tall viewports */
+  body { overflow-y: hidden; }
+}
+
+/* 3) The login card should never push past the viewport */
+.login{
+  width: min(520px, 92vw);
+  max-width: 100%;
+  margin: 1.25rem auto 2rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border, #E6E6E6);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden; /* trims any 1px shadow bleed */
+}
+
+/* 4) Inputs stay inside the card */
+.login_form input[type="text"],
+.login_form input[type="password"]{
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+/* 5) Remove extra space caused by <br> tags around the form */
+.login_form br,
+main > br,
+.login + br { display: none !important; }
+
+/* ============ Register (Sign Up) page additions ============ */
+
+/* Header pill (same look as #signup on login page) */
+#login{
+  display: inline-flex; align-items: center; gap: .5rem;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  padding: .5rem .8rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+#login:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+#login_p{ margin: 0; font-weight: 600; }
+
+/* Use the same centered layout & card from login page */
+main{ flex: 1 0 auto; display: grid; place-items: center; padding: 1rem; }
+.login{ /* the section already has class="login" */
+  box-sizing: border-box;
+  width: min(520px, 92vw);
+  max-width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.login::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--purple), var(--indigo));
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+}
+
+/* Heading */
+#signup_h1{
+  margin: .25rem 0 1rem;
+  font-family: "Poppins", inherit;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Sign-up form — same feel as login form */
+.signup_form{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.signup_form label{
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: .25rem;
+}
+.signup_form input[type="text"],
+.signup_form input[type="email"],
+.signup_form input[type="password"]{
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+  display: block;
+}
+.signup_form input::placeholder{ color: #9aa0a6; }
+.signup_form input:focus{
+  outline: 0;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(143,22,135,.18);
+}
+
+/* Role selection (Employee / Manager) */
+.form-group{ margin-top: .25rem; }
+.role-selection{
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.role-option{ position: relative; }
+.role-option input[type="radio"]{
+  position: absolute; opacity: 0; inset: 0; pointer-events: none;
+}
+.role-option label{
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 120px; padding: .6rem .9rem;
+  border: 1.5px solid #e2e2e2;
+  border-radius: 10px;
+  background: #fff;
+  color: #1f2937;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+.role-option input[type="radio"]:checked + label{
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 18px rgba(63,81,181,.18);
+}
+.role-option label:hover{ transform: translateY(-1px); }
+
+/* Submit button — same as login */
+.signup_form button[type="submit"]{
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: .85rem 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(63,81,181,.18);
+  transition: transform .12s ease, filter .12s ease;
+}
+.signup_form button[type="submit"]:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+.signup_form button[type="submit"]:active{ transform: translateY(0); }
+
+/* Remove extra <br> gaps from markup */
+.signup_form br,
+main > br,
+.login + br { display: none !important; }
+
+/* Keep overflow safe on tiny screens */
+@media (max-width: 360px){
+  .login{ padding: 1rem; }
+}
+
+/* === Register: make Employee/Manager equal width === */
+.role-selection{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.role-option{
+  /* each option becomes one grid cell that fills equally */
+  width: 100%;
+}
+
+.role-option label{
+  width: 100%;
+  min-width: 0;           /* override earlier 120px min-width */
+  text-align: center;
+}
+
+/* Stack on very small screens */
+@media (max-width: 420px){
+  .role-selection{
+    grid-template-columns: 1fr;
+  }
+}

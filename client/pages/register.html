@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/style.css" />
+    <link rel="stylesheet" href="../static/styles/index.css" />
+    <title>Sign Up</title>
+    <link rel="icon" href="../static/icons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="../static/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="../static/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="../static/icons/site.webmanifest" />
+    <meta name="theme-color" content="#8F1687" />
+  </head>
+  <body>
+    <header>
+      <a href="login.html" id="login">
+        <i class="fa-solid fa-user"></i>
+        <p id="login_p">Login</p>
+      </a>
+    </header>
+    <main>
+      <section class="login">
+        <h1 id="signup_h1">Sign Up</h1>
+        <form class="signup_form">
+          <label for="signup_name" id="loginLabel">Name</label><br />
+          <input
+            type="text"
+            id="signupn_name"
+            name="firstname"
+            placeholder="Enter Name"
+            required
+            autocomplete="off"
+          /><br />
+          <label for="signup_email" id="loginLabel">Email</label><br />
+          <input
+            type="email"
+            id="signupn_email"
+            name="email"
+            placeholder="Enter Email"
+            required
+            autocomplete="off"
+          /><br />
+          <label for="signup_username" id="loginLabel">Username</label><br />
+          <input
+            type="text"
+            id="signup_username"
+            name="username"
+            placeholder="Enter Username"
+            required
+            autocomplete="off"
+          /><br />
+          <label for="signup_pass" id="loginLabel">Password</label
+          ><br /><!-- <p>(8 characters minimum)</p> -->
+          <input
+            type="password"
+            id="signup_pass"
+            name="userpassword"
+            placeholder="Enter Password"
+            required
+            autocomplete="off"
+          /><br />
+          <!-- User Selection -->
+          <div class="form-group">
+            <label>User Role</label>
+            <div class="role-selection">
+              <div class="role-option">
+                <input
+                  type="radio"
+                  id="employee"
+                  name="isadmin"
+                  value="false"
+                  checked
+                />
+                <label for="employee">Employee</label>
+              </div>
+              <div class="role-option">
+                <input type="radio" id="admin" name="isadmin" value="true" />
+                <label for="admin">Manager</label>
+              </div>
+            </div>
+          </div>
+          <button type="submit">Sign Up</button>
+        </form>
+        <br />
+        <h3 id="redirectLogin" style="cursor: pointer">
+          Already have an account?
+        </h3>
+      </section>
+      <br />
+    </main>
+    <script
+      src="https://kit.fontawesome.com/3b9c76ecc4.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../static/js/register.js"></script>
+    <div id="popup" class="popup"></div>
+    <footer class="mini-footer">
+      <div class="mini-footer__inner">
+        <p>© <span id="year"></span> ELF</p>
+        <nav class="mini-footer__links" aria-label="Footer">
+          <a href="#">Privacy</a>
+          <span aria-hidden="true">•</span>
+          <a href="#">Terms</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("year")
+        ?.appendChild(document.createTextNode(new Date().getFullYear()));
+    </script>
+  </body>
+</html>
