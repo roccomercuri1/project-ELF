@@ -13,6 +13,17 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../static/icons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="../static/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="../static/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="../static/icons/site.webmanifest" />
+    <meta name="theme-color" content="#8F1687" />
   </head>
   <body>
     <header
@@ -80,17 +91,11 @@
             >
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              id="requestSupportBtn"
-              >Request Support</a
-            >
+            <a class="dropdown-item" id="requestSupportBtn">Request Support</a>
           </li>
           <li>
-            <a
-            class="dropdown-item"
-            href="changeInfo.html"
-            >Change Information</a
+            <a class="dropdown-item" href="changeInfo.html"
+              >Change Information</a
             >
           </li>
           <li>
@@ -105,17 +110,33 @@
           <div class="options-container my-4">
             <div class="row">
               <div class="row center-last-row">
-              <div class="col-md-6 mb-3 text-center">
-                <div class="option-card p-3" data-option="1">
-                  <a href="./newsletter.html">
-                    <p class="mb-0 text">Newsletter</p>
-                  </a>
+                <div class="col-md-6 mb-3 text-center">
+                  <div class="option-card p-3" data-option="1">
+                    <a href="./newsletter.html">
+                      <span class="opt-icon" aria-hidden="true">
+                        <!-- envelope -->
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                          <path
+                            d="M3 5h18a2 2 0 0 1 2 2v.01L12 14 1 7.01V7a2 2 0 0 1 2-2zm-2 4.2V17a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V9.2l-10.4 6.6a2 2 0 0 1-2.2 0L1 9.2z"
+                          />
+                        </svg>
+                      </span>
+                      <p class="mb-0 text">Newsletter</p>
+                    </a>
+                  </div>
                 </div>
-              </div>
               </div>
               <div class="col-md-6 mb-3 text-center">
                 <div class="option-card p-3" data-option="2">
                   <a href="dataPage.html" id="dataPageLink">
+                    <span class="opt-icon" aria-hidden="true">
+                      <!-- bar chart -->
+                      <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path
+                          d="M4 19h16v2H2V3h2v16zm3-8h3v8H7v-8zm5-5h3v13h-3V6zm5 3h3v10h-3V9z"
+                        />
+                      </svg>
+                    </span>
                     <p class="mb-0 text">View My Information</p>
                   </a>
                 </div>
@@ -123,6 +144,14 @@
               <div class="col-md-6 mb-3 text-center">
                 <div class="option-card p-3" data-option="3">
                   <a href="./viewRecog.html">
+                    <span class="opt-icon" aria-hidden="true">
+                      <!-- star -->
+                      <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path
+                          d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"
+                        />
+                      </svg>
+                    </span>
                     <p class="mb-0 text">View Reviews</p>
                   </a>
                 </div>
@@ -133,6 +162,14 @@
               <div class="col-md-6 mb-3 text-center">
                 <div class="option-card p-3" data-option="4">
                   <a href="./leaveRecog.html">
+                    <span class="opt-icon" aria-hidden="true">
+                      <!-- pencil -->
+                      <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path
+                          d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm13.71-9.04l1.04-1.04a1 1 0 0 0 0-1.41l-1.5-1.5a1 1 0 0 0-1.41 0l-1.04 1.04 2.91 2.91z"
+                        />
+                      </svg>
+                    </span>
                     <p class="mb-0 text">Leave Reviews</p>
                   </a>
                 </div>
@@ -153,7 +190,7 @@
 
           <label for="email">Manager's name:</label>
           <input type="text" id="managers-name" name="name" required />
-          
+
           <label for="email">Subject:</label>
           <input type="text" id="subject" name="subject" required />
 
@@ -167,6 +204,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../static/js/homepage.js"></script>
-    <script src="../satic/js/dataPage.js"></script>
+    <script src="../static/js/dataPage.js"></script>
+    <footer class="mini-footer">
+      <div class="mini-footer__inner">
+        <p>© <span id="year"></span> ELF</p>
+        <nav class="mini-footer__links" aria-label="Footer">
+          <a href="#">Privacy</a>
+          <span aria-hidden="true">•</span>
+          <a href="#">Terms</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("year")
+        ?.appendChild(document.createTextNode(new Date().getFullYear()));
+    </script>
   </body>
 </html>

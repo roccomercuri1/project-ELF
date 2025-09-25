@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (homeBtn) {
     homeBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      window.location.href =
-        "http://127.0.0.1:5500/client/pages/homepage.html";
+      window.location.href = "http://127.0.0.1:5500/client/pages/homepage.html";
     });
   }
 
@@ -18,4 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
   }
+
+  const resize = () =>
+    document
+      .querySelectorAll(".js-plotly-plot")
+      .forEach((el) => window.Plotly && Plotly.Plots.resize(el));
+  resize();
+  window.addEventListener("resize", resize);
 });
